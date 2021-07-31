@@ -21,7 +21,7 @@ data class Mail(
     val body: String? = null,
     @PrimaryKey(autoGenerate = false)
     @Json(name = "id")
-    val id: String? = null,
+    val id: String,
     @Json(name = "inv")
     val inv: List<Inv>? = null,
     @Json(name = "l")
