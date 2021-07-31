@@ -1,10 +1,14 @@
 package github.sachin2dehury.owlmail.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.api.BASE_URL
 import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
@@ -24,8 +28,19 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(basicAuthInterceptor: BasicAuthInterceptor) = OkHttpClient.Builder()
+    fun provideOkHttpClient(
+        @ApplicationContext context: Context,
+        basicAuthInterceptor: BasicAuthInterceptor
+    ) = OkHttpClient.Builder()
         .addInterceptor(basicAuthInterceptor)
+        .addInterceptor(
+            ChuckerInterceptor.Builder(context)
+                .collector(ChuckerCollector(context))
+                .maxContentLength(250000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(false)
+                .build()
+        )
         .build()
 
     @Singleton
