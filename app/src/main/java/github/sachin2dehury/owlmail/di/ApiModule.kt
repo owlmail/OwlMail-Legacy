@@ -28,19 +28,21 @@ object ApiModule {
 
     @Singleton
     @Provides
+    fun provideChuckerInterceptor(@ApplicationContext context: Context) = ChuckerInterceptor.Builder(context)
+        .collector(ChuckerCollector(context))
+        .maxContentLength(250000L)
+        .redactHeaders(emptySet())
+        .alwaysReadResponseBody(false)
+        .build()
+
+    @Singleton
+    @Provides
     fun provideOkHttpClient(
-        @ApplicationContext context: Context,
-        basicAuthInterceptor: BasicAuthInterceptor
+        basicAuthInterceptor: BasicAuthInterceptor,
+        chuckerInterceptor: ChuckerInterceptor
     ) = OkHttpClient.Builder()
         .addInterceptor(basicAuthInterceptor)
-        .addInterceptor(
-            ChuckerInterceptor.Builder(context)
-                .collector(ChuckerCollector(context))
-                .maxContentLength(250000L)
-                .redactHeaders(emptySet())
-                .alwaysReadResponseBody(false)
-                .build()
-        )
+        .addInterceptor(chuckerInterceptor)
         .build()
 
     @Singleton
