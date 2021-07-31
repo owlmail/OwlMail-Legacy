@@ -28,12 +28,13 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideChuckerInterceptor(@ApplicationContext context: Context) = ChuckerInterceptor.Builder(context)
-        .collector(ChuckerCollector(context))
-        .maxContentLength(250000L)
-        .redactHeaders(emptySet())
-        .alwaysReadResponseBody(false)
-        .build()
+    fun provideChuckerInterceptor(@ApplicationContext context: Context) =
+        ChuckerInterceptor.Builder(context)
+            .collector(ChuckerCollector(context))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
 
     @Singleton
     @Provides

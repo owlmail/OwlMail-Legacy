@@ -14,10 +14,10 @@ interface MailDao {
     suspend fun insertMails(mails: List<Mail>)
 
     @Query("SELECT * FROM mails WHERE box = :box ORDER BY time DESC")
-    fun getMails(box: Byte): PagingSource<Int, Mail>
+    fun getMails(box: String): PagingSource<Int, Mail>
 
     @Query("SELECT id FROM mails WHERE conversationId = :conversationId ORDER BY id DESC")
-    fun getMailsId(conversationId: Int): PagingSource<Int, Int>
+    fun getMailsId(conversationId: String): PagingSource<Int, String>
 
     @Query("DELETE FROM mails")
     suspend fun deleteAllMails()
