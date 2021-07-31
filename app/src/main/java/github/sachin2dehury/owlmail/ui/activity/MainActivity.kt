@@ -1,7 +1,8 @@
-package github.sachin2dehury.owlmail
+package github.sachin2dehury.owlmail.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import github.sachin2dehury.owlmail.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
