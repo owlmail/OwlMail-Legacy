@@ -135,9 +135,9 @@ dependencies {
     //Stetho
     implementation 'com.facebook.stetho:stetho:1.6.0'
 
-//    //Chucker
-//    debugImplementation "com.github.chuckerteam.chucker:library:3.5.1"
-//    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.1"
+    //Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.0"
 
     //Iconic
     implementation 'com.mikepenz:iconics-core:5.3.0'
