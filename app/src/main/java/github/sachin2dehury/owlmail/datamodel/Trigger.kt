@@ -7,5 +7,5 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Trigger(
     @Json(name = "rel")
-    val rel: List<Rel>?
+    val rel: List<Rel>? = null
 )

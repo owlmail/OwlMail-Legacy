@@ -7,9 +7,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Items(
     @Json(name = "appt")
-    val appt: List<Appt>?,
+    val apptList: List<Appt>? = null,
     @Json(name = "cn")
-    val cn: List<Cn>?,
+    val contactList: List<Contact>? = null,
     @Json(name = "m")
-    val m: List<M>?
+    val mailList: List<Mail>? = null
 )

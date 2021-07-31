@@ -7,19 +7,19 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class At(
     @Json(name = "a")
-    val a: String?,
+    val a: String? = null,
     @Json(name = "cutype")
-    val cutype: String?,
+    val cutype: String? = null,
     @Json(name = "d")
-    val d: String?,
+    val d: String? = null,
     @Json(name = "ptst")
-    val ptst: String?,
+    val ptst: String? = null,
     @Json(name = "role")
-    val role: String?,
+    val role: String? = null,
     @Json(name = "rsvp")
-    val rsvp: Boolean?,
+    val rsvp: Boolean? = null,
     @Json(name = "url")
-    val url: String?,
+    val url: String? = null,
     @Json(name = "xparam")
-    val xparam: List<Xparam>?
+    val xparam: List<Xparam>? = null
 )
