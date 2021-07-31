@@ -41,7 +41,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
             query().map { ResultStatus.Success(it) }
         } catch (e: Exception) {
             onFetchFailed(e)
-            query().map { ResultStatus.Failure(e) }
+            query().map { ResultStatus.Error(e) }
         }
     } else {
         query().map { ResultStatus.Success(it) }
