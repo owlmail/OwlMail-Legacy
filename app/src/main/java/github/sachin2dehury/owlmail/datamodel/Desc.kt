@@ -5,4 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-class Desc
+data class Desc(
+    @Json(name = "_content")
+    val content: String? = null
+)

@@ -5,11 +5,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class OrX(
+data class Address(
     @Json(name = "a")
-    val a: String?,
+    val email: String? = null,
     @Json(name = "d")
-    val d: String?,
-    @Json(name = "url")
-    val url: String?
+    val firstName: String? = null,
+    @Json(name = "p")
+    val name: String? = null,
+    @Json(name = "t")
+    val isReceiver: String? = null
 )

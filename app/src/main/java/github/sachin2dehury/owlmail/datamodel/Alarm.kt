@@ -7,9 +7,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Alarm(
     @Json(name = "action")
-    val action: String?,
+    val action: String? = null,
     @Json(name = "desc")
-    val desc: List<Desc>?,
+    val desc: List<Desc>? = null,
     @Json(name = "trigger")
-    val trigger: List<Trigger>?
+    val trigger: List<Trigger>? = null
 )

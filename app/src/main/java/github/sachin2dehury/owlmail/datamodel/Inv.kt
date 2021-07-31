@@ -7,13 +7,13 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Inv(
     @Json(name = "comp")
-    val comp: List<Comp>?,
+    val comp: List<Comp>? = null,
     @Json(name = "compNum")
-    val compNum: Int?,
+    val compNum: Int? = null,
     @Json(name = "id")
-    val id: Int?,
+    val id: Int? = null,
     @Json(name = "seq")
-    val seq: Int?,
+    val seq: Int? = null,
     @Json(name = "type")
-    val type: String?
+    val type: String? = null
 )
