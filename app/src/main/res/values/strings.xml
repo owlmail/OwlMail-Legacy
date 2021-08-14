@@ -24,6 +24,7 @@
     <string name="calendar">Calendar</string>
     <string name="contacts">Contacts</string>
     <string name="tasks">Tasks</string>
+    <string name="unknown_error">Some unknown error occurred.</string>
 
     <string name="database_name">MAIL_DB</string>
     <string name="data_store_name">MAIL_CREDENTIAL</string>

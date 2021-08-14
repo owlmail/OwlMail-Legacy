@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface MailApi {
 
     @GET(HOME_URL + AUTH_SET_COOKIE + JSON_FORMAT + ITEM_QUERY_NONE)
-    suspend fun login(): Response<Items>
+    suspend fun attemptLogin(): Response<Items>
 
     @GET(HOME_URL + AUTH_SET_COOKIE + JSON_FORMAT + ITEM_QUERY_ALL)
     suspend fun getMails(

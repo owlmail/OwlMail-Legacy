@@ -4,9 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import retrofit2.Response
 
-@Suppress("DEPRECATION")
 fun isInternetConnected(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
             as ConnectivityManager
@@ -28,23 +31,23 @@ fun isInternetConnected(context: Context): Boolean {
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
-    crossinline saveFetchResult: suspend (RequestType) -> Unit,
-    crossinline onFetchFailed: (Exception) -> Unit = { },
+    crossinline saveFetchResult: suspend (RequestType) -> ResultType,
     crossinline shouldFetch: (ResultType) -> Boolean = { true },
 ) = flow {
-    emit(ResultStatus.Loading)
+    emit(ResultState.Loading)
     val data = query().first()
-    val flow = if (shouldFetch(data)) {
-        emit(ResultStatus.Loading)
+    if (shouldFetch(data)) {
         try {
-            saveFetchResult(fetch())
-            query().map { ResultStatus.Success(it) }
-        } catch (e: Exception) {
-            onFetchFailed(e)
-            query().map { ResultStatus.Error(e) }
+            ResultState.Success(saveFetchResult(fetch()))
+        } catch (throwable: Throwable) {
+            query().map { ResultState.Error(throwable.message) }
         }
     } else {
-        query().map { ResultStatus.Success(it) }
+        query().map { ResultState.Success(it) }
     }
-    emitAll(flow)
+}
+
+fun <T> Response<T>.mapToResultState() = when {
+    isSuccessful && code() == 200 -> ResultState.Success(body())
+    else -> ResultState.Error(message())
 }

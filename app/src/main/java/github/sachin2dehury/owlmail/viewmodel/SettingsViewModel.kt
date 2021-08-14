@@ -2,11 +2,18 @@ package github.sachin2dehury.owlmail.viewmodel
 
 import android.content.Context
 import androidx.core.os.persistableBundleOf
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
+import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.MailRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,37 +23,68 @@ class SettingsViewModel @Inject constructor(
     private val mailRepository: MailRepository,
 ) : ViewModel() {
 
-    private val _forceUpdate = MutableLiveData(false)
+    private val _darkThemeState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
+    val darkThemeState: StateFlow<ResultState> by lazy { _darkThemeState }
 
-    val darkThemeState = _forceUpdate.switchMap {
-        dataStoreRepository.readState(R.string.key_dark_theme)
-            .asLiveData(viewModelScope.coroutineContext)
+    private val _syncState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
+    val syncState: StateFlow<ResultState> by lazy { _syncState }
+
+    private val _analyticsState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
+    val analyticsState: StateFlow<ResultState> by lazy { _analyticsState }
+
+    private fun updateDarkThemeState() = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.readBoolean(R.string.key_dark_theme)
+            .catch { throwable ->
+                _darkThemeState.value = ResultState.Error(throwable.message)
+            }.collectLatest {
+                if (it != null) {
+                    _darkThemeState.value = ResultState.Success(it)
+                } else {
+                    _darkThemeState.value = ResultState.Error()
+                }
+            }
     }
 
-    val syncState = _forceUpdate.switchMap {
-        dataStoreRepository.readState(R.string.key_should_sync)
-            .asLiveData(viewModelScope.coroutineContext)
+    private fun updateSyncState() = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.readBoolean(R.string.key_should_sync).catch { throwable ->
+            _syncState.value = ResultState.Error(throwable.message)
+        }.collectLatest {
+            if (it != null) {
+                _syncState.value = ResultState.Success(it)
+            } else {
+                _syncState.value = ResultState.Error()
+            }
+        }
     }
 
-    val analyticsState = _forceUpdate.switchMap {
-        dataStoreRepository.readState(R.string.key_analytics)
-            .asLiveData(viewModelScope.coroutineContext)
+    private fun updateAnalyticsState() = viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.readBoolean(R.string.key_analytics).catch { throwable ->
+            _analyticsState.value = ResultState.Error(throwable.message)
+        }.collectLatest {
+            if (it != null) {
+                _analyticsState.value = ResultState.Success(it)
+            } else {
+                _analyticsState.value = ResultState.Error()
+            }
+        }
     }
 
-    fun saveThemeState(enabled: Boolean) = viewModelScope.launch {
-        dataStoreRepository.saveState(R.string.key_dark_theme, enabled)
+    init {
+        updateDarkThemeState()
+        updateSyncState()
+        updateAnalyticsState()
     }
 
-    fun saveSyncState(enabled: Boolean) = viewModelScope.launch {
-        dataStoreRepository.saveState(R.string.key_should_sync, enabled)
-    }
+    fun saveDarkThemeState(isEnabled: Boolean) =
+        dataStoreRepository.saveBoolean(R.string.key_dark_theme, isEnabled)
 
-    fun saveAnalyticsState(enabled: Boolean) = viewModelScope.launch {
-        dataStoreRepository.saveState(R.string.key_analytics, enabled)
-    }
+    fun saveSyncState(isEnabled: Boolean) =
+        dataStoreRepository.saveBoolean(R.string.key_should_sync, isEnabled)
 
-    fun syncState() = _forceUpdate.postValue(true)
+    fun saveAnalyticsState(isEnabled: Boolean) =
+        dataStoreRepository.saveBoolean(R.string.key_analytics, isEnabled)
 
+    //TODO improve logic here
     fun getBundle(context: Context) = persistableBundleOf(
         context.getString(R.string.key_should_sync) to syncState.value,
         context.getString(R.string.key_token) to mailRepository.getToken(),
