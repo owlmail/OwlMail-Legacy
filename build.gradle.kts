@@ -6,19 +6,19 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
 
         //Dagger Hilt
-        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
 
         //Safe Args
-        classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
 
         //Google Services
-        classpath ("com.google.gms:google-services:4.3.8")
+        classpath("com.google.gms:google-services:4.3.10")
 
         //Firebase Crashlytics
-        classpath ("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
