@@ -16,7 +16,7 @@ fun getDateFormat(time: Long, context: Context) = when {
 
 
 @SuppressLint("SimpleDateFormat")
-fun getMonth(page: Int,context: Context) =
+fun getMonth(page: Int, context: Context) =
     SimpleDateFormat(context.getString(R.string.zimbra_month_format)).format(getCalender(page).time)
 
 fun getCalender(page: Int) = Calendar.getInstance().apply {

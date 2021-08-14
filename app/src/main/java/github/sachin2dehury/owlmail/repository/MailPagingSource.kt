@@ -16,6 +16,7 @@ class MailPagingSource(
     private val mailApi: MailApi,
     private val mailDao: MailDao
 ) : PagingSource<Int, Mail>() {
+
     override fun getRefreshKey(state: PagingState<Int, Mail>) = 0
 
     override suspend fun load(params: LoadParams<Int>) = try {
