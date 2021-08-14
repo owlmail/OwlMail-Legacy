@@ -7,9 +7,8 @@ import androidx.paging.PagingSource
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
 import github.sachin2dehury.owlmail.api.MailApi
-import github.sachin2dehury.owlmail.api.ResultStatus
+import github.sachin2dehury.owlmail.api.mapToResultState
 import github.sachin2dehury.owlmail.database.MailDao
-import github.sachin2dehury.owlmail.datamodel.Mail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,16 +31,7 @@ class MailRepository(
     fun getMails(request: String) =
         getPager(MailPagingSource(getBox(request), context, request, mailApi, mailDao))
 
-    suspend fun login(): ResultStatus<List<Mail>> = try {
-        val response = mailApi.login()
-        if (response.isSuccessful && response.code() == 200) {
-            ResultStatus.Success(response.body()?.mailList!!)
-        } else {
-            ResultStatus.Error(Exception(response.message()))
-        }
-    } catch (e: Exception) {
-        ResultStatus.Error(e)
-    }
+    suspend fun attemptLogin() = mailApi.attemptLogin().mapToResultState()
 
     fun setCredential(credential: String) {
         basicAuthInterceptor.credential = credential

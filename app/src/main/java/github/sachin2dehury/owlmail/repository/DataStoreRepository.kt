@@ -7,33 +7,38 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import github.sachin2dehury.owlmail.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class DataStoreRepository(
     private val context: Context,
     private val dataStore: DataStore<Preferences>
 ) {
 
-    suspend fun saveCredential(key: Int, value: String) =
+    fun saveString(key: Int, value: String) = CoroutineScope(Dispatchers.IO).launch {
         dataStore.edit { settings ->
             settings[stringPreferencesKey(context.getString(key))] = value
         }
+    }
 
-    suspend fun saveState(key: Int, value: Boolean) =
+    fun saveBoolean(key: Int, value: Boolean) = CoroutineScope(Dispatchers.IO).launch {
         dataStore.edit { settings ->
             settings[booleanPreferencesKey(context.getString(key))] = value
         }
+    }
 
-    fun readCredential(key: Int) =
+    fun readString(key: Int) =
         flow { emit(dataStore.data.first()[stringPreferencesKey(context.getString(key))]) }
 
-    fun readState(key: Int) =
+    fun readBoolean(key: Int) =
         flow { emit(dataStore.data.first()[booleanPreferencesKey(context.getString(key))]) }
 
-    suspend fun resetLogin() {
-        saveCredential(R.string.key_credential, "")
-        saveCredential(R.string.key_token, "")
-        saveState(R.string.key_should_sync, false)
+    fun resetLogin() {
+        saveString(R.string.key_credential, "")
+        saveString(R.string.key_token, "")
+        saveBoolean(R.string.key_should_sync, false)
     }
 }

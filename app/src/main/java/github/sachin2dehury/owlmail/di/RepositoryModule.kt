@@ -25,10 +25,8 @@ object RepositoryModule {
     @ActivityRetainedScoped
     @Provides
     fun provideDataStore(@ApplicationContext context: Context) =
-        preferencesDataStore(context.getString(R.string.data_store_name)).getValue(
-            context,
-            Preferences::javaClass
-        )
+        preferencesDataStore(context.getString(R.string.data_store_name))
+            .getValue(context, Preferences::javaClass)
 
     @ActivityRetainedScoped
     @Provides
