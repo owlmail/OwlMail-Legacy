@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/font/fonts.xml" value="0.11944444444444445" />
+        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_mail.xml" value="0.25052083333333336" />
         <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_main.xml" value="0.35054347826086957" />
+        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/menu/nav_header_menu.xml" value="0.25052083333333336" />
+        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/menu/search_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
