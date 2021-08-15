@@ -20,13 +20,10 @@ data class Mail(
     @Json(name = "fr")
     val body: String? = null,
     @PrimaryKey(autoGenerate = false)
-    @Json(name = "id")
     val id: String,
-    @Json(name = "inv")
     val inv: List<Inv>? = null,
     @Json(name = "l")
     val box: String? = null,
-    @Json(name = "rev")
     val rev: Int? = null,
     @Json(name = "s")
     val size: Int? = null,
