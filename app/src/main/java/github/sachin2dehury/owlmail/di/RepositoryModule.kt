@@ -15,6 +15,7 @@ import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
 import github.sachin2dehury.owlmail.api.MailApi
 import github.sachin2dehury.owlmail.database.MailDao
+import github.sachin2dehury.owlmail.database.ParsedMailDao
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.MailRepository
 
@@ -46,7 +47,7 @@ object RepositoryModule {
         basicAuthInterceptor: BasicAuthInterceptor,
         mailApi: MailApi,
         mailDao: MailDao,
-//        parsedMailDao: ParsedMailDao,
+        parsedMailDao: ParsedMailDao,
         pagingConfig: PagingConfig
-    ) = MailRepository(basicAuthInterceptor, context, mailApi, mailDao, pagingConfig)
+    ) = MailRepository(basicAuthInterceptor, context, mailApi, mailDao, parsedMailDao, pagingConfig)
 }

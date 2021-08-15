@@ -9,6 +9,7 @@ import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
 import github.sachin2dehury.owlmail.api.MailApi
 import github.sachin2dehury.owlmail.api.mapToResultState
 import github.sachin2dehury.owlmail.database.MailDao
+import github.sachin2dehury.owlmail.database.ParsedMailDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,15 +19,15 @@ class MailRepository(
     private val context: Context,
     private val mailApi: MailApi,
     private val mailDao: MailDao,
-//    private val parsedMailDao: ParsedMailDao,
+    private val parsedMailDao: ParsedMailDao,
     private val pagerConfig: PagingConfig,
 ) {
 
     fun getSearchMails(request: String) =
         getPager(SearchMailPagingSource(context, request, mailApi, mailDao))
 
-//    fun getParsedMails(conversationId: Int) =
-//        getPager(ParsedMailPagingSource(context, conversationId, mailApi, mailDao, parsedMailDao))
+    fun getParsedMails(conversationId: Int) =
+        getPager(ParsedMailPagingSource(context, conversationId, mailApi, mailDao, parsedMailDao))
 
     fun getMails(request: String) =
         getPager(MailPagingSource(getBox(request), context, request, mailApi, mailDao))
@@ -47,7 +48,7 @@ class MailRepository(
 
     fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
         mailDao.deleteAllMails()
-//        parsedMailDao.deleteAllMails()
+        parsedMailDao.deleteAllMails()
         basicAuthInterceptor.credential = ""
         basicAuthInterceptor.token = ""
     }

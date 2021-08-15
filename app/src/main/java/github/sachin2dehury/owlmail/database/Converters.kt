@@ -41,4 +41,20 @@ class Converters {
             Inv::class.java
         )
     ).fromJson(value)
+
+    @TypeConverter
+    fun fromListString(value: List<String>): String = Moshi.Builder().build().adapter<List<String>>(
+        Types.newParameterizedType(
+            List::class.java,
+            String::class.java
+        )
+    ).toJson(value)
+
+    @TypeConverter
+    fun toListString(value: String): List<String>? = Moshi.Builder().build().adapter<List<String>>(
+        Types.newParameterizedType(
+            List::class.java,
+            String::class.java
+        )
+    ).fromJson(value)
 }

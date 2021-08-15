@@ -28,4 +28,8 @@ object DatabaseModule {
     @ActivityRetainedScoped
     @Provides
     fun provideMailDao(mailDatabase: OwlMailDatabase) = mailDatabase.getMailDao()
+
+    @ActivityRetainedScoped
+    @Provides
+    fun provideParsedMailDao(mailDatabase: OwlMailDatabase) = mailDatabase.getParsedMailDao()
 }
