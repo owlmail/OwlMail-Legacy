@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--COLORS-->
+    <attr name="colorBase1" format="color" />
+    <attr name="colorBase0" format="color" />
+    <attr name="colorBaseFill" format="color" />
+    <attr name="colorTextPrimary" format="color" />
+    <attr name="colorTextSecondary" format="color" />
+    <attr name="colorTextTertiary" format="color" />
+    <attr name="colorDivider" format="color" />
+    <attr name="colorOverlay" format="color" />
+    <attr name="colorPrimaryFocus" format="color" />
+    <attr name="colorGreenFocus" format="color" />
+    <attr name="colorRedFocus" format="color" />
+    <attr name="colorGreen" format="color" />
+    <attr name="colorBlue" format="color" />
+    <attr name="colorRed" format="color" />
+    <attr name="colorOrange" format="color" />
+    <attr name="colorPureWhite" format="color" />
+
+    <!--TEXT INPUT-->
+    <attr name="colorTextInput" format="reference" />
+    <attr name="colorTextInputPressed" format="reference" />
+    <attr name="colorTextInputFocused" format="reference" />
+
+    <!--BUTTON COLORS-->
+    <attr name="colorButtonPreSub" format="reference" />
+    <attr name="colorButtonPreSubPressed" format="reference" />
+    <attr name="colorButtonPrimary" format="reference" />
+    <attr name="colorButtonPrimaryPressed" format="reference" />
+    <attr name="colorButtonSecondary" format="reference" />
+    <attr name="colorButtonSecondaryPressed" format="reference" />
+    <attr name="colorButtonDanger" format="reference" />
+    <attr name="colorButtonDangerPressed" format="reference" />
+    <attr name="colorButtonLink" format="reference" />
+    <attr name="colorButtonLinkPressed" format="reference" />
+    <attr name="colorButtonDangerFilled" format="reference" />
+    <attr name="colorButtonDangerFilledPressed" format="reference" />
+
+    <!--BUTTON COLORS-->
+    <attr name="colorIconPrimary" format="reference" />
+    <attr name="colorIconSecondary" format="reference" />
+
+    <!--HEADER COLORS -->
+    <attr name="colorHeaderBg" format="reference" />
+
+
+    <!--TYPOGRAPHY-->
+    <attr name="textAppearanceTitle1" format="reference" />
+    <attr name="textAppearanceTitle2" format="reference" />
+    <attr name="textAppearanceTitle3" format="reference" />
+    <attr name="textAppearanceTitle4" format="reference" />
+    <attr name="textAppearanceTitle5" format="reference" />
+    <attr name="textAppearanceTitle6" format="reference" />
+    <attr name="textAppearanceSmall14" format="reference" />
+    <attr name="textAppearanceSmall12" format="reference" />
+    <attr name="textAppearanceMiniPrimary" format="reference" />
+    <attr name="textAppearanceMiniSecondary" format="reference" />
+    <attr name="textAppearanceMicro" format="reference" />
+
+    <!--Common attributes-->
+    <attr name="colorFillColor" format="color" />
+    <attr name="colorStrokeColor" format="color" />
+</resources>

@@ -21,14 +21,14 @@ class SplashViewModel @Inject constructor(
     private val mailRepository: MailRepository,
 ) : ViewModel() {
 
-    private val _tokenState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val tokenState: StateFlow<ResultState> by lazy { _tokenState }
+    private val _tokenState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
+    val tokenState: StateFlow<ResultState<String>> by lazy { _tokenState }
 
-    private val _credentialState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val credentialState: StateFlow<ResultState> by lazy { _credentialState }
+    private val _credentialState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
+    val credentialState: StateFlow<ResultState<String>> by lazy { _credentialState }
 
-    private val _baseUrlState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val baseUrlState: StateFlow<ResultState> by lazy { _baseUrlState }
+    private val _baseUrlState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
+    val baseUrlState: StateFlow<ResultState<String>> by lazy { _baseUrlState }
 
     private fun updateLoginTokenState() = viewModelScope.launch(Dispatchers.IO) {
         dataStoreRepository.readString(R.string.key_token).catch { throwable ->

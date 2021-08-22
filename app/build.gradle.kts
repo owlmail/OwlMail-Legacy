@@ -134,7 +134,8 @@ dependencies {
 
     //Epoxy
     implementation("com.airbnb.android:epoxy:4.6.2")
-    annotationProcessor("com.airbnb.android:epoxy-processor:4.6.2")
+    implementation("com.airbnb.android:epoxy-paging3:4.6.2")
+    kapt("com.airbnb.android:epoxy-processor:4.6.2")
 
     //Stetho
     implementation("com.facebook.stetho:stetho:1.6.0")

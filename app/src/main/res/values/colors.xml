@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <color name="theme_medium_light">#FF8C46</color>
-    <color name="theme_medium">#D27350</color>
-    <color name="theme_medium_dark">#D35400</color>
-    <color name="theme_light">#FABE9B</color>
-    <color name="theme_dark">#C8462D</color>
-    <color name="theme_dark_blue">#002E50</color>
 
     <color name="rally_yellow_300">#ffcf44</color>
     <color name="rally_yellow_500">#ffac12</color>
@@ -32,27 +18,55 @@
     <color name="rally_red_500">#ff0600</color>
     <color name="rally_red_700">#b50000</color>
 
-    <color name="Silver">#85929E</color>
+    <!--BASE COLORS-->
+    <color name="light_base_1">#FFFFFF</color>
+    <color name="dark_base_1">#181818</color>
+    <color name="light_base_0">#F7F9FB</color>
+    <color name="dark_base_0">#121212</color>
+    <color name="light_base_fill">#3C4852</color>
+    <color name="dark_base_fill">#F8F8F8</color>
+    <color name="grey_variant_1">#DADADA</color>
+    <color name="white_variant_1">#F8F8F8</color>
+    <color name="redish_black">#251C1C</color>
+    <color name="red_variant_3">#FEF5F5</color>
 
-    <color name="POMEGRANATE">#C0392B</color>
-    <color name="ALIZARIN">#E74C3C</color>
-    <color name="AMETHYST">#9B59B6</color>
-    <color name="WISTERIA">#8E44AD</color>
-    <color name="BELIZE_HOLE">#2980B9</color>
-    <color name="PETER_RIVER">#3498DB</color>
-    <color name="TURQUOISE">#1ABC9C</color>
-    <color name="GREEN_SEA">#16A085</color>
-    <color name="NEPHRITIS">#27AE60</color>
-    <color name="EMERALD">#2ECC71</color>
-    <color name="SUNFLOWER">#F1C40F</color>
-    <color name="ORANGE">#F39C12</color>
-    <color name="CARROT">#E67E22</color>
-    <color name="PUMPKIN">#D35400</color>
-    <color name="CLOUDS">#ECF0F1</color>
-    <color name="SILVER">#BDC3C7</color>
-    <color name="CONCRETE">#95A5A6</color>
-    <color name="ASBESTOS">#7F8C8D</color>
-    <color name="WET_ASPHALT">#34495E</color>
-    <color name="MIDNIGHT_BLUE">#2C3E50</color>
+
+    <!--TEXT COLORS-->
+    <color name="light_text_primary">#3C4852</color>
+    <color name="dark_text_primary">#F8F8F8</color>
+    <color name="light_text_secondary">#7A8B94</color>
+    <color name="dark_text_secondary">#7A7A7A</color>
+    <color name="light_text_tertiary">#FFFFFF</color>
+    <color name="dark_text_tertiary">#121212</color>
+
+    <!--SUPPORTING COLORS-->
+    <color name="light_supporting_divider">#E9EEF2</color>
+    <color name="dark_supporting_divider">#282828</color>
+    <color name="light_supporting_overlay">#80000000</color>
+    <color name="dark_supporting_overlay">#CC000000</color>
+    <color name="light_supporting_primary_focus">#1E2429</color>
+    <color name="dark_supporting_primary_focus">#DADADA</color>
+    <color name="light_supporting_green_focus">#009965</color>
+    <color name="dark__supporting_green_focus">#009965</color>
+    <color name="light_supporting_red_focus">#FEF5F5</color>
+    <color name="dark_supporting_red_focus">#251C1C</color>
+    <color name="green_dark">#009965</color>
+    <color name="red_fill_focus">#C53D3D</color>
+
+    <!--ACCENT COLORS-->
+    <color name="accent_green">#08bd80</color>
+    <color name="accent_blue">#2d81f7</color>
+    <color name="accent_red">#EB5757</color>
+    <color name="accent_orange">#FFAD3B</color>
+
+    <!--LETTER ICON COLORS-->
+    <color name="letter_color_1">#DE4B9B</color>
+    <color name="letter_color_2">#00B3B3</color>
+    <color name="letter_color_3">#4A35C3</color>
+    <color name="letter_color_4">#6D6C84</color>
+    <color name="letter_color_5">#F1B334</color>
+    <color name="letter_color_6">#FF986C</color>
+    <color name="letter_color_7">#54A4FF</color>
+    <color name="letter_color_8">#425EED</color>
 
 </resources>

@@ -36,7 +36,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
 ) = flow {
     emit(ResultState.Loading)
     val data = query().first()
-    if (shouldFetch(data)) {
+    emit(if (shouldFetch(data)) {
         try {
             ResultState.Success(saveFetchResult(fetch()))
         } catch (throwable: Throwable) {
@@ -44,10 +44,10 @@ inline fun <ResultType, RequestType> networkBoundResource(
         }
     } else {
         query().map { ResultState.Success(it) }
-    }
+    })
 }
 
 fun <T> Response<T>.mapToResultState() = when {
-    isSuccessful && code() == 200 -> ResultState.Success(body())
+    isSuccessful && code() == 200 -> ResultState.Success(body()!!)
     else -> ResultState.Error(message())
 }

@@ -8,10 +8,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.insertSeparators
 import dagger.hilt.android.AndroidEntryPoint
+import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
+import github.sachin2dehury.owlmail.api.AUTH_FROM_COOKIE
+import github.sachin2dehury.owlmail.api.BASE_URL
+import github.sachin2dehury.owlmail.api.COMPOSE_MAIL
+import github.sachin2dehury.owlmail.api.MOBILE_URL
 import github.sachin2dehury.owlmail.databinding.FragmentMailBoxBinding
 import github.sachin2dehury.owlmail.datamodel.Mail
 import github.sachin2dehury.owlmail.viewmodel.MailBoxViewModel
@@ -19,7 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-open class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
+class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
 
     private var _binding: FragmentMailBoxBinding? = null
     private val binding get() = _binding!!
@@ -49,15 +55,15 @@ open class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
     }
 
     private fun setUpOnClickListener() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             getJob()
         }
-        binding.floatingActionButtonCompose.setOnClickListener {
-//            findNavController().navigate(
-//                NavGraphDirections.actionToComposeFragment(
-//                    ApiConstants.BASE_URL + ApiConstants.MOBILE_URL + ApiConstants.AUTH_FROM_COOKIE + ApiConstants.COMPOSE_MAIL
-//                )
-//            )
+        binding.composeButton.setOnClickListener {
+            findNavController().navigate(
+                NavGraphDirections.actionToComposeFragment(
+                    BASE_URL + MOBILE_URL + AUTH_FROM_COOKIE + COMPOSE_MAIL
+                )
+            )
         }
     }
 
@@ -67,7 +73,7 @@ open class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
 //        )
 //    }
 
-    private fun setupRecyclerView() = binding.recyclerViewMailBox.apply {
+    private fun setupRecyclerView() = binding.epoxyRecyclerView.apply {
 //        adapter = mailBoxAdapter
 //        layoutManager = LinearLayoutManager(context)
     }
@@ -129,8 +135,8 @@ open class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.swipeRefreshLayout.setOnRefreshListener(null)
-        binding.floatingActionButtonCompose.setOnClickListener(null)
+        binding.swipeRefresh.setOnRefreshListener(null)
+        binding.composeButton.setOnClickListener(null)
         _binding = null
     }
 }

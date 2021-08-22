@@ -23,14 +23,14 @@ class SettingsViewModel @Inject constructor(
     private val mailRepository: MailRepository,
 ) : ViewModel() {
 
-    private val _darkThemeState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val darkThemeState: StateFlow<ResultState> by lazy { _darkThemeState }
+    private val _darkThemeState by lazy { MutableStateFlow<ResultState<Boolean>>(ResultState.Loading) }
+    val darkThemeState: StateFlow<ResultState<Boolean>> by lazy { _darkThemeState }
 
-    private val _syncState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val syncState: StateFlow<ResultState> by lazy { _syncState }
+    private val _syncState by lazy { MutableStateFlow<ResultState<Boolean>>(ResultState.Loading) }
+    val syncState: StateFlow<ResultState<Boolean>> by lazy { _syncState }
 
-    private val _analyticsState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val analyticsState: StateFlow<ResultState> by lazy { _analyticsState }
+    private val _analyticsState by lazy { MutableStateFlow<ResultState<Boolean>>(ResultState.Loading) }
+    val analyticsState: StateFlow<ResultState<Boolean>> by lazy { _analyticsState }
 
     private fun updateDarkThemeState() = viewModelScope.launch(Dispatchers.IO) {
         dataStoreRepository.readBoolean(R.string.key_dark_theme)

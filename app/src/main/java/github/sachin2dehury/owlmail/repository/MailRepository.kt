@@ -38,19 +38,19 @@ class MailRepository(
         basicAuthInterceptor.credential = credential
     }
 
-    fun getCredential() = basicAuthInterceptor.credential
+    fun getCredential() = basicAuthInterceptor.credential ?: ""
 
     fun setToken(token: String) {
         basicAuthInterceptor.token = token
     }
 
-    fun getToken() = basicAuthInterceptor.token
+    fun getToken() = basicAuthInterceptor.token ?: ""
 
     fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
         mailDao.deleteAllMails()
         parsedMailDao.deleteAllMails()
-        basicAuthInterceptor.credential = ""
-        basicAuthInterceptor.token = ""
+        basicAuthInterceptor.credential = null
+        basicAuthInterceptor.token = null
     }
 
     private fun <T : Any> getPager(pagingSource: PagingSource<Int, T>) =
