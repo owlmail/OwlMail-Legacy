@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.repository.MailRepository
+import github.sachin2dehury.owlmail.repository.paging.MailPagingSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,7 +16,11 @@ class MailBoxViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getMails(request: String) = when (mailRepository.getBox(request)) {
-        0.toByte() -> mailRepository.getSearchMails(request).cachedIn(viewModelScope)
-        else -> mailRepository.getMails(request).cachedIn(viewModelScope)
+        null -> mailRepository.getPager(MailPagingSource(request, mailRepository))
+            .cachedIn(viewModelScope)
+            .flowOn(Dispatchers.IO)
+        else -> mailRepository.getPager(MailPagingSource(request, mailRepository))
+            .cachedIn(viewModelScope)
+            .flowOn(Dispatchers.IO)
     }
 }

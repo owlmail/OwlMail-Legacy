@@ -19,8 +19,8 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sender_name"
-        app:layout_constraintTop_toTopOf="@id/sender_name"
+        app:layout_constraintStart_toEndOf="@+id/sender_icon_text"
+        app:layout_constraintTop_toTopOf="@id/sender_icon_text"
         tools:text="Sender Name" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -33,13 +33,13 @@
         android:maxLines="2"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/attachment"
+        app:layout_constraintEnd_toStartOf="@id/attachment_icon"
         app:layout_constraintStart_toStartOf="@id/textViewSenderName"
         app:layout_constraintTop_toBottomOf="@id/textViewSenderName"
         tools:text="Email Body" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sender_name"
+        android:id="@+id/sender_icon_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="?attr/listPreferredItemHeight"
@@ -55,7 +55,7 @@
         tools:text="a" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/attachment"
+        android:id="@+id/attachment_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -65,7 +65,7 @@
         app:srcCompat="@drawable/ic_baseline_attachment_24" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/stared"
+        android:id="@+id/stared_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -86,8 +86,8 @@
         android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/sender_name"
-        app:layout_constraintTop_toBottomOf="@id/sender_name"
+        app:layout_constraintStart_toStartOf="@id/sender_icon_text"
+        app:layout_constraintTop_toBottomOf="@id/sender_icon_text"
         tools:text="To Cc Bcc" />
 
     <WebView

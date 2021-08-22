@@ -4,7 +4,6 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,9 +45,9 @@ object ApiModule {
         .addInterceptor(chuckerInterceptor)
         .build()
 
-    @Singleton
-    @Provides
-    fun provideMoshi(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+//    @Singleton
+//    @Provides
+//    fun provideMoshi(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     @Singleton
     @Provides
