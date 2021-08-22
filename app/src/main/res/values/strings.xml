@@ -36,7 +36,7 @@
     <string name="key_dark_theme">KEY_DARK_THEME</string>
     <string name="key_analytics">KEY_ANALYTICS</string>
 
-    <string name="year_format">dd-MM-yyyy</string>
+    <string name="year_format">MMMM yyyy</string>
     <string name="month_format">dd MMM</string>
     <string name="day_format">hh:mm a</string>
     <string name="full_date_format">hh:mm a dd MMM yyyy</string>
@@ -45,6 +45,8 @@
 
     <string name="notification_id">NITR Mail Notification Sync</string>
     <string name="notification_channel">NITR Mail Notification</string>
+
+    <string name="ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="mail_url">Enter Mail URL</string>
     <string name="next">Next</string>
 </resources>

@@ -8,9 +8,8 @@ import androidx.paging.PagingConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
 import github.sachin2dehury.owlmail.api.MailApi
@@ -18,29 +17,30 @@ import github.sachin2dehury.owlmail.database.MailDao
 import github.sachin2dehury.owlmail.database.ParsedMailDao
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.MailRepository
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
     fun provideDataStore(@ApplicationContext context: Context) =
         preferencesDataStore(context.getString(R.string.data_store_name))
             .getValue(context, Preferences::javaClass)
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
     fun provideDataStoreRepository(
         @ApplicationContext context: Context,
         dataStore: DataStore<Preferences>
     ) = DataStoreRepository(context, dataStore)
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
     fun providePagerConfig() = PagingConfig(20, 5, false)
 
-    @ActivityRetainedScoped
+    @Singleton
     @Provides
     fun provideMailRepository(
         @ApplicationContext context: Context,

@@ -1,23 +1,29 @@
-package github.sachin2dehury.owlmail.repository
+package github.sachin2dehury.owlmail.repository.paging
 
-import android.content.Context
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import github.sachin2dehury.owlmail.api.MailApi
-import github.sachin2dehury.owlmail.api.isInternetConnected
-import github.sachin2dehury.owlmail.database.MailDao
 import github.sachin2dehury.owlmail.database.ParsedMailDao
 import github.sachin2dehury.owlmail.datamodel.ParsedMail
 import kotlinx.coroutines.flow.first
 
 class ParsedMailPagingSource(
-    private val context: Context,
     private val conversationId: Int,
-    private val mailApi: MailApi,
-    private val mailDao: MailDao,
     private val parsedMailDao: ParsedMailDao
 ) : PagingSource<Int, ParsedMail>() {
-    override fun getRefreshKey(state: PagingState<Int, ParsedMail>) = state.anchorPosition
+
+    override fun getRefreshKey(state: PagingState<Int, ParsedMail>): Int? {
+        // Try to find the page key of the closest page to anchorPosition, from
+        // either the prevKey or the nextKey, but you need to handle nullability
+        // here:
+        //  * prevKey == null -> anchorPage is the first page.
+        //  * nextKey == null -> anchorPage is the last page.
+        //  * both prevKey and nextKey null -> anchorPage is the initial page, so
+        //    just return null.
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ParsedMail> {
         return try {
@@ -29,9 +35,6 @@ class ParsedMailPagingSource(
     }
 
     private suspend fun getParsedMails(conversationId: Int): List<ParsedMail> {
-        if (isInternetConnected(context)) {
-//            insertParsedMails(conversationId)
-        }
         return parsedMailDao.getConversationMails(conversationId).first()
     }
 

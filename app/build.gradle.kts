@@ -118,7 +118,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:26.2.0"))
     implementation("com.google.firebase:firebase-messaging-ktx:22.0.0")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.1")
-    implementation("com.google.firebase:firebase-analytics-ktx:19.0.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:19.0.1")
 
     //Ads
     implementation("com.google.android.gms:play-services-ads:20.2.0")
@@ -135,7 +135,6 @@ dependencies {
     //Epoxy
     implementation("com.airbnb.android:epoxy:4.6.2")
     implementation("com.airbnb.android:epoxy-paging3:4.6.2")
-    kapt("com.airbnb.android:epoxy-processor:4.6.2")
 
     //Stetho
     implementation("com.facebook.stetho:stetho:1.6.0")

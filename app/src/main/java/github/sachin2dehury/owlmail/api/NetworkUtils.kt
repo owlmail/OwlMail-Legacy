@@ -4,10 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import retrofit2.Response
 
 fun isInternetConnected(context: Context): Boolean {
@@ -36,15 +33,18 @@ inline fun <ResultType, RequestType> networkBoundResource(
 ) = flow {
     emit(ResultState.Loading)
     val data = query().first()
-    emit(if (shouldFetch(data)) {
+    val flow = if (shouldFetch(data)) {
+        emit(ResultState.Loading)
         try {
-            ResultState.Success(saveFetchResult(fetch()))
+            saveFetchResult(fetch())
+            query().map { ResultState.Success(it) }
         } catch (throwable: Throwable) {
             query().map { ResultState.Error(throwable.message) }
         }
     } else {
         query().map { ResultState.Success(it) }
-    })
+    }
+    emitAll(flow)
 }
 
 fun <T> Response<T>.mapToResultState() = when {

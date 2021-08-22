@@ -5,20 +5,20 @@ import android.webkit.WebChromeClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.FragmentScoped
 import github.sachin2dehury.owlmail.R
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(FragmentComponent::class)
 object AdapterModule {
 
-    @ActivityRetainedScoped
+    @FragmentScoped
     @Provides
     fun provideWebChromeClient() = WebChromeClient()
 
-    @ActivityRetainedScoped
+    @FragmentScoped
     @Provides
     fun provideColorList(@ApplicationContext context: Context) =
         context.resources.getIntArray(R.array.colors)

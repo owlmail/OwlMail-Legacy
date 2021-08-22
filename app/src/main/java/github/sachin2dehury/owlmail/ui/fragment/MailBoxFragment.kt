@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.paging.insertSeparators
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
@@ -19,10 +18,11 @@ import github.sachin2dehury.owlmail.api.BASE_URL
 import github.sachin2dehury.owlmail.api.COMPOSE_MAIL
 import github.sachin2dehury.owlmail.api.MOBILE_URL
 import github.sachin2dehury.owlmail.databinding.FragmentMailBoxBinding
-import github.sachin2dehury.owlmail.datamodel.Mail
+import github.sachin2dehury.owlmail.epoxy.controller.MailBoxController
 import github.sachin2dehury.owlmail.viewmodel.MailBoxViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
@@ -34,8 +34,8 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
 
     private val args: MailBoxFragmentArgs by navArgs()
 
-//    @Inject
-//    lateinit var mailBoxAdapter: MailBoxAdapter
+    @Inject
+    lateinit var controller: MailBoxController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,6 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
 //        setupAdapter()
         setupRecyclerView()
         setContent()
-
 
     }
 
@@ -88,10 +87,8 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
     }
 
     private fun subscribeToObserver() = lifecycleScope.launch {
-        viewModel.getMails("").collectLatest {
-            it.insertSeparators { mail: Mail?, mail2: Mail? ->
-
-            }
+        viewModel.getMailUiModels("").collectLatest {
+            controller.submitData(it)
         }
     }
 
