@@ -19,12 +19,12 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewSender"
-        app:layout_constraintTop_toTopOf="@id/textViewSender"
+        app:layout_constraintStart_toEndOf="@+id/sender_name"
+        app:layout_constraintTop_toTopOf="@id/sender_name"
         tools:text="Sender Name" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewMailBody"
+        android:id="@+id/mail_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -33,13 +33,13 @@
         android:maxLines="2"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/imageViewAttachment"
+        app:layout_constraintEnd_toStartOf="@id/attachment"
         app:layout_constraintStart_toStartOf="@id/textViewSenderName"
         app:layout_constraintTop_toBottomOf="@id/textViewSenderName"
         tools:text="Email Body" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewSender"
+        android:id="@+id/sender_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="?attr/listPreferredItemHeight"
@@ -55,22 +55,22 @@
         tools:text="a" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewAttachment"
+        android:id="@+id/attachment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMailBody"
+        app:layout_constraintBottom_toBottomOf="@+id/mail_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_attachment_24" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewStared"
+        android:id="@+id/stared"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMailBody"
+        app:layout_constraintBottom_toBottomOf="@+id/mail_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_star_24" />
 
@@ -80,14 +80,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/bg_rounded"
+        android:background="@drawable/bg_rounded_stroke"
         android:ellipsize="end"
         android:padding="4dp"
         android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/textViewSender"
-        app:layout_constraintTop_toBottomOf="@id/textViewSender"
+        app:layout_constraintStart_toStartOf="@id/sender_name"
+        app:layout_constraintTop_toBottomOf="@id/sender_name"
         tools:text="To Cc Bcc" />
 
     <WebView

@@ -25,6 +25,7 @@
     <string name="contacts">Contacts</string>
     <string name="tasks">Tasks</string>
     <string name="unknown_error">Some unknown error occurred.</string>
+    <string name="null_error">Null value was found.</string>
 
     <string name="database_name">MAIL_DB</string>
     <string name="data_store_name">MAIL_CREDENTIAL</string>
@@ -44,5 +45,6 @@
 
     <string name="notification_id">NITR Mail Notification Sync</string>
     <string name="notification_channel">NITR Mail Notification</string>
-    <string name="enter_mail_url">Enter Mail Url</string>
+    <string name="mail_url">Enter Mail URL</string>
+    <string name="next">Next</string>
 </resources>

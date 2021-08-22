@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.BASE_URL
 import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.datamodel.Items
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.MailRepository
 import kotlinx.coroutines.Dispatchers
@@ -20,8 +21,8 @@ class AuthViewModel @Inject constructor(
     private val mailRepository: MailRepository,
 ) : ViewModel() {
 
-    private val _loginState by lazy { MutableStateFlow<ResultState>(ResultState.Loading) }
-    val loginState: StateFlow<ResultState> by lazy { _loginState }
+    private val _loginState by lazy { MutableStateFlow<ResultState<Items>>(ResultState.Loading) }
+    val loginState: StateFlow<ResultState<Items>> by lazy { _loginState }
 
     lateinit var credential: String
 

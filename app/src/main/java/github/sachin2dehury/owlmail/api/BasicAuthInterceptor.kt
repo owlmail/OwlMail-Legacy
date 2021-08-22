@@ -5,8 +5,8 @@ import okhttp3.Response
 
 class BasicAuthInterceptor : Interceptor {
 
-    var credential = ""
-    var token = ""
+    var credential: String? = null
+    var token: String? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var response = request(chain)
@@ -15,16 +15,16 @@ class BasicAuthInterceptor : Interceptor {
             token = ""
             response = request(chain)
         }
-        if (token.isEmpty() && response.headers("Set-Cookie").isNotEmpty()) {
+        if (token.isNullOrEmpty() && response.headers("Set-Cookie").isNotEmpty()) {
             token = response.headers("Set-Cookie").first().substringBefore(';')
         }
         return response
     }
 
     private fun request(chain: Interceptor.Chain) = chain.proceed(
-        when (token.isEmpty()) {
-            true -> chain.request().newBuilder().header("Authorization", credential).build()
-            else -> chain.request().newBuilder().header("Cookie", token).build()
+        when (token.isNullOrEmpty() && credential.isNullOrEmpty()) {
+            true -> chain.request().newBuilder().header("Authorization", credential!!).build()
+            else -> chain.request().newBuilder().header("Cookie", token!!).build()
         }
     )
 }

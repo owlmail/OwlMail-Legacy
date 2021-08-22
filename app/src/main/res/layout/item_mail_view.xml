@@ -6,75 +6,64 @@
     android:layout_height="96dp">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewSenderEmail"
+        android:id="@+id/sender_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:ellipsize="end"
-        android:gravity="start"
         android:maxLines="1"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMailSubject"
-        app:layout_constraintEnd_toStartOf="@+id/textViewDate"
-        app:layout_constraintStart_toStartOf="@+id/textViewMailSubject"
+        android:textAppearance="?attr/textAppearanceMiniPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/mail_subject"
+        app:layout_constraintEnd_toStartOf="@+id/date"
+        app:layout_constraintStart_toStartOf="@+id/mail_subject"
         tools:text="Sender" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewMailSubject"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:id="@+id/mail_subject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:ellipsize="end"
-        android:fontFamily="@font/merriweather_regular"
-        android:gravity="start"
         android:maxLines="1"
-        android:textSize="16sp"
+        android:textAppearance="?attr/textAppearanceTitle6"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewAttachment"
-        app:layout_constraintStart_toEndOf="@+id/textViewSender"
+        app:layout_constraintEnd_toStartOf="@+id/attachment"
+        app:layout_constraintStart_toEndOf="@+id/sender_name"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Mail Subject" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewMailBody"
-        style="@style/Widget.MaterialComponents.TextView"
+        android:id="@+id/mail_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:ellipsize="end"
-        android:gravity="start"
         android:maxLines="1"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/textViewMailSubject"
-        app:layout_constraintStart_toStartOf="@+id/textViewMailSubject"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMailSubject"
+        android:textAppearance="?attr/textAppearanceMiniPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/mail_subject"
+        app:layout_constraintStart_toStartOf="@+id/mail_subject"
+        app:layout_constraintTop_toBottomOf="@+id/mail_subject"
         tools:text="Mail Body" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewDate"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:gravity="end"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewSenderEmail"
+        android:textAppearance="?attr/textAppearanceMicro"
+        app:layout_constraintBottom_toBottomOf="@+id/sender_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewSenderEmail"
+        app:layout_constraintTop_toTopOf="@+id/sender_email"
         tools:text="Date" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewSender"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:id="@+id/sender_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:background="@drawable/ic_baseline_brightness_1_24"
-        android:elegantTextHeight="true"
         android:gravity="center"
-        android:textSize="32sp"
+        android:textAppearance="?attr/textAppearanceTitle1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,22 +72,22 @@
         tools:text="a" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewAttachment"
+        android:id="@+id/attachment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMailSubject"
+        app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_attachment_24" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageViewStared"
+        android:id="@+id/stared"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewMailBody"
+        app:layout_constraintBottom_toBottomOf="@+id/mail_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_star_24" />
 
@@ -106,9 +95,9 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
+        android:background="?attr/colorDivider"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/textViewDate"
-        app:layout_constraintStart_toStartOf="@id/textViewMailSubject" />
+        app:layout_constraintEnd_toEndOf="@id/date"
+        app:layout_constraintStart_toStartOf="@id/mail_subject" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

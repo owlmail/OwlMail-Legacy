@@ -5,11 +5,16 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.databinding.FragmentAuthBinding
+import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
+import github.sachin2dehury.owlmail.ui.utils.showSnackbar
 import github.sachin2dehury.owlmail.viewmodel.AuthViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +31,6 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     private val args: AuthFragmentArgs by navArgs()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,40 +41,42 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         subscribeToObservers()
     }
 
-//    private fun redirectFragment() {
-//        val navOptions = NavOptions.Builder()
-//            .setPopUpTo(R.id.authFragment, true)
-//            .build()
-//        findNavController().navigate(
-//            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
-//            navOptions
-//        )
-//    }
+    private fun redirectFragment() {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.authFragment, true)
+            .build()
+        findNavController().navigate(
+            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
+            navOptions
+        )
+    }
 
     private fun setUpClickListener() {
-        binding.buttonPrivacyPolicy.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
+        binding.privacyPolicyButton.setOnClickListener {
+            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
         }
-        binding.buttonLogin.setOnClickListener {
+        binding.loginButton.setOnClickListener {
 //            BASE_URL = args.url
             updateCredential()
-//            binding.root.hideKeyBoard()
+            binding.root.hideKeyBoard()
         }
     }
 
     private fun updateCredential() {
-        val roll = binding.editTextUserRoll.text.toString().lowercase(Locale.ROOT)
-        val password = binding.editTextUserPassword.text.toString()
+        val roll = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
+        val password = binding.passwordEditText.text.toString()
         viewModel.credential = Credentials.basic(roll, password)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
         viewModel.loginState.collectLatest { result ->
             when (result) {
-                is ResultState.Success<*> -> {
-                    //TODO save login and goto next screen
+                is ResultState.Success -> {
+                    viewModel.saveLoginCredential()
+                    redirectFragment()
                 }
                 is ResultState.Error -> {
+                    binding.root.showSnackbar(result.value ?: getString(R.string.null_error))
                 }
                 is ResultState.Loading -> {
                 }
@@ -80,8 +86,8 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.buttonPrivacyPolicy.setOnClickListener(null)
-        binding.buttonLogin.setOnClickListener(null)
+        binding.privacyPolicyButton.setOnClickListener(null)
+        binding.loginButton.setOnClickListener(null)
         _binding = null
     }
 }
