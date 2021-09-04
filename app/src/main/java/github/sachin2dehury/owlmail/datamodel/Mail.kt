@@ -30,7 +30,6 @@ data class Mail(
     @Json(name = "su")
     val subject: String? = null
 ) {
-
     constructor(
         id: String,
         conversationId: String,

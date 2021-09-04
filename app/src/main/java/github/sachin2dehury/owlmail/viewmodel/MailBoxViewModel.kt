@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import github.sachin2dehury.owlmail.paging.MailPagingSource
 import github.sachin2dehury.owlmail.repository.MailRepository
-import github.sachin2dehury.owlmail.repository.paging.MailPagingSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject

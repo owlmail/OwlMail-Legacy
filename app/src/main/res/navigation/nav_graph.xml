@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/urlFragment">
+    app:startDestination="@id/baseUrlSetUpFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="github.sachin2dehury.owlmail.ui.fragment.SplashFragment"
-        tools:layout="@layout/fragment_url" />
+        tools:layout="@layout/fragment_base_url_set_up" />
     <fragment
-        android:id="@+id/urlFragment"
-        android:name="github.sachin2dehury.owlmail.ui.fragment.UrlFragment"
-        tools:layout="@layout/fragment_url" />
+        android:id="@+id/baseUrlSetUpFragment"
+        android:name="github.sachin2dehury.owlmail.ui.fragment.BaseUrlSetUpFragment"
+        tools:layout="@layout/fragment_base_url_set_up" />
     <fragment
         android:id="@+id/authFragment"
         android:name="github.sachin2dehury.owlmail.ui.fragment.AuthFragment"
@@ -65,7 +65,7 @@
 
     <action
         android:id="@+id/action_to_urlFragment"
-        app:destination="@id/urlFragment" />
+        app:destination="@id/baseUrlSetUpFragment" />
     <action
         android:id="@+id/action_to_authFragment"
         app:destination="@id/authFragment" />

@@ -10,9 +10,9 @@ import org.jsoup.nodes.Document
 data class ParsedMail(
 
     @PrimaryKey(autoGenerate = false)
-    val id: String,
+    val id: Int,
 
-    val conversationId: String? = null,
+    val conversationId: Int? = null,
     val time: Long? = null,
     val from: String? = null,
     val subject: String? = null,
@@ -22,8 +22,8 @@ data class ParsedMail(
 ) {
 
     constructor(
-        id: String,
-        conversationId: String?,
+        id: Int,
+        conversationId: Int?,
         mail: Document,
     ) : this(
         id,

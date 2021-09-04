@@ -32,4 +32,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideParsedMailDao(mailDatabase: OwlMailDatabase) = mailDatabase.getParsedMailDao()
+
+    @Singleton
+    @Provides
+    fun providePagingDao(mailDatabase: OwlMailDatabase) = mailDatabase.getPagingDao()
 }

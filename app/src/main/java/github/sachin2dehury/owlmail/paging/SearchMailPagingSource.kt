@@ -1,8 +1,5 @@
-package github.sachin2dehury.owlmail.repository.paging
+package github.sachin2dehury.owlmail.paging
 
-import android.content.Context
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
 import github.sachin2dehury.owlmail.api.MailApi
 import github.sachin2dehury.owlmail.database.MailDao
 import github.sachin2dehury.owlmail.datamodel.Mail
@@ -12,10 +9,9 @@ class SearchMailPagingSource(
     private val request: String,
     private val mailApi: MailApi,
     private val mailDao: MailDao
-) : PagingSource<Int, UiModel<Mail>>() {
-    override fun getRefreshKey(state: PagingState<Int, UiModel<Mail>>) = state.anchorPosition
+) : BasePagingSource<Mail>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UiModel<Mail>> = try {
+    override suspend fun load(params: LoadParams<Int>) = try {
         getMails(request, params.key ?: 0)
     } catch (e: Exception) {
         LoadResult.Error(e)

@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import github.sachin2dehury.owlmail.repository.MailRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
-    private val mailRepository: MailRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     private val _tokenState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
@@ -36,7 +36,7 @@ class SplashViewModel @Inject constructor(
         }.collectLatest {
             if (it != null) {
                 _tokenState.value = ResultState.Success(it)
-                mailRepository.setToken(it)
+                authRepository.setToken(it)
             } else {
                 _tokenState.value = ResultState.Error()
             }
@@ -49,7 +49,7 @@ class SplashViewModel @Inject constructor(
         }.collectLatest {
             if (it != null) {
                 _credentialState.value = ResultState.Success(it)
-                mailRepository.setCredential(it)
+                authRepository.setCredential(it)
             } else {
                 _credentialState.value = ResultState.Error()
             }
@@ -62,7 +62,7 @@ class SplashViewModel @Inject constructor(
         }.collectLatest {
             if (it != null) {
                 _baseUrlState.value = ResultState.Success(it)
-                //Todo Update the logic here
+
             } else {
                 _baseUrlState.value = ResultState.Error()
             }
