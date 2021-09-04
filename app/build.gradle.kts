@@ -112,7 +112,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.14.1")
 
     //Google Play Core
-    implementation("com.google.android.play:core:1.10.0")
+    implementation("com.google.android.play:core:1.10.1")
 
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:26.2.0"))
@@ -121,7 +121,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:19.0.1")
 
     //Ads
-    implementation("com.google.android.gms:play-services-ads:20.2.0")
+    implementation("com.google.android.gms:play-services-ads:20.3.0")
 
     //WebKit
     implementation("androidx.webkit:webkit:1.4.0")

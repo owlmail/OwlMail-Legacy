@@ -17,7 +17,7 @@ interface MailDao {
     fun getMails(box: Byte, startTime: Long, endTime: Long): Flow<List<Mail>>
 
     @Query("SELECT id FROM mails WHERE conversationId = :conversationId ORDER BY id DESC")
-    fun getMailsId(conversationId: Int): Flow<List<String>>
+    fun getMailsId(conversationId: Int): Flow<List<Int>>
 
     @Query("DELETE FROM mails")
     suspend fun deleteAllMails()

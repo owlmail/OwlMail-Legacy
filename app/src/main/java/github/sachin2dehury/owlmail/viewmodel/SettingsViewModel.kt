@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.MailRepository
 import kotlinx.coroutines.Dispatchers
@@ -19,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
     private val dataStoreRepository: DataStoreRepository,
-    private val mailRepository: MailRepository,
 ) : ViewModel() {
 
     private val _darkThemeState by lazy { MutableStateFlow<ResultState<Boolean>>(ResultState.Loading) }
@@ -87,7 +88,7 @@ class SettingsViewModel @Inject constructor(
     //TODO improve logic here
     fun getBundle(context: Context) = persistableBundleOf(
         context.getString(R.string.key_should_sync) to syncState.value,
-        context.getString(R.string.key_token) to mailRepository.getToken(),
-        context.getString(R.string.key_credential) to mailRepository.getCredential()
+        context.getString(R.string.key_token) to authRepository.getToken(),
+        context.getString(R.string.key_credential) to authRepository.getCredential()
     )
 }

@@ -47,15 +47,14 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
 
         _binding = FragmentMailBoxBinding.bind(view)
 
-//        setupAdapter()
         setupRecyclerView()
-        setContent()
-
+        setUpOnClickListener()
+        subscribeToObserver()
     }
 
     private fun setUpOnClickListener() {
         binding.swipeRefresh.setOnRefreshListener {
-            getJob()
+
         }
         binding.composeButton.setOnClickListener {
             findNavController().navigate(
@@ -66,48 +65,12 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
         }
     }
 
-//    private fun setupAdapter() = mailBoxAdapter.setupOnItemClickListener {
-//        findNavController().navigate(
-//            NavGraphDirections.actionToMailItemsFragment(it.conversationId, it.id)
-//        )
-//    }
-
-    private fun setupRecyclerView() = binding.epoxyRecyclerView.apply {
-//        adapter = mailBoxAdapter
-//        layoutManager = LinearLayoutManager(context)
-    }
-
-    private fun getJob(query: String = args.request) {
-//        job?.cancel()
-//        job = lifecycleScope.launch {
-//            viewModel.getMails(query).collectLatest {
-//                mailBoxAdapter.submitData(it)
-//            }
-//        }
-    }
+    private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
 
     private fun subscribeToObserver() = lifecycleScope.launch {
-        viewModel.getMailUiModels("").collectLatest {
+        viewModel.getMails(args.request).collectLatest {
             controller.submitData(it)
         }
-    }
-
-    private fun setContent() {
-        lifecycleScope.launchWhenCreated {
-//            mailBoxAdapter.loadStateFlow.collectLatest { loadStates ->
-//                binding.swipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
-//            }
-        }
-        getJob()
-//        mailBoxAdapter.addLoadStateListener { loadState ->
-//            val errorState = loadState.source.append as? LoadState.Error
-//                ?: loadState.source.prepend as? LoadState.Error
-//                ?: loadState.append as? LoadState.Error
-//                ?: loadState.prepend as? LoadState.Error
-//            errorState?.let {
-//                it.error.message?.let { message -> binding.root.showSnackbar(message) }
-//            }
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -116,12 +79,10 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
         searchView.queryHint = getString(R.string.search)
         searchView.isSubmitButtonEnabled = true
         searchView.setOnCloseListener {
-            getJob()
             false
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                getJob(query)
                 return true
             }
 

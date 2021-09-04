@@ -10,7 +10,7 @@ data class ItemAdModel(val adSize: AdSize) :
     ViewBindingKotlinModel<ItemAdViewBinding>(R.layout.item_ad_view) {
 
     override fun ItemAdViewBinding.bind() {
-        root.adSize = adSize
+//        root.adSize = adSize
         root.loadAd(AdRequest.Builder().build())
     }
 }

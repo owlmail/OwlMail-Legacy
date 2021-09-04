@@ -36,7 +36,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
         _binding = FragmentAuthBinding.bind(view)
 
-        viewModel.resetLoginState()
+//        viewModel.resetLoginState()
         setUpClickListener()
         subscribeToObservers()
     }
@@ -56,7 +56,6 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
         }
         binding.loginButton.setOnClickListener {
-//            BASE_URL = args.url
             updateCredential()
             binding.root.hideKeyBoard()
         }
@@ -65,7 +64,8 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
     private fun updateCredential() {
         val roll = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
         val password = binding.passwordEditText.text.toString()
-        viewModel.credential = Credentials.basic(roll, password)
+        val credential = Credentials.basic(roll, password)
+        viewModel.updateLoginState(args.url, credential)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {

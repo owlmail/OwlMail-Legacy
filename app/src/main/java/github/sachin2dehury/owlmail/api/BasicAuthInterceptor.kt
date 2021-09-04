@@ -22,7 +22,7 @@ class BasicAuthInterceptor : Interceptor {
     }
 
     private fun request(chain: Interceptor.Chain) = chain.proceed(
-        when (token.isNullOrEmpty() && credential.isNullOrEmpty()) {
+        when (token.isNullOrEmpty() || credential.isNullOrEmpty()) {
             true -> chain.request().newBuilder().header("Authorization", credential!!).build()
             else -> chain.request().newBuilder().header("Cookie", token!!).build()
         }

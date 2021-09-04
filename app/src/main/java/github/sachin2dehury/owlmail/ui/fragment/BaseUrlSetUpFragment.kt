@@ -5,24 +5,29 @@ import android.view.View
 import android.webkit.URLUtil
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.databinding.FragmentUrlBinding
+import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlSetUpBinding
 import github.sachin2dehury.owlmail.ui.utils.getThemeColor
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
+import github.sachin2dehury.owlmail.viewmodel.BaseUrlSetUpViewModel
 
 @AndroidEntryPoint
-class UrlFragment : Fragment(R.layout.fragment_url) {
+class BaseUrlSetUpFragment : Fragment(R.layout.fragment_base_url_set_up) {
 
-    private var _binding: FragmentUrlBinding? = null
+    private var _binding: FragmentBaseUrlSetUpBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: BaseUrlSetUpViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding = FragmentUrlBinding.bind(view)
+        _binding = FragmentBaseUrlSetUpBinding.bind(view)
+        viewModel.resetBaseURL()
         setupOnClickListener()
     }
 
@@ -40,10 +45,11 @@ class UrlFragment : Fragment(R.layout.fragment_url) {
     }
 
     private fun updateUrl() = binding.apply {
-        urlEditText.text?.toString()?.trim()?.let { url ->
-            if (URLUtil.isValidUrl(url)) {
+        urlEditText.text?.toString()?.trim()?.let { baseURL ->
+            if (URLUtil.isValidUrl(baseURL)) {
+                viewModel.saveBaseURL(baseURL)
                 root.hideKeyBoard()
-                findNavController().navigate(NavGraphDirections.actionToAuthFragment(url))
+                findNavController().navigate(NavGraphDirections.actionToAuthFragment(baseURL))
             } else {
                 urlEditText.setTextColor(urlEditText.getThemeColor(R.attr.colorRed))
                 urlTextBox.error = "Enter a valid url!"

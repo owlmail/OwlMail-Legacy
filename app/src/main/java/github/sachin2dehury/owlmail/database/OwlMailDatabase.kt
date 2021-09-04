@@ -7,7 +7,7 @@ import github.sachin2dehury.owlmail.datamodel.Mail
 import github.sachin2dehury.owlmail.datamodel.ParsedMail
 
 @Database(
-    entities = [Mail::class, ParsedMail::class],
+    entities = [Mail::class, ParsedMail::class, DatabasePagingKey::class],
     version = 1,
     exportSchema = false
 )
@@ -16,4 +16,5 @@ import github.sachin2dehury.owlmail.datamodel.ParsedMail
 abstract class OwlMailDatabase : RoomDatabase() {
     abstract fun getMailDao(): MailDao
     abstract fun getParsedMailDao(): ParsedMailDao
+    abstract fun getPagingDao(): PagingDao
 }

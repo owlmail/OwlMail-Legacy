@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashFragment : Fragment(R.layout.fragment_url) {
+class SplashFragment : Fragment(R.layout.fragment_base_url_set_up) {
 
     private val viewModel: SplashViewModel by viewModels()
 

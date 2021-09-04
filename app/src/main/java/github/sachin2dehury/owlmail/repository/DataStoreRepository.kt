@@ -9,8 +9,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import github.sachin2dehury.owlmail.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class DataStoreRepository(
@@ -30,15 +29,19 @@ class DataStoreRepository(
         }
     }
 
-    fun readString(key: Int) =
-        flow { emit(dataStore.data.first()[stringPreferencesKey(context.getString(key))]) }
+    fun readString(key: Int) = dataStore.data.map { preferences ->
+        preferences[stringPreferencesKey(context.getString(key))]
+    }
 
-    fun readBoolean(key: Int) =
-        flow { emit(dataStore.data.first()[booleanPreferencesKey(context.getString(key))]) }
+    fun readBoolean(key: Int) = dataStore.data.map { preferences ->
+        preferences[booleanPreferencesKey(context.getString(key))]
+    }
 
     fun resetLogin() {
         saveString(R.string.key_credential, "")
         saveString(R.string.key_token, "")
         saveBoolean(R.string.key_should_sync, false)
     }
+
+    fun resetBaseURL() = saveString(R.string.key_url, "")
 }
