@@ -1,13 +1,18 @@
 package github.sachin2dehury.owlmail.epoxy.model
 
+import android.view.View
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.ItemHeaderViewBinding
-import github.sachin2dehury.owlmail.epoxy.ViewBindingKotlinModel
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelExt
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
+import github.sachin2dehury.owlmail.epoxy.UiModel
 
-data class ItemFooterModel(val value: String) :
-    ViewBindingKotlinModel<ItemHeaderViewBinding>(R.layout.item_header_view) {
+class ItemFooterModel(
+    private val uiModel: UiModel.Footer,
+    listener: EpoxyModelOnClickListener? = null
+) : EpoxyModelExt<ItemHeaderViewBinding>(R.layout.item_header_view, listener) {
 
-    override fun ItemHeaderViewBinding.bind() {
-        root.text = value
+    override fun bindExt(view: View) = ItemHeaderViewBinding.bind(view).apply {
+        root.text = uiModel.value.toString()
     }
 }

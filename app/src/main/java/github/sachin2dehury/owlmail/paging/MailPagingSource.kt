@@ -2,7 +2,6 @@ package github.sachin2dehury.owlmail.paging
 
 import github.sachin2dehury.owlmail.datamodel.Mail
 import github.sachin2dehury.owlmail.repository.MailRepository
-import kotlinx.coroutines.flow.last
 
 class MailPagingSource(
     private val request: String,
@@ -16,7 +15,7 @@ class MailPagingSource(
     }
 
     private suspend fun getMailUiModels(page: Int) = LoadResult.Page(
-        mailRepository.getMailUiModels(request, page).last(),
+        mailRepository.getMailUiModels(request, page),
         if (page > 0) page - 1 else null,
         if (page < 100) page + 1 else null
     )

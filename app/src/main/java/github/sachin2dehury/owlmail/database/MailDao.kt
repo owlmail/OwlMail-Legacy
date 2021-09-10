@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import github.sachin2dehury.owlmail.datamodel.Mail
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MailDao {
@@ -14,10 +13,10 @@ interface MailDao {
     suspend fun insertMails(mails: List<Mail>)
 
     @Query("SELECT * FROM mails WHERE time >= :startTime AND time < :endTime AND box = :box ORDER BY time DESC")
-    fun getMails(box: Byte, startTime: Long, endTime: Long): Flow<List<Mail>>
+    suspend fun getMails(box: Byte, startTime: Long, endTime: Long): List<Mail>
 
     @Query("SELECT id FROM mails WHERE conversationId = :conversationId ORDER BY id DESC")
-    fun getMailsId(conversationId: Int): Flow<List<Int>>
+    suspend fun getMailsId(conversationId: Int): List<Int>
 
     @Query("DELETE FROM mails")
     suspend fun deleteAllMails()
@@ -29,5 +28,5 @@ interface MailDao {
 //    suspend fun markAsRead(id: Int)
 
     @Query("SELECT * FROM mails WHERE body LIKE '%' || :query || '%' OR subject LIKE '%' || :query || '%' ORDER BY time DESC")
-    fun searchMails(query: String): Flow<List<Mail>>
+    suspend fun searchMails(query: String): List<Mail>
 }

@@ -1,6 +1,6 @@
 package github.sachin2dehury.owlmail.api
 
-const val BASE_URL = "https://mail.nitrkl.ac.in/"
+//const val BASE_URL = "https://mail.nitrkl.ac.in/"
 const val HOME_URL = "home/~/"
 const val MOBILE_URL = "m/zmain"
 const val HTML_URL = "h/printmessage"

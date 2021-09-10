@@ -1,18 +1,14 @@
 package github.sachin2dehury.owlmail.epoxy.controller
 
+import android.view.View
 import com.airbnb.epoxy.EpoxyModel
 import github.sachin2dehury.owlmail.datamodel.Mail
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.UiModel
 import github.sachin2dehury.owlmail.epoxy.model.ItemMailModel
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 
-@ObsoleteCoroutinesApi
-class MailBoxController : BaseController<Mail>() {
+class MailBoxController(listener: EpoxyModelOnClickListener) : PagingEpoxyControllerExt<Mail>(listener) {
 
-    override fun addItem(uiModel: UiModel.Item<Mail>): EpoxyModel<*> =
-        ItemMailModel(uiModel.value).id("mail_${uiModel.value.id}")
-
-    override fun addFooter(uiModel: UiModel.Footer): EpoxyModel<*> {
-        TODO("Not yet implemented")
-    }
+    override fun addItem(uiModel: UiModel.Item<Mail>): EpoxyModel<View> =
+        ItemMailModel(uiModel,listener).id("mail_$controllerHashCode : ${uiModel.value.id}")
 }

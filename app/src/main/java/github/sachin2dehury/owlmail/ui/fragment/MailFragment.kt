@@ -14,28 +14,27 @@ import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.AUTH_FROM_COOKIE
-import github.sachin2dehury.owlmail.api.BASE_URL
 import github.sachin2dehury.owlmail.api.COMPOSE_MAIL
 import github.sachin2dehury.owlmail.api.MOBILE_URL
 import github.sachin2dehury.owlmail.databinding.FragmentMailBoxBinding
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
+import github.sachin2dehury.owlmail.epoxy.UiModel
 import github.sachin2dehury.owlmail.epoxy.controller.MailBoxController
-import github.sachin2dehury.owlmail.viewmodel.MailBoxViewModel
+import github.sachin2dehury.owlmail.viewmodel.MailViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
+class MailFragment : Fragment(R.layout.fragment_mail_box), EpoxyModelOnClickListener {
 
     private var _binding: FragmentMailBoxBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MailBoxViewModel by activityViewModels()
+    private val viewModel: MailViewModel by activityViewModels()
 
-    private val args: MailBoxFragmentArgs by navArgs()
+    private val args: MailFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var controller: MailBoxController
+    private val controller = MailBoxController(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +58,7 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
         binding.composeButton.setOnClickListener {
             findNavController().navigate(
                 NavGraphDirections.actionToComposeFragment(
-                    BASE_URL + MOBILE_URL + AUTH_FROM_COOKIE + COMPOSE_MAIL
+                    MOBILE_URL + AUTH_FROM_COOKIE + COMPOSE_MAIL
                 )
             )
         }
@@ -95,6 +94,11 @@ class MailBoxFragment : Fragment(R.layout.fragment_mail_box) {
         super.onDestroy()
         binding.swipeRefresh.setOnRefreshListener(null)
         binding.composeButton.setOnClickListener(null)
+        binding.epoxyRecyclerView.clear()
         _binding = null
+    }
+
+    override fun <T> onModelClick(uiModel: UiModel<T>) {
+
     }
 }

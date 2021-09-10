@@ -9,7 +9,6 @@ import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import github.sachin2dehury.owlmail.repository.MailRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

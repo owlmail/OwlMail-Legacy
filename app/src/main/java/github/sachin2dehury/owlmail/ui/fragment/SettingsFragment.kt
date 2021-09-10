@@ -1,7 +1,7 @@
 package github.sachin2dehury.owlmail.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private val viewModel: SettingsViewModel by activityViewModels()
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 //        setPreferencesFromResource(R.xml.root_preferences, rootKey)

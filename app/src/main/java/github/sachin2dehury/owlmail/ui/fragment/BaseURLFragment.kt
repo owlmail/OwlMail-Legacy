@@ -10,15 +10,15 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlSetUpBinding
+import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
 import github.sachin2dehury.owlmail.ui.utils.getThemeColor
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.viewmodel.BaseUrlSetUpViewModel
 
 @AndroidEntryPoint
-class BaseUrlSetUpFragment : Fragment(R.layout.fragment_base_url_set_up) {
+class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
 
-    private var _binding: FragmentBaseUrlSetUpBinding? = null
+    private var _binding: FragmentBaseUrlBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: BaseUrlSetUpViewModel by viewModels()
@@ -26,7 +26,7 @@ class BaseUrlSetUpFragment : Fragment(R.layout.fragment_base_url_set_up) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding = FragmentBaseUrlSetUpBinding.bind(view)
+        _binding = FragmentBaseUrlBinding.bind(view)
         viewModel.resetBaseURL()
         setupOnClickListener()
     }

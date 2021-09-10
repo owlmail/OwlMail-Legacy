@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import github.sachin2dehury.owlmail.datamodel.ParsedMail
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ParsedMailDao {
@@ -14,7 +13,7 @@ interface ParsedMailDao {
     suspend fun insertMail(parsedMail: ParsedMail)
 
     @Query("SELECT * FROM parsed_mails WHERE conversationId = :conversationId ORDER BY time DESC")
-    fun getConversationMails(conversationId: Int): Flow<List<ParsedMail>>
+    suspend fun getConversationMails(conversationId: Int): List<ParsedMail>
 
     @Query("DELETE FROM parsed_mails")
     suspend fun deleteAllMails()

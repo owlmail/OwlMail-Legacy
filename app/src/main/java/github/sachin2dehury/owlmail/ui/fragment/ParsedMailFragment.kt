@@ -4,23 +4,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.databinding.FragmentMailItemsBinding
-import github.sachin2dehury.owlmail.viewmodel.MailItemsViewModel
+import github.sachin2dehury.owlmail.databinding.FragmentParsedMailBinding
+import github.sachin2dehury.owlmail.viewmodel.ParsedMailViewModel
 import kotlinx.coroutines.Job
 
 
 @AndroidEntryPoint
-class MailItemsFragment : Fragment(R.layout.fragment_mail_items) {
+class ParsedMailFragment : Fragment(R.layout.fragment_parsed_mail) {
 
-    private var _binding: FragmentMailItemsBinding? = null
-    private val binding: FragmentMailItemsBinding get() = _binding!!
+    private var _binding: FragmentParsedMailBinding? = null
+    private val binding: FragmentParsedMailBinding get() = _binding!!
 
-    private val viewModel: MailItemsViewModel by viewModels()
+    private val viewModel: ParsedMailViewModel by viewModels()
 
-    private val args: MailItemsFragmentArgs by navArgs()
+//    private val args: MailItemsFragmentArgs by navArgs()
 
     private var job: Job? = null
 
@@ -30,7 +29,7 @@ class MailItemsFragment : Fragment(R.layout.fragment_mail_items) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding = FragmentMailItemsBinding.bind(view)
+        _binding = FragmentParsedMailBinding.bind(view)
 
 //        setupRecyclerView()
 //        setContent()

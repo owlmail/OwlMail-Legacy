@@ -65,7 +65,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         val roll = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
         val password = binding.passwordEditText.text.toString()
         val credential = Credentials.basic(roll, password)
-        viewModel.updateLoginState(args.url, credential)
+        viewModel.updateLoginState(args.baseURL, credential)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {

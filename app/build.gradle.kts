@@ -42,15 +42,19 @@ android {
         viewBinding = true
     }
     packagingOptions {
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("META-INF/LICENSE.txt")
-        exclude("META-INF/license.txt")
-        exclude("META-INF/NOTICE")
-        exclude("META-INF/NOTICE.txt")
-        exclude("META-INF/notice.txt")
-        exclude("META-INF/ASL2.0")
-        exclude("META-INF/*.kotlin_module")
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/license.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/notice.txt",
+                "META-INF/ASL2.0",
+                "META-INF/*.kotlin_module"
+            )
+        )
     }
 }
 
@@ -74,8 +78,8 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt")
 
     // Coroutine Lifecycle Scopes
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
@@ -103,13 +107,12 @@ dependencies {
     implementation("androidx.room:room-runtime:2.3.0")
     kapt("androidx.room:room-compiler:2.3.0")
     implementation("androidx.room:room-ktx:2.3.0")
-//    implementation("androidx.room:room-paging:2.4.0-alpha04")
 
     // Preferences DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     //JSoup
-    implementation("org.jsoup:jsoup:1.14.1")
+    implementation("org.jsoup:jsoup:1.14.2")
 
     //Google Play Core
     implementation("com.google.android.play:core:1.10.1")
@@ -123,9 +126,6 @@ dependencies {
     //Ads
     implementation("com.google.android.gms:play-services-ads:20.3.0")
 
-    //WebKit
-    implementation("androidx.webkit:webkit:1.4.0")
-
     //Preference
     implementation("androidx.preference:preference-ktx:1.1.1")
 
@@ -133,8 +133,8 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.0.1")
 
     //Epoxy
-    implementation("com.airbnb.android:epoxy:4.6.2")
-    implementation("com.airbnb.android:epoxy-paging3:4.6.2")
+    implementation("com.airbnb.android:epoxy:4.6.3")
+    implementation("com.airbnb.android:epoxy-paging3:4.6.3")
 
     //Stetho
     implementation("com.facebook.stetho:stetho:1.6.0")
@@ -143,18 +143,27 @@ dependencies {
     debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
-    //Iconic
-    implementation("com.mikepenz:iconics-core:5.3.0")
-
     //Leak Canary
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
     //Lottie
-    implementation("com.airbnb.android:lottie:4.0.0")
+    implementation("com.airbnb.android:lottie:4.1.0")
 
     //DeepLink Dispatch
     implementation("com.airbnb:deeplinkdispatch:5.4.3")
     kapt("com.airbnb:deeplinkdispatch-processor:5.4.3")
+
+    //Coil
+    implementation("io.coil-kt:coil-base:1.3.2")
+    implementation("io.coil-kt:coil-svg:1.3.2")
+    implementation("io.coil-kt:coil-gif:1.3.2")
+    implementation("io.coil-kt:coil-video:1.3.2")
+
+    //ViewPager 2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    //Circular Loader
+    implementation("com.mikhaellopez:circularfillableloaders:1.4.0")
 
     //Test
     testImplementation("junit:junit:4.13.2")

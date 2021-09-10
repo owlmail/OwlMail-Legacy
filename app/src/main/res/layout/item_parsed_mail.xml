@@ -7,7 +7,7 @@
     tools:ignore="WebViewLayout">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewSenderName"
+        android:id="@+id/sender_name_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         tools:text="Sender Name" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mail_body"
+        android:id="@+id/mail_subject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -34,8 +34,8 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/attachment_icon"
-        app:layout_constraintStart_toStartOf="@id/textViewSenderName"
-        app:layout_constraintTop_toBottomOf="@id/textViewSenderName"
+        app:layout_constraintStart_toStartOf="@id/sender_name_text"
+        app:layout_constraintTop_toBottomOf="@id/sender_name_text"
         tools:text="Email Body" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mail_body"
+        app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_attachment_24" />
 
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mail_body"
+        app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_star_24" />
 
@@ -90,8 +90,8 @@
         app:layout_constraintTop_toBottomOf="@id/sender_icon_text"
         tools:text="To Cc Bcc" />
 
-    <WebView
-        android:id="@+id/webView"
+    <github.sachin2dehury.owlmail.ui.views.HtmlTextView
+        android:id="@+id/html_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -109,15 +109,6 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/textViewSenderName" />
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/recyclerViewAttachments"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:visibility="gone"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/webView" />-->
+        app:layout_constraintStart_toStartOf="@id/sender_name_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

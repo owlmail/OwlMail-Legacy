@@ -15,8 +15,6 @@ import github.sachin2dehury.owlmail.epoxy.UiModel
 import github.sachin2dehury.owlmail.other.getFormattedHeaderDate
 import github.sachin2dehury.owlmail.other.getMonthLocal
 import github.sachin2dehury.owlmail.other.getMonthRemote
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import org.jsoup.Jsoup
 
 class MailRepository(
@@ -27,41 +25,65 @@ class MailRepository(
     private val pagerConfig: PagingConfig,
 ) {
 
-    fun getMailUiModels(request: String, page: Int) =
-        getMailList(request, page).map {
-            when (it) {
+    suspend fun getMailUiModels(request: String, page: Int) =
+        getMailList(request, page).let { resultState ->
+            when (resultState) {
                 is ResultState.Success -> {
                     val uiModels: List<UiModel<Mail>> =
-                        it.value?.map { mail -> UiModel.Item(mail) }
-                            ?: emptyList()
+                        resultState.value.map { mail -> UiModel.Item(mail) }
                     uiModels.toMutableList().apply {
-                        if (!isNullOrEmpty()) {
+                        if (isNullOrEmpty()) {
+                            add(UiModel.Ad(AdSize.FLUID))
+                        } else {
                             add(0, UiModel.Header(getFormattedHeaderDate(page, context)))
                             add(UiModel.Footer(8))
                             for (i in 0..lastIndex step 30) {
                                 add(i, UiModel.Ad(AdSize.FLUID))
                             }
-                        } else {
-                            add(UiModel.Ad(AdSize.FLUID))
                         }
                     }
                 }
                 is ResultState.Error -> {
-                    listOf<UiModel<Mail>>(UiModel.Loader(false), UiModel.Ad(AdSize.FLUID))
+                    listOf<UiModel<Mail>>(UiModel.Ad(AdSize.FLUID))
                 }
                 is ResultState.Loading -> {
-                    listOf<UiModel<Mail>>(UiModel.Loader(false), UiModel.Ad(AdSize.FLUID))
+                    listOf<UiModel<Mail>>(UiModel.Loader(false))
                 }
             }
         }
 
-    fun getParsedMailUiModels(conversationId: Int) =
-        getParsedMailList(conversationId).map {
-            when (it) {
+    suspend fun getSearchMailUiModels(query: String) =
+        getSearchMailList(query).let { resultState ->
+            when (resultState) {
+                is ResultState.Success -> {
+                    val uiModels: List<UiModel<Mail>> =
+                        resultState.value.map { mail -> UiModel.Item(mail) }
+                    uiModels.toMutableList().apply {
+                        if (isNullOrEmpty()) {
+                            add(UiModel.Ad(AdSize.FLUID))
+                        } else {
+                            add(UiModel.Footer(8))
+                            for (i in 0..lastIndex step 30) {
+                                add(i, UiModel.Ad(AdSize.FLUID))
+                            }
+                        }
+                    }
+                }
+                is ResultState.Error -> {
+                    listOf<UiModel<Mail>>(UiModel.Ad(AdSize.FLUID))
+                }
+                is ResultState.Loading -> {
+                    listOf<UiModel<Mail>>(UiModel.Loader(false))
+                }
+            }
+        }
+
+    suspend fun getParsedMailUiModels(conversationId: Int) =
+        getParsedMailList(conversationId).let { resultState ->
+            when (resultState) {
                 is ResultState.Success -> {
                     val uiModels: List<UiModel<ParsedMail>> =
-                        it.value?.map { mail -> UiModel.Item(mail) }
-                            ?: emptyList()
+                        resultState.value.map { mail -> UiModel.Item(mail) }
                     uiModels.toMutableList().apply {
                         if (!isNullOrEmpty()) {
 //                            add(0, UiModel.Header(getFormattedHeaderDate(page, context)))
@@ -75,10 +97,10 @@ class MailRepository(
                     }
                 }
                 is ResultState.Error -> {
-                    listOf<UiModel<ParsedMail>>(UiModel.Loader(false), UiModel.Ad(AdSize.FLUID))
+                    listOf<UiModel<ParsedMail>>(UiModel.Ad(AdSize.FLUID))
                 }
                 is ResultState.Loading -> {
-                    listOf<UiModel<ParsedMail>>(UiModel.Loader(false), UiModel.Ad(AdSize.FLUID))
+                    listOf<UiModel<ParsedMail>>(UiModel.Loader(false))
                 }
             }
         }
@@ -99,37 +121,42 @@ class MailRepository(
         else -> null
     }
 
-    private fun getMailList(request: String, page: Int) = getMailList(
+    private suspend fun getMailList(request: String, page: Int) = getMailList(
         getBox(request) ?: 2,
         getMonthLocal(page, context),
         getMonthRemote(page, context)
     )
 
-    private fun getMailList(box: Byte, monthLocal: Pair<Long, Long>, monthRemote: String) =
+    private suspend fun getMailList(box: Byte, monthLocal: Pair<Long, Long>, monthRemote: String) =
         networkBoundResource(
             query = { mailDao.getMails(box, monthLocal.first, monthLocal.second) },
             fetch = { mailApi.getMails(MONTH_QUERY + monthRemote).body() },
             saveFetchResult = { result ->
-                result?.mailList?.apply {
+                result!!.mailList!!.apply {
                     mailDao.deleteMails(box, monthLocal.first, monthLocal.second)
                     mailDao.insertMails(this)
-                } ?: emptyList()
+                }
             },
             shouldFetch = { isInternetConnected(context) }
         )
 
-    private fun getParsedMailList(conversationId: Int) = networkBoundResource(
+    private suspend fun getSearchMailList(query: String) = networkBoundResource(
+        query = { mailDao.searchMails(query) },
+        fetch = { mailApi.searchMails(query).body() },
+        saveFetchResult = { result -> result!!.mailList!!.also { mailDao.insertMails(it) } },
+        shouldFetch = { isInternetConnected(context) }
+    )
+
+    private suspend fun getParsedMailList(conversationId: Int) = networkBoundResource(
         query = { parsedMailDao.getConversationMails(conversationId) },
         fetch = {
-            mailDao.getMailsId(conversationId).first().map { id ->
-                id to mailApi.getParsedMail(id).string()
-            }
+            mailDao.getMailsId(conversationId)
+                .map { id -> id to mailApi.getParsedMail(id).string() }
         },
         saveFetchResult = { result ->
             result.map { pair ->
-                val parsedMail = ParsedMail(pair.first, conversationId, Jsoup.parse(pair.second))
-                parsedMailDao.insertMail(parsedMail)
-                parsedMail
+                ParsedMail(pair.first, conversationId, Jsoup.parse(pair.second))
+                    .also { parsedMailDao.insertMail(it) }
             }
         },
         shouldFetch = { isInternetConnected(context) }

@@ -18,7 +18,7 @@ class HorizontalLoader @JvmOverloads constructor(
     init {
         setAnimation(R.raw.horizontal_loader)
         repeatCount = LottieDrawable.INFINITE
-        scaleType = ScaleType.CENTER_CROP
+        scaleType = ScaleType.FIT_CENTER
     }
 
     fun stopAnimation() {

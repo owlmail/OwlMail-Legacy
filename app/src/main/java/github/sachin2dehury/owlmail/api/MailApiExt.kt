@@ -11,8 +11,8 @@ class MailApiExt(
     private var mailApi: MailApi? = null
 ) {
 
-    fun provideMailApi(baseURL: String = BASE_URL): MailApi = mailApi ?: Retrofit.Builder()
-        .baseUrl(baseURL)
+    fun provideMailApi(baseURL: String? = null): MailApi = mailApi ?: Retrofit.Builder()
+        .baseUrl(baseURL!!)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()

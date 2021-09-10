@@ -5,11 +5,12 @@ sealed class Event<out T>(private val value: T) {
     var hasBeenHandled = false
         private set
 
-    fun getContentIfNotHandled(): T? = if (hasBeenHandled) {
-        null
-    } else {
-        hasBeenHandled = true
-        value
+    fun getContentIfNotHandled(): T? = when (hasBeenHandled) {
+        true -> null
+        else -> {
+            hasBeenHandled = true
+            value
+        }
     }
 
     fun peek() = value
