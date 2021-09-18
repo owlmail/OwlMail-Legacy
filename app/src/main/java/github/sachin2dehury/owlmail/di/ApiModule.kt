@@ -21,6 +21,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
 import github.sachin2dehury.owlmail.api.ByteArrayFetcher
+import github.sachin2dehury.owlmail.api.CoilImageGetter
 import github.sachin2dehury.owlmail.api.MailApiExt
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
@@ -70,8 +71,8 @@ object ApiModule {
     @Provides
     fun provideImageLoader(
         @ApplicationContext context: Context,
-        okHttpClient: OkHttpClient
-    ) = ImageLoader.Builder(context).okHttpClient(okHttpClient).crossfade(true).componentRegistry {
+//        okHttpClient: OkHttpClient
+    ) = ImageLoader.Builder(context).crossfade(true).componentRegistry {
         add(ByteArrayFetcher())
         add(SvgDecoder(context))
         if (SDK_INT >= 28) {
@@ -83,4 +84,11 @@ object ApiModule {
         add(VideoFrameUriFetcher(context))
         add(VideoFrameDecoder(context))
     }.build()
+
+    @Singleton
+    @Provides
+    fun provideCoilImageGetter(
+        @ApplicationContext context: Context,
+        imageLoader: ImageLoader,
+    ) = CoilImageGetter(context, imageLoader)
 }

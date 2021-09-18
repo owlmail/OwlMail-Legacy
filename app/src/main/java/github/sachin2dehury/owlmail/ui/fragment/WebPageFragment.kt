@@ -5,7 +5,6 @@ import android.view.View
 import android.webkit.WebChromeClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentWebViewBinding
@@ -20,7 +19,7 @@ class WebPageFragment : Fragment(R.layout.fragment_web_view) {
 
     private val viewModel: WebPageViewModel by viewModels()
 
-    private val args: WebPageFragmentArgs by navArgs()
+//    private val args: WebPageFragmentArgs by navArgs()
 
     @Inject
     lateinit var chromeClient: WebChromeClient

@@ -30,9 +30,9 @@ open class WebViewFragment : Fragment(R.layout.fragment_web_view) {
 
     private fun setContent() = try {
         val assets = requireContext().assets
-        val css = assets.open("Font").bufferedReader().use { it.readText() }
-        val page = assets.open(args.request).bufferedReader().use { it.readText() }
-        binding.webView.apply {
+//        val css = assets.open("Font").bufferedReader().use { it.readText() }
+//        val page = assets.open(args.request).bufferedReader().use { it.readText() }
+//        binding.webView.apply {
 //            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
 //                val darkMode = when (AppCompatDelegate.getDefaultNightMode()) {
 //                    AppCompatDelegate.MODE_NIGHT_YES -> WebSettingsCompat.FORCE_DARK_ON
@@ -40,9 +40,9 @@ open class WebViewFragment : Fragment(R.layout.fragment_web_view) {
 //                }
 //                WebSettingsCompat.setForceDark(this.settings, darkMode)
 //            }
-            settings.loadsImagesAutomatically = true
-            loadDataWithBaseURL(null, page + css, "text/html", "utf-8", null)
-        }
+//            settings.loadsImagesAutomatically = true
+//            loadDataWithBaseURL(null, page + css, "text/html", "utf-8", null)
+//        }
     } catch (e: Exception) {
 //        debugLog(e)
     }

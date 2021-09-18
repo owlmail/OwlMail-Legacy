@@ -47,8 +47,6 @@ abstract class PagingEpoxyControllerExt<T>(val listener: EpoxyModelOnClickListen
         ItemAdModel(UiModel.Ad(AdSize.BANNER), listener).id("ad_$controllerHashCode")
 
     private fun addLoader(uiModel: UiModel.Loader) =
-        ItemHorizontalLoaderModel(uiModel, listener).id("loader_$controllerHashCode")
-
-    private fun addCircularLoader(uiModel: UiModel.Loader) =
         ItemCircularLoaderModel(uiModel, listener).id("loader_$controllerHashCode")
+
 }

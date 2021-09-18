@@ -19,6 +19,6 @@ class HtmlTextView @JvmOverloads constructor(
     lateinit var imageGetter: CoilImageGetter
 
     fun setHtml(html: String) {
-        text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT, imageGetter, null)
+        text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 }

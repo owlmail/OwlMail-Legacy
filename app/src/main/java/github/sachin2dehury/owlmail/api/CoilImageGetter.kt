@@ -7,9 +7,10 @@ import android.graphics.drawable.Drawable
 import android.text.Html
 import android.util.Base64
 import coil.ImageLoader
-import coil.executeBlocking
 import coil.request.ImageRequest
 import github.sachin2dehury.owlmail.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class CoilImageGetter(private val context: Context, private val imageLoader: ImageLoader) :
     Html.ImageGetter {
@@ -21,7 +22,10 @@ class CoilImageGetter(private val context: Context, private val imageLoader: Ima
             .placeholder(R.drawable.ic_baseline_cloud_download_24)
             .error(R.drawable.ic_baseline_cloud_download_24)
             .build()
-        return imageLoader.executeBlocking(request).drawable!!
+
+        return runBlocking(Dispatchers.IO) {
+            return@runBlocking imageLoader.execute(request).drawable!!
+        }
     }
 
     private fun isDataLatexImage(html: String, source: String): Boolean {

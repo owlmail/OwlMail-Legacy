@@ -36,10 +36,10 @@ class MailRepository(
                             add(UiModel.Ad(AdSize.FLUID))
                         } else {
                             add(0, UiModel.Header(getFormattedHeaderDate(page, context)))
-                            add(UiModel.Footer(8))
-                            for (i in 0..lastIndex step 30) {
-                                add(i, UiModel.Ad(AdSize.FLUID))
-                            }
+//                            add(UiModel.Footer(8))
+//                            for (i in 0..lastIndex step 30) {
+//                                add(i, UiModel.Ad(AdSize.FLUID))
+//                            }
                         }
                     }
                 }

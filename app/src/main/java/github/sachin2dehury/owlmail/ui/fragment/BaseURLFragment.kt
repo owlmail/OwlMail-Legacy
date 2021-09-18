@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
-import github.sachin2dehury.owlmail.ui.utils.getThemeColor
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.viewmodel.BaseUrlSetUpViewModel
 
@@ -40,7 +39,6 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
         }
         urlEditText.doOnTextChanged { _, _, _, _ ->
             urlTextBox.error = null
-            urlEditText.setTextColor(urlEditText.getThemeColor(R.attr.colorTextPrimary))
         }
     }
 
@@ -51,7 +49,6 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
                 root.hideKeyBoard()
                 findNavController().navigate(NavGraphDirections.actionToAuthFragment(baseURL))
             } else {
-                urlEditText.setTextColor(urlEditText.getThemeColor(R.attr.colorRed))
                 urlTextBox.error = "Enter a valid url!"
             }
         }

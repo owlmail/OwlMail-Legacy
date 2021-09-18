@@ -80,7 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/bg_rounded_stroke"
         android:ellipsize="end"
         android:padding="4dp"
         android:textSize="14sp"

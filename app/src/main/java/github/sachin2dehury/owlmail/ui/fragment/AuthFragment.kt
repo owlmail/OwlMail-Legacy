@@ -46,7 +46,8 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             .setPopUpTo(R.id.authFragment, true)
             .build()
         findNavController().navigate(
-            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
+//            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
+            NavGraphDirections.actionToWebViewFragment(""),
             navOptions
         )
     }

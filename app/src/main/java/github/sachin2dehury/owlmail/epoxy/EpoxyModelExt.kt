@@ -22,11 +22,13 @@ open class EpoxyModelExt<T : ViewBinding>(
         _binding = null
     }
 
+    override fun shouldSaveViewState() = true
+
     open fun bindExt(view: View): T? = null
 
     open fun unbindExt(binding: T) = Unit
 
-    fun <E> setOnModelClickListener(uiModel: UiModel<E>) =
+    protected fun <E> setOnModelClickListener(uiModel: UiModel<E>) =
         _binding?.root?.setOnClickListener { epoxyModelOnClickListener?.onModelClick(uiModel) }
 
     override fun getDefaultLayout() = layoutRes

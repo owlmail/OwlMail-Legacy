@@ -144,7 +144,7 @@ dependencies {
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
     //Leak Canary
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+//    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
     //Lottie
     implementation("com.airbnb.android:lottie:4.1.0")
@@ -164,6 +164,9 @@ dependencies {
 
     //Circular Loader
     implementation("com.mikhaellopez:circularfillableloaders:1.4.0")
+
+    //BackPack Theme
+    implementation("net.skyscanner.backpack:backpack-android:32.1.0")
 
     //Test
     testImplementation("junit:junit:4.13.2")

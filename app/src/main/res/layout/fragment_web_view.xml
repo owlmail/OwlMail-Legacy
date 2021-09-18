@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <WebView
+    <github.sachin2dehury.owlmail.ui.views.HtmlTextView
         android:id="@+id/html_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="12dp" />
+        android:padding="16dp" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
