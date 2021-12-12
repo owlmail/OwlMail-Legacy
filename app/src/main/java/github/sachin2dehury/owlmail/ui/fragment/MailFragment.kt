@@ -6,16 +6,10 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.AUTH_FROM_COOKIE
-import github.sachin2dehury.owlmail.api.COMPOSE_MAIL
-import github.sachin2dehury.owlmail.api.MOBILE_URL
 import github.sachin2dehury.owlmail.databinding.FragmentMailBoxBinding
 import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.UiModel
@@ -25,14 +19,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MailFragment : Fragment(R.layout.fragment_mail_box), EpoxyModelOnClickListener {
+class MailFragment(private val request: String) : Fragment(R.layout.fragment_mail_box),
+    EpoxyModelOnClickListener {
 
     private var _binding: FragmentMailBoxBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MailViewModel by activityViewModels()
-
-    private val args: MailFragmentArgs by navArgs()
+    private val viewModel: MailViewModel by viewModels()
 
     private val controller = MailBoxController(this)
 
@@ -55,19 +48,12 @@ class MailFragment : Fragment(R.layout.fragment_mail_box), EpoxyModelOnClickList
         binding.swipeRefresh.setOnRefreshListener {
 
         }
-        binding.composeButton.setOnClickListener {
-            findNavController().navigate(
-                NavGraphDirections.actionToComposeFragment(
-                    MOBILE_URL + AUTH_FROM_COOKIE + COMPOSE_MAIL
-                )
-            )
-        }
     }
 
     private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
 
     private fun subscribeToObserver() = lifecycleScope.launch {
-        viewModel.getMails(args.request).collectLatest {
+        viewModel.getMails(request).collectLatest {
             controller.submitData(it)
         }
     }
@@ -93,7 +79,6 @@ class MailFragment : Fragment(R.layout.fragment_mail_box), EpoxyModelOnClickList
     override fun onDestroy() {
         super.onDestroy()
         binding.swipeRefresh.setOnRefreshListener(null)
-        binding.composeButton.setOnClickListener(null)
         binding.epoxyRecyclerView.clear()
         _binding = null
     }

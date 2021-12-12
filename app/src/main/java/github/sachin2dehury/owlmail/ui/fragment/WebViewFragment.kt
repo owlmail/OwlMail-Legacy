@@ -23,7 +23,7 @@ open class WebViewFragment : Fragment(R.layout.fragment_web_view) {
 
         setContent()
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             setContent()
         }
     }

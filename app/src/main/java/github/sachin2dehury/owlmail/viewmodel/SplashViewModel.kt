@@ -1,17 +1,13 @@
 package github.sachin2dehury.owlmail.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,58 +17,34 @@ class SplashViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
 
-    private val _tokenState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
-    val tokenState: StateFlow<ResultState<String>> by lazy { _tokenState }
+    private val _tokenState = MutableLiveData<String>()
+    
+    private val _credentialState = MutableLiveData<String>()
 
-    private val _credentialState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
-    val credentialState: StateFlow<ResultState<String>> by lazy { _credentialState }
+    private val _baseUrlState = MutableLiveData<String>()
 
-    private val _baseUrlState by lazy { MutableStateFlow<ResultState<String>>(ResultState.Loading) }
-    val baseUrlState: StateFlow<ResultState<String>> by lazy { _baseUrlState }
-
-    private fun updateLoginTokenState() = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.readString(R.string.key_token).catch { throwable ->
-            _tokenState.value = ResultState.Error(throwable.message)
-        }.collectLatest {
-            if (it != null) {
-                _tokenState.value = ResultState.Success(it)
-                authRepository.setToken(it)
-            } else {
-                _tokenState.value = ResultState.Error()
-            }
+    private suspend fun updateLoginTokenState() =
+        dataStoreRepository.readString(R.string.key_token)?.let {
+            _tokenState.postValue(it)
         }
-    }
 
-    private fun updateLoginCredentialState() = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.readString(R.string.key_credential).catch { throwable ->
-            _credentialState.value = ResultState.Error(throwable.message)
-        }.collectLatest {
-            if (it != null) {
-                _credentialState.value = ResultState.Success(it)
-                authRepository.setCredential(it)
-            } else {
-                _credentialState.value = ResultState.Error()
-            }
+    private suspend fun updateLoginCredentialState() =
+        dataStoreRepository.readString(R.string.key_credential)?.let {
+            _credentialState.postValue(it)
         }
-    }
 
-    private fun updateBaseUrlState() = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.readString(R.string.key_url).catch { throwable ->
-            _baseUrlState.value = ResultState.Error(throwable.message)
-        }.collectLatest {
-            if (it != null) {
-                _baseUrlState.value = ResultState.Success(it)
-
-            } else {
-                _baseUrlState.value = ResultState.Error()
-            }
+    private suspend fun updateBaseUrlState() =
+        dataStoreRepository.readString(R.string.key_url)?.let {
+            _baseUrlState.postValue(it)
         }
-    }
 
-    init {
+    private fun updateInfo() = viewModelScope.launch(Dispatchers.IO) {
         updateBaseUrlState()
         updateLoginTokenState()
         updateLoginCredentialState()
     }
 
+    init {
+        updateInfo()
+    }
 }

@@ -3,7 +3,9 @@ package github.sachin2dehury.owlmail.api
 //const val BASE_URL = "https://mail.nitrkl.ac.in/"
 const val HOME_URL = "home/~/"
 const val MOBILE_URL = "m/zmain"
-const val HTML_URL = "h/printmessage"
+const val HTML_URL = "h/message"
+const val HTML_PART_URL = "h/imessage"
+const val PRINT_HTML_URL = "h/printmessage"
 
 const val AUTH_FROM_COOKIE = "?auth=co"
 const val AUTH_SET_COOKIE = "?auth=sc"

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
@@ -35,7 +34,7 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
             updateUrl()
         }
         privacyPolicyButton.setOnClickListener {
-            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
+//            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
         }
         urlEditText.doOnTextChanged { _, _, _, _ ->
             urlTextBox.error = null
@@ -47,7 +46,11 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
             if (URLUtil.isValidUrl(baseURL)) {
                 viewModel.saveBaseURL(baseURL)
                 root.hideKeyBoard()
-                findNavController().navigate(NavGraphDirections.actionToAuthFragment(baseURL))
+                findNavController().navigate(
+                    BaseURLFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(
+                        baseURL
+                    )
+                )
             } else {
                 urlTextBox.error = "Enter a valid url!"
             }

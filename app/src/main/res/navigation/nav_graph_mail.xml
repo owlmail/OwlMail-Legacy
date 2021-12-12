@@ -3,22 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_mail"
-    app:startDestination="@id/mailFragment">
+    app:startDestination="@id/parsedMailFragment">
 
-    <fragment
-        android:id="@+id/mailFragment"
-        android:name="github.sachin2dehury.owlmail.ui.fragment.MailFragment"
-        tools:layout="@layout/fragment_mail_box">
-        <argument
-            android:name="request"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_mailFragment_to_parsedMailFragment"
-            app:destination="@id/parsedMailFragment" />
-        <action
-            android:id="@+id/action_mailFragment_to_composeFragment"
-            app:destination="@id/composeFragment" />
-    </fragment>
     <fragment
         android:id="@+id/parsedMailFragment"
         android:name="github.sachin2dehury.owlmail.ui.fragment.ParsedMailFragment"
@@ -39,5 +25,4 @@
             android:name="url"
             app:argType="string" />
     </fragment>
-
 </navigation>

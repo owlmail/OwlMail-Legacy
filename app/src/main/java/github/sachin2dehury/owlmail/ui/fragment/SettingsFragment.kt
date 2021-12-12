@@ -8,9 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.viewmodel.SettingsViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -61,35 +59,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.analyticsState.collectLatest { result ->
-            when (result) {
-                is ResultState.Success<*> -> {
-                }
-                is ResultState.Error -> {
-                }
-                is ResultState.Loading -> {
-                }
-            }
+        viewModel.analyticsState.observe(viewLifecycleOwner) { result ->
+
         }
-        viewModel.darkThemeState.collectLatest { result ->
-            when (result) {
-                is ResultState.Success<*> -> {
-                }
-                is ResultState.Error -> {
-                }
-                is ResultState.Loading -> {
-                }
-            }
+        viewModel.darkThemeState.observe(viewLifecycleOwner) { result ->
+
         }
-        viewModel.syncState.collectLatest { result ->
-            when (result) {
-                is ResultState.Success<*> -> {
-                }
-                is ResultState.Error -> {
-                }
-                is ResultState.Loading -> {
-                }
-            }
+        viewModel.syncState.observe(viewLifecycleOwner) { result ->
+
         }
     }
 }

@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import github.sachin2dehury.owlmail.NavGraphDirections
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.databinding.FragmentAuthBinding
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.ui.utils.showSnackbar
 import github.sachin2dehury.owlmail.viewmodel.AuthViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import okhttp3.Credentials
 import java.util.*
@@ -45,16 +42,15 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.authFragment, true)
             .build()
-        findNavController().navigate(
+//        findNavController().navigate(
 //            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
-            NavGraphDirections.actionToWebViewFragment(""),
-            navOptions
-        )
+//            navOptions
+//        )
     }
 
     private fun setUpClickListener() {
         binding.privacyPolicyButton.setOnClickListener {
-            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
+//            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
         }
         binding.loginButton.setOnClickListener {
             updateCredential()
@@ -70,7 +66,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.loginState.collectLatest { result ->
+        viewModel.loginState.observe(viewLifecycleOwner, { result ->
             when (result) {
                 is ResultState.Success -> {
                     viewModel.saveLoginCredential()
@@ -80,15 +76,14 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
                     binding.root.showSnackbar(result.value ?: getString(R.string.null_error))
                 }
                 is ResultState.Loading -> {
+                    //todo show loader
                 }
             }
-        }
+        })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.privacyPolicyButton.setOnClickListener(null)
-        binding.loginButton.setOnClickListener(null)
         _binding = null
     }
 }

@@ -2,14 +2,12 @@ package github.sachin2dehury.owlmail.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebChromeClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentWebViewBinding
 import github.sachin2dehury.owlmail.viewmodel.WebPageViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class WebPageFragment : Fragment(R.layout.fragment_web_view) {
@@ -21,9 +19,6 @@ class WebPageFragment : Fragment(R.layout.fragment_web_view) {
 
 //    private val args: WebPageFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var chromeClient: WebChromeClient
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,7 +26,7 @@ class WebPageFragment : Fragment(R.layout.fragment_web_view) {
 
         setContent()
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             setContent()
         }
     }
@@ -47,7 +42,7 @@ class WebPageFragment : Fragment(R.layout.fragment_web_view) {
 //            loadUrl(url + ApiConstants.AUTH_FROM_TOKEN + viewModel.token.substringAfter('='))
 //            zoomOut()
 //        }
-        binding.swipeRefreshLayout.isRefreshing = false
+        binding.swipeRefresh.isRefreshing = false
     }
 
     override fun onDestroy() {

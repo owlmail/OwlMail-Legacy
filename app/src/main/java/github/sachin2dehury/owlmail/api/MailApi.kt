@@ -16,15 +16,20 @@ interface MailApi {
         @Query("query") month: String,
     ): Response<Items>
 
-    @GET(MOBILE_URL + ACTION_VIEW + LOAD_IMAGES)
+//    @GET(MOBILE_URL + ACTION_VIEW + LOAD_IMAGES)
+//    suspend fun getParsedMail(
+//        @Query("id") id: Int,
+//    ): ResponseBody
+
+    @GET(HTML_URL + AUTH_FROM_COOKIE + LOAD_IMAGES)
     suspend fun getParsedMail(
         @Query("id") id: Int,
     ): ResponseBody
 
-//    @GET(HTML_URL + AUTH_FROM_COOKIE + LOAD_IMAGES)
-//    suspend fun getParsedMail(
-//        @Query("id") id: Int,
-//    ): ResponseBody
+    @GET(HTML_PART_URL + AUTH_FROM_COOKIE + LOAD_IMAGES)
+    suspend fun getParsedMailParts(
+        @Query("id") id: Int,
+    ): ResponseBody
 
     @GET(HOME_URL + AUTH_FROM_COOKIE + JSON_FORMAT)
     suspend fun searchMails(

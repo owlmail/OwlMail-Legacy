@@ -1,7 +1,6 @@
 package github.sachin2dehury.owlmail.di
 
 import android.content.Context
-import android.webkit.WebChromeClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,10 +12,6 @@ import github.sachin2dehury.owlmail.R
 @Module
 @InstallIn(FragmentComponent::class)
 object AdapterModule {
-
-    @FragmentScoped
-    @Provides
-    fun provideWebChromeClient() = WebChromeClient()
 
     @FragmentScoped
     @Provides

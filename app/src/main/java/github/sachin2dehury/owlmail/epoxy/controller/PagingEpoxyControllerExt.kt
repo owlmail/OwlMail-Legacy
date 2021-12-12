@@ -1,6 +1,7 @@
 package github.sachin2dehury.owlmail.epoxy.controller
 
 import android.view.View
+import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.google.android.gms.ads.AdSize
@@ -9,7 +10,10 @@ import github.sachin2dehury.owlmail.epoxy.UiModel
 import github.sachin2dehury.owlmail.epoxy.model.*
 
 abstract class PagingEpoxyControllerExt<T>(val listener: EpoxyModelOnClickListener?) :
-    PagingDataEpoxyController<UiModel<T>>() {
+    PagingDataEpoxyController<UiModel<T>>(
+        modelBuildingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
+        diffingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
+    ) {
 
     val controllerHashCode by lazy { hashCode() }
 
@@ -47,6 +51,6 @@ abstract class PagingEpoxyControllerExt<T>(val listener: EpoxyModelOnClickListen
         ItemAdModel(UiModel.Ad(AdSize.BANNER), listener).id("ad_$controllerHashCode")
 
     private fun addLoader(uiModel: UiModel.Loader) =
-        ItemCircularLoaderModel(uiModel, listener).id("loader_$controllerHashCode")
+        ItemLoaderModel(uiModel, listener).id("loader_$controllerHashCode")
 
 }

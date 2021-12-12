@@ -153,12 +153,36 @@ class MailRepository(
             mailDao.getMailsId(conversationId)
                 .map { id -> id to mailApi.getParsedMail(id).string() }
         },
-        saveFetchResult = { result ->
-            result.map { pair ->
-                ParsedMail(pair.first, conversationId, Jsoup.parse(pair.second))
-                    .also { parsedMailDao.insertMail(it) }
-            }
-        },
+        saveFetchResult = { result -> processParsedMails(result, conversationId) },
         shouldFetch = { isInternetConnected(context) }
     )
+
+    private suspend fun processParsedMails(
+        result: List<Pair<Int, String>>,
+        conversationId: Int
+    ) = result.map { pair ->
+        val id = pair.first
+        val mail = Jsoup.parse(pair.second)
+        val time = mail.select(".MsgHdrSent").text().toLongOrNull()
+        val details = mail.select(".MsgHdrValue").mapNotNull { it.text().trim() }
+        val scriptBody = if (mail.select(".MsgBody noscript").text().isNullOrEmpty()) {
+            ""
+        } else {
+            mailApi.getParsedMailParts(id).string()
+        }
+        val body = mail.select(".MsgBody").html().substringBefore("<hr>") + scriptBody
+        val noOfAttachments =
+            mail.select(".MsgHdrAttAnchor").text().substringBefore(' ', "0").toIntOrNull()
+        val attachments = mail.select(".MsgBody tbody tr").mapNotNull { it?.html()?.trim() }
+
+        ParsedMail(
+            id,
+            conversationId,
+            time,
+            details,
+            body,
+            noOfAttachments,
+            attachments
+        ).also { parsedMailDao.insertMail(it) }
+    }
 }
