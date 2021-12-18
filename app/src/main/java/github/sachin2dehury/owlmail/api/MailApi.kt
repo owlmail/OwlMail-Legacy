@@ -1,38 +1,39 @@
 package github.sachin2dehury.owlmail.api
 
-import github.sachin2dehury.owlmail.datamodel.Items
-import okhttp3.ResponseBody
+import github.sachin2dehury.owlmail.data.ZimbraSoap
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface MailApi {
 
-    @GET(HOME_URL + AUTH_SET_COOKIE + JSON_FORMAT + ITEM_QUERY_NONE)
-    suspend fun attemptLogin(): Response<Items>
+    @POST("service/soap/AuthRequest")
+    suspend fun makeAuthRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
 
-    @GET(HOME_URL + AUTH_SET_COOKIE + JSON_FORMAT + ITEM_QUERY_ALL)
-    suspend fun getMails(
-        @Query("query") month: String,
-    ): Response<Items>
+    @POST("service/soap/AutoCompleteRequest")
+    suspend fun makeAutoCompleteRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
 
-//    @GET(MOBILE_URL + ACTION_VIEW + LOAD_IMAGES)
-//    suspend fun getParsedMail(
-//        @Query("id") id: Int,
-//    ): ResponseBody
+    @POST("service/soap/SearchRequest")
+    suspend fun makeSearchRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
 
-    @GET(HTML_URL + AUTH_FROM_COOKIE + LOAD_IMAGES)
-    suspend fun getParsedMail(
-        @Query("id") id: Int,
-    ): ResponseBody
+    @POST("service/soap/SearchGalRequest")
+    suspend fun makeSearchGalRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
 
-    @GET(HTML_PART_URL + AUTH_FROM_COOKIE + LOAD_IMAGES)
-    suspend fun getParsedMailParts(
-        @Query("id") id: Int,
-    ): ResponseBody
+    @POST("service/soap/SearchConvRequest")
+    suspend fun makeSearchConvRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
 
-    @GET(HOME_URL + AUTH_FROM_COOKIE + JSON_FORMAT)
-    suspend fun searchMails(
-        @Query("query") query: String,
-    ): Response<Items>
+    @POST("service/soap/GetMsgRequest")
+    suspend fun makeGetMsgRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
+
+    @POST("service/soap/ConvActionRequest")
+    suspend fun makeConvActionRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
+
+    @POST("service/soap/SaveDraftRequest")
+    suspend fun makeSaveDraftRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
+
+    @POST("service/soap/GetContactsRequest")
+    suspend fun makeGetContactsRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
+
+    @POST("service/soap/SendMsgRequest")
+    suspend fun makeSendMsgRequest(@Body body: ZimbraSoap): Response<ZimbraSoap>
 }

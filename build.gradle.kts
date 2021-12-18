@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.4")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
 
         //Dagger Hilt
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.40.5")

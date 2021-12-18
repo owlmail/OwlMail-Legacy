@@ -177,10 +177,6 @@ dependencies {
     //BackPack Theme
     implementation("net.skyscanner.backpack:backpack-android:33.2.0")
 
-    //Fluent Theme
-//    implementation("com.microsoft.fluentui:FluentUIAndroid:0.0.18")
-//    implementation("com.microsoft.fluentui:fluentui_drawer:0.0.18")
-
     //Test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
