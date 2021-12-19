@@ -1,10 +1,10 @@
 package github.sachin2dehury.owlmail.ui.adapters
 
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import github.sachin2dehury.owlmail.ui.activity.MailActivity
+import github.sachin2dehury.owlmail.ui.activity.MainActivity
 import github.sachin2dehury.owlmail.ui.fragment.MailFragment
 
-class MailFragmentStateAdapter(private val activity: MailActivity) :
+class MailFragmentStateAdapter(private val activity: MainActivity) :
     FragmentStateAdapter(activity) {
 
     private val fragmentCount = 5

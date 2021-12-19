@@ -22,5 +22,5 @@ class ParsedMailViewModel @Inject constructor(
             .cachedIn(viewModelScope)
             .flowOn(Dispatchers.IO)
 
-    val token = authRepository.getToken().substringAfter('=')
+    val token = authRepository.authToken?.substringAfter('=')
 }

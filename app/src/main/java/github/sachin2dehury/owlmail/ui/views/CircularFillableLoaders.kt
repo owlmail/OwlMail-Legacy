@@ -14,15 +14,9 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.widget.AppCompatImageView
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.R.styleable.CircularFillableLoaders_cfl_border_width
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-/**
- * Created by Mikhael LOPEZ on 09/10/2015.
- * Copyright (C) 2017 Mikhael LOPEZ
- * Licensed under the Apache License Version 2.0
- */
 class CircularFillableLoaders @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -78,21 +72,21 @@ class CircularFillableLoaders @JvmOverloads constructor(
 
         // Init Wave
         waveColor = attributes.getColor(
-            R.styleable.CircularFillableLoaders_cfl_wave_color,
+            R.styleable.CircularFillableLoaders_wave_color,
             DEFAULT_WAVE_COLOR
         )
         val amplitudeRatioAttr = attributes.getFloat(
-            R.styleable.CircularFillableLoaders_cfl_wave_amplitude,
+            R.styleable.CircularFillableLoaders_wave_amplitude,
             DEFAULT_AMPLITUDE_RATIO
         )
         amplitudeRatio =
             if (amplitudeRatioAttr > DEFAULT_AMPLITUDE_RATIO) DEFAULT_AMPLITUDE_RATIO else amplitudeRatioAttr
-        setProgress(attributes.getInteger(R.styleable.CircularFillableLoaders_cfl_progress, 0))
-        if (attributes.getBoolean(R.styleable.CircularFillableLoaders_cfl_border, true)) {
+        setProgress(attributes.getInteger(R.styleable.CircularFillableLoaders_progress, 0))
+        if (attributes.getBoolean(R.styleable.CircularFillableLoaders_border, true)) {
             val defaultBorderSize: Float =
                 DEFAULT_BORDER_WIDTH * getContext().resources.displayMetrics.density
             borderPaint!!.strokeWidth = attributes.getDimension(
-                CircularFillableLoaders_cfl_border_width,
+                R.styleable.CircularFillableLoaders_border_width,
                 defaultBorderSize
             )
         } else {

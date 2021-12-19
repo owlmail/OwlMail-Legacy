@@ -1,10 +1,13 @@
 package github.sachin2dehury.owlmail.repository
 
+import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
 import github.sachin2dehury.owlmail.api.MailApiExt
 import github.sachin2dehury.owlmail.api.mapToResultState
+import github.sachin2dehury.owlmail.data.Body
+import github.sachin2dehury.owlmail.data.ZimbraSoap
+import github.sachin2dehury.owlmail.data.auth.AuthRequest
 import github.sachin2dehury.owlmail.database.MailDao
-import github.sachin2dehury.owlmail.database.ParsedMailDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,29 +15,17 @@ import kotlinx.coroutines.launch
 class AuthRepository(
     private val basicAuthInterceptor: BasicAuthInterceptor,
     private val mailApiExt: MailApiExt,
-    private val mailDao: MailDao,
-    private val parsedMailDao: ParsedMailDao,
+    private val mailDao: MailDao
 ) {
 
-    suspend fun attemptLogin(baseURL: String) =
-        mailApiExt.provideMailApi(baseURL).attemptLogin().mapToResultState()
+    var authToken = basicAuthInterceptor.authToken
 
-    fun setCredential(credential: String) {
-        basicAuthInterceptor.credential = credential
-    }
-
-    fun getCredential() = basicAuthInterceptor.credential ?: ""
-
-    fun setToken(token: String) {
-        basicAuthInterceptor.token = token
-    }
-
-    fun getToken() = basicAuthInterceptor.token ?: ""
+    suspend fun makeAuthRequest(baseURL: String, authRequest: AuthRequest?) =
+        mailApiExt.provideMailApi(baseURL)
+            .makeAuthRequest(ZimbraSoap(Body(authRequest = authRequest))).mapToResultState()
 
     fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
+        basicAuthInterceptor.authToken = null
         mailDao.deleteAllMails()
-        parsedMailDao.deleteAllMails()
-        basicAuthInterceptor.credential = null
-        basicAuthInterceptor.token = null
     }
 }

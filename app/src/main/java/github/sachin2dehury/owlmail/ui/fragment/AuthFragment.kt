@@ -10,16 +10,19 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.data.Content
+import github.sachin2dehury.owlmail.data.ZimbraSoap
+import github.sachin2dehury.owlmail.data.auth.AuthRequest
 import github.sachin2dehury.owlmail.databinding.FragmentAuthBinding
+import github.sachin2dehury.owlmail.ui.utils.ResultStateListener
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
-import github.sachin2dehury.owlmail.ui.utils.showSnackbar
 import github.sachin2dehury.owlmail.viewmodel.AuthViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import okhttp3.Credentials
 import java.util.*
 
 @AndroidEntryPoint
-class AuthFragment : Fragment(R.layout.fragment_auth) {
+class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener {
 
     private var _binding: FragmentAuthBinding? = null
     private val binding get() = _binding!!
@@ -33,7 +36,6 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
         _binding = FragmentAuthBinding.bind(view)
 
-//        viewModel.resetLoginState()
         setUpClickListener()
         subscribeToObservers()
     }
@@ -54,36 +56,47 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         }
         binding.loginButton.setOnClickListener {
             updateCredential()
-            binding.root.hideKeyBoard()
         }
     }
 
     private fun updateCredential() {
-        val roll = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
+        val userName = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
         val password = binding.passwordEditText.text.toString()
-        val credential = Credentials.basic(roll, password)
-        viewModel.updateLoginState(args.baseURL, credential)
+        viewModel.authRequest = AuthRequest(
+            account = Content(userName),
+            password = Content(password)
+        )
+        viewModel.updateLoginState(args.baseURL)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.loginState.observe(viewLifecycleOwner, { result ->
-            when (result) {
-                is ResultState.Success -> {
-                    viewModel.saveLoginCredential()
-                    redirectFragment()
-                }
-                is ResultState.Error -> {
-                    binding.root.showSnackbar(result.value ?: getString(R.string.null_error))
-                }
-                is ResultState.Loading -> {
-                    //todo show loader
-                }
-            }
-        })
+        viewModel.loginState.collectLatest { it.mapToState() }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
+    }
+
+    override fun setEmptyState() {
+    }
+
+    override fun setErrorState(resultState: ResultState.Error) {
+    }
+
+    override fun setLoadingState() {
+        binding.loginButton.isClickable = false
+        binding.privacyPolicyButton.isCheckable = false
+        binding.root.hideKeyBoard()
+    }
+
+    override fun setSuccessState(resultState: ResultState.Success<ZimbraSoap>) {
+        resultState.value?.body?.authResponse?.let {
+            it.authToken?.firstOrNull()?.content?.let { authToken ->
+                viewModel.setAuthToken(authToken)
+                viewModel.saveLoginCredential(authToken, it.lifetime)
+            }
+        }
     }
 }

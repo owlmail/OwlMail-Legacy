@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "github.sachin2dehury.owlmail"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
@@ -107,7 +107,7 @@ dependencies {
 
     //Moshi
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
 
     // Activity KTX for viewModels()
     implementation("androidx.activity:activity-ktx:1.4.0")

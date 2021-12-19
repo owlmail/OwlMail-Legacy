@@ -48,18 +48,18 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun saveDarkThemeState(isEnabled: Boolean) =
-        dataStoreRepository.saveBoolean(R.string.key_dark_theme, isEnabled)
+        dataStoreRepository.saveData(R.string.key_dark_theme, isEnabled)
 
     fun saveSyncState(isEnabled: Boolean) =
-        dataStoreRepository.saveBoolean(R.string.key_should_sync, isEnabled)
+        dataStoreRepository.saveData(R.string.key_should_sync, isEnabled)
 
     fun saveAnalyticsState(isEnabled: Boolean) =
-        dataStoreRepository.saveBoolean(R.string.key_analytics, isEnabled)
+        dataStoreRepository.saveData(R.string.key_analytics, isEnabled)
 
     //TODO improve logic here
     fun getBundle(context: Context) = persistableBundleOf(
         context.getString(R.string.key_should_sync) to syncState.value,
-        context.getString(R.string.key_token) to authRepository.getToken(),
-        context.getString(R.string.key_credential) to authRepository.getCredential()
+        context.getString(R.string.key_password) to authRepository.authToken,
+//        context.getString(R.string.key_username) to authRepository.getCredential()
     )
 }

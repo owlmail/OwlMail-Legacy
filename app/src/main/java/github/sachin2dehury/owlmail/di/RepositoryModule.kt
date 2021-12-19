@@ -43,8 +43,7 @@ object RepositoryModule {
         basicAuthInterceptor: BasicAuthInterceptor,
         mailApiExt: MailApiExt,
         mailDao: MailDao,
-        parsedMailDao: ParsedMailDao,
-    ) = AuthRepository(basicAuthInterceptor, mailApiExt, mailDao, parsedMailDao)
+    ) = AuthRepository(basicAuthInterceptor, mailApiExt, mailDao)
 
     @Singleton
     @Provides
@@ -58,5 +57,5 @@ object RepositoryModule {
         mailDao: MailDao,
         parsedMailDao: ParsedMailDao,
         pagingConfig: PagingConfig
-    ) = MailRepository(context, mailApiExt.provideMailApi(), mailDao, parsedMailDao, pagingConfig)
+    ) = MailRepository(context, mailDao, parsedMailDao, pagingConfig)
 }

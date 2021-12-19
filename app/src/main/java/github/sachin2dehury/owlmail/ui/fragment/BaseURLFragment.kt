@@ -5,13 +5,11 @@ import android.view.View
 import android.webkit.URLUtil
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
 import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
-import github.sachin2dehury.owlmail.viewmodel.BaseUrlSetUpViewModel
 
 @AndroidEntryPoint
 class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
@@ -19,13 +17,10 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
     private var _binding: FragmentBaseUrlBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BaseUrlSetUpViewModel by viewModels()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentBaseUrlBinding.bind(view)
-        viewModel.resetBaseURL()
         setupOnClickListener()
     }
 
@@ -44,7 +39,6 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
     private fun updateUrl() = binding.apply {
         urlEditText.text?.toString()?.trim()?.let { baseURL ->
             if (URLUtil.isValidUrl(baseURL)) {
-                viewModel.saveBaseURL(baseURL)
                 root.hideKeyBoard()
                 findNavController().navigate(
                     BaseURLFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(

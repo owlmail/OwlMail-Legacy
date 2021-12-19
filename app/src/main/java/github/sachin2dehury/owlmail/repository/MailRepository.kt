@@ -6,7 +6,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import com.google.android.gms.ads.AdSize
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.*
+import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.api.isInternetConnected
+import github.sachin2dehury.owlmail.api.networkBoundResource
 import github.sachin2dehury.owlmail.database.MailDao
 import github.sachin2dehury.owlmail.database.ParsedMailDao
 import github.sachin2dehury.owlmail.datamodel.Mail
@@ -19,7 +21,7 @@ import org.jsoup.Jsoup
 
 class MailRepository(
     private val context: Context,
-    private val mailApi: MailApi,
+//    private val mailApi: MailApi,
     private val mailDao: MailDao,
     private val parsedMailDao: ParsedMailDao,
     private val pagerConfig: PagingConfig,
@@ -29,8 +31,8 @@ class MailRepository(
         getMailList(request, page).let { resultState ->
             when (resultState) {
                 is ResultState.Success -> {
-                    val uiModels: List<UiModel<Mail>> =
-                        resultState.value.map { mail -> UiModel.Item(mail) }
+                    val uiModels: List<UiModel<Mail>> = emptyList()
+//                        resultState.value.map { mail -> UiModel.Item(mail) }
                     uiModels.toMutableList().apply {
                         if (isNullOrEmpty()) {
                             add(UiModel.Ad(AdSize.FLUID))
@@ -46,7 +48,7 @@ class MailRepository(
                 is ResultState.Error -> {
                     listOf<UiModel<Mail>>(UiModel.Ad(AdSize.FLUID))
                 }
-                is ResultState.Loading -> {
+                else -> {
                     listOf<UiModel<Mail>>(UiModel.Loader(false))
                 }
             }
@@ -56,8 +58,8 @@ class MailRepository(
         getSearchMailList(query).let { resultState ->
             when (resultState) {
                 is ResultState.Success -> {
-                    val uiModels: List<UiModel<Mail>> =
-                        resultState.value.map { mail -> UiModel.Item(mail) }
+                    val uiModels: List<UiModel<Mail>> = emptyList()
+//                        resultState.value.map { mail -> UiModel.Item(mail) }
                     uiModels.toMutableList().apply {
                         if (isNullOrEmpty()) {
                             add(UiModel.Ad(AdSize.FLUID))
@@ -72,7 +74,7 @@ class MailRepository(
                 is ResultState.Error -> {
                     listOf<UiModel<Mail>>(UiModel.Ad(AdSize.FLUID))
                 }
-                is ResultState.Loading -> {
+                else -> {
                     listOf<UiModel<Mail>>(UiModel.Loader(false))
                 }
             }
@@ -82,8 +84,8 @@ class MailRepository(
         getParsedMailList(conversationId).let { resultState ->
             when (resultState) {
                 is ResultState.Success -> {
-                    val uiModels: List<UiModel<ParsedMail>> =
-                        resultState.value.map { mail -> UiModel.Item(mail) }
+                    val uiModels: List<UiModel<ParsedMail>> = emptyList()
+//                        resultState.value.map { mail -> UiModel.Item(mail) }
                     uiModels.toMutableList().apply {
                         if (!isNullOrEmpty()) {
 //                            add(0, UiModel.Header(getFormattedHeaderDate(page, context)))
@@ -99,7 +101,7 @@ class MailRepository(
                 is ResultState.Error -> {
                     listOf<UiModel<ParsedMail>>(UiModel.Ad(AdSize.FLUID))
                 }
-                is ResultState.Loading -> {
+                else -> {
                     listOf<UiModel<ParsedMail>>(UiModel.Loader(false))
                 }
             }
@@ -130,20 +132,20 @@ class MailRepository(
     private suspend fun getMailList(box: Byte, monthLocal: Pair<Long, Long>, monthRemote: String) =
         networkBoundResource(
             query = { mailDao.getMails(box, monthLocal.first, monthLocal.second) },
-            fetch = { mailApi.getMails(MONTH_QUERY + monthRemote).body() },
+            fetch = { /*mailApi.getMails(MONTH_QUERY + monthRemote).body()*/ },
             saveFetchResult = { result ->
-                result!!.mailList!!.apply {
-                    mailDao.deleteMails(box, monthLocal.first, monthLocal.second)
-                    mailDao.insertMails(this)
-                }
+//                result!!.mailList!!.apply {
+//                    mailDao.deleteMails(box, monthLocal.first, monthLocal.second)
+//                    mailDao.insertMails(this)
+//                }
             },
             shouldFetch = { isInternetConnected(context) }
         )
 
     private suspend fun getSearchMailList(query: String) = networkBoundResource(
         query = { mailDao.searchMails(query) },
-        fetch = { mailApi.searchMails(query).body() },
-        saveFetchResult = { result -> result!!.mailList!!.also { mailDao.insertMails(it) } },
+        fetch = {/* mailApi.searchMails(query).body()*/ },
+        saveFetchResult = { /*result -> result!!.mailList!!.also { mailDao.insertMails(it) }*/ },
         shouldFetch = { isInternetConnected(context) }
     )
 
@@ -151,9 +153,9 @@ class MailRepository(
         query = { parsedMailDao.getConversationMails(conversationId) },
         fetch = {
             mailDao.getMailsId(conversationId)
-                .map { id -> id to mailApi.getParsedMail(id).string() }
+//                .map { id -> id to mailApi.getParsedMail(id).string() }
         },
-        saveFetchResult = { result -> processParsedMails(result, conversationId) },
+        saveFetchResult = { /*result -> processParsedMails(result, conversationId)*/ },
         shouldFetch = { isInternetConnected(context) }
     )
 
@@ -168,7 +170,8 @@ class MailRepository(
         val scriptBody = if (mail.select(".MsgBody noscript").text().isNullOrEmpty()) {
             ""
         } else {
-            mailApi.getParsedMailParts(id).string()
+            ""
+//            mailApi.getParsedMailParts(id).string()
         }
         val body = mail.select(".MsgBody").html().substringBefore("<hr>") + scriptBody
         val noOfAttachments =

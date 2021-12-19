@@ -10,5 +10,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AuthResponse(
     val authToken: List<Content>? = null,
-    val lifetime: Int? = null
+    val lifetime: Long? = null
 ) : Parcelable

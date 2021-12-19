@@ -43,10 +43,6 @@ suspend inline fun <ResultType, RequestType> networkBoundResource(
 }
 
 fun <T> Response<T>.mapToResultState() = when {
-    isSuccessful && code() == 200 -> try {
-        ResultState.Success(body()!!)
-    } catch (e: Exception) {
-        ResultState.Error(e.message)
-    }
+    isSuccessful && code() == 200 -> ResultState.Success(body())
     else -> ResultState.Error(message())
 }
