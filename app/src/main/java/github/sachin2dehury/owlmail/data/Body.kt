@@ -5,8 +5,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import github.sachin2dehury.owlmail.data.auth.AuthRequest
 import github.sachin2dehury.owlmail.data.auth.AuthResponse
-import github.sachin2dehury.owlmail.data.autocompletesearch.AutoCompleteRequest
-import github.sachin2dehury.owlmail.data.autocompletesearch.AutoCompleteResponse
+import github.sachin2dehury.owlmail.data.autocomplete.AutoCompleteRequest
+import github.sachin2dehury.owlmail.data.autocomplete.AutoCompleteResponse
 import github.sachin2dehury.owlmail.data.convaction.ConvAction
 import github.sachin2dehury.owlmail.data.getcontact.GetContactsRequest
 import github.sachin2dehury.owlmail.data.getcontact.GetContactsResponse

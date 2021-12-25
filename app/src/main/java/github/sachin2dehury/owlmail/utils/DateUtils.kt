@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.other
+package github.sachin2dehury.owlmail.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

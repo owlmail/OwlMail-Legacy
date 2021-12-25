@@ -6,16 +6,20 @@ import android.webkit.URLUtil
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
+import github.sachin2dehury.owlmail.data.SessionInfo
 import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
-import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
+import github.sachin2dehury.owlmail.utils.hideKeyBoard
 
 @AndroidEntryPoint
 class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
 
     private var _binding: FragmentBaseUrlBinding? = null
     private val binding get() = _binding!!
+
+    private val args: BaseURLFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +46,9 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
                 root.hideKeyBoard()
                 findNavController().navigate(
                     BaseURLFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(
-                        baseURL
+                        args.sessionInfo.copy(
+                            authDetails = SessionInfo.AuthDetails(baseUrl = baseURL)
+                        )
                     )
                 )
             } else {

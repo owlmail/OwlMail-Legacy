@@ -1,6 +1,7 @@
 package github.sachin2dehury.owlmail.viewmodel
 
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,6 +9,7 @@ import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.data.ZimbraSoap
 import github.sachin2dehury.owlmail.data.auth.AuthRequest
+import github.sachin2dehury.owlmail.data.search.SearchRequest
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +49,21 @@ class AuthViewModel @Inject constructor(
         }
 
     fun setAuthToken(authToken: String) {
-        authRepository.authToken = authToken
+        authRepository.setAuthToken(authToken)
+    }
+
+    fun makeSearch() = viewModelScope.launch(Dispatchers.IO) {
+        val response = authRepository.makeSearchRequest(
+            SearchRequest(
+                offset = 0,
+                limit = 100,
+                query = "in:inbox",
+            )
+        )
+
+        if (response is ResultState.Success) {
+            Log.w("Sachin", "Response : ${response.value?.body?.searchResponse?.conversations}")
+        }
     }
 
     fun resetLoginState() {

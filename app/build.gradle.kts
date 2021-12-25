@@ -23,6 +23,15 @@ android {
         multiDexEnabled = true
     }
 
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("x86", "armeabi-v7a", "arm64-v8a", "x86_64")
+            isUniversalApk = false
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -87,16 +96,16 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-RC2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt")
 
     // Coroutine Lifecycle Scopes
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
     // Navigation Component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.0-beta02")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.0-beta02")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.0-rc01")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.0-rc01")
 
     //OkHttp
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
@@ -113,9 +122,9 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.4.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.4.0-rc01")
-    kapt("androidx.room:room-compiler:2.4.0-rc01")
-    implementation("androidx.room:room-ktx:2.4.0-rc01")
+    implementation("androidx.room:room-runtime:2.4.0")
+    kapt("androidx.room:room-compiler:2.4.0")
+    implementation("androidx.room:room-ktx:2.4.0")
 
     // Preferences DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -130,13 +139,13 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:26.2.0"))
     implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.6")
-    implementation("com.google.firebase:firebase-analytics-ktx:20.0.1")
+    implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
 
     //Ads
     implementation("com.google.android.gms:play-services-ads:20.5.0")
 
     //Preference
-    implementation("androidx.preference:preference-ktx:1.2.0-beta01")
+    implementation("androidx.preference:preference-ktx:1.2.0-rc01")
 
     //Paging Library
     implementation("androidx.paging:paging-runtime-ktx:3.1.0")
@@ -163,10 +172,10 @@ dependencies {
 //    kapt("com.airbnb:deeplinkdispatch-processor:5.4.3")
 
     //Coil
-    implementation("io.coil-kt:coil-base:2.0.0-alpha05")
-    implementation("io.coil-kt:coil-svg:2.0.0-alpha05")
-    implementation("io.coil-kt:coil-gif:2.0.0-alpha05")
-    implementation("io.coil-kt:coil-video:2.0.0-alpha05")
+    implementation("io.coil-kt:coil-base:2.0.0-alpha06")
+    implementation("io.coil-kt:coil-svg:2.0.0-alpha06")
+    implementation("io.coil-kt:coil-gif:2.0.0-alpha06")
+    implementation("io.coil-kt:coil-video:2.0.0-alpha06")
 
     //ViewPager 2
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")

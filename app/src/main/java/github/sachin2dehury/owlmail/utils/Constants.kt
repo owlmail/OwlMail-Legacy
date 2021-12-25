@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.other
+package github.sachin2dehury.owlmail.utils
 
 const val SCREEN_HOME = "SCREEN_HOME"
 const val SCREEN_SETTINGS = "SCREEN_SETTINGS"

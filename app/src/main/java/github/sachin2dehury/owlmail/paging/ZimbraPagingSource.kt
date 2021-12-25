@@ -2,10 +2,10 @@ package github.sachin2dehury.owlmail.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import github.sachin2dehury.owlmail.epoxy.UiModel
 
-abstract class BasePagingSource<T> : PagingSource<Int, UiModel<T>>() {
-    override fun getRefreshKey(state: PagingState<Int, UiModel<T>>): Int? {
+abstract class ZimbraPagingSource<T : Any> : PagingSource<Int, T>() {
+
+    override fun getRefreshKey(state: PagingState<Int, T>): Int? {
         // Try to find the page key of the closest page to anchorPosition, from
         // either the prevKey or the nextKey, but you need to handle nullability
         // here:

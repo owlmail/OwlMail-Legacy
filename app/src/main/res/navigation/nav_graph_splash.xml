@@ -5,15 +5,34 @@
     android:id="@+id/nav_graph_splash"
     app:startDestination="@id/splashFragment">
 
-    <navigation android:id="@id/nav_graph_auth" />
-
     <fragment
         android:id="@+id/splashFragment"
         android:name="github.sachin2dehury.owlmail.ui.fragment.SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
-            android:id="@+id/action_splashFragment_to_nav_graph_auth"
-            app:destination="@id/nav_graph_auth" />
+            android:id="@+id/action_splashFragment_to_baseUrlSetUpFragment"
+            app:destination="@id/baseUrlSetUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/baseUrlSetUpFragment"
+        android:name="github.sachin2dehury.owlmail.ui.fragment.BaseURLFragment"
+        tools:layout="@layout/fragment_base_url">
+        <argument
+            android:name="sessionInfo"
+            app:argType="github.sachin2dehury.owlmail.data.SessionInfo" />
+        <action
+            android:id="@+id/action_baseUrlSetUpFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="github.sachin2dehury.owlmail.ui.fragment.AuthFragment"
+        tools:layout="@layout/fragment_auth">
+        <argument
+            android:name="sessionInfo"
+            app:argType="github.sachin2dehury.owlmail.data.SessionInfo" />
     </fragment>
 
 </navigation>

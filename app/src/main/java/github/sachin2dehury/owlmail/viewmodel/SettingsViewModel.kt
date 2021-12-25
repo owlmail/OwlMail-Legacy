@@ -59,7 +59,7 @@ class SettingsViewModel @Inject constructor(
     //TODO improve logic here
     fun getBundle(context: Context) = persistableBundleOf(
         context.getString(R.string.key_should_sync) to syncState.value,
-        context.getString(R.string.key_password) to authRepository.authToken,
+        context.getString(R.string.key_password) to authRepository.token,
 //        context.getString(R.string.key_username) to authRepository.getCredential()
     )
 }

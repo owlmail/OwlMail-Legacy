@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.data.autocompletesearch
+package github.sachin2dehury.owlmail.data.autocomplete
 
 
 import android.os.Parcelable

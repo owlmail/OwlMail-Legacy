@@ -13,6 +13,6 @@ import kotlinx.parcelize.Parcelize
 data class AuthRequest(
     val account: Content? = null,
     @Json(name = "_jsns")
-    val jsns: String = ZimbraSoapJson.Account.value,
+    val jsns: String? = ZimbraSoapJson.Account.value,
     val password: Content? = null
 ) : Parcelable

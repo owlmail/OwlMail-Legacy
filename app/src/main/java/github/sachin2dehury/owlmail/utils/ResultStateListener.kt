@@ -1,11 +1,11 @@
-package github.sachin2dehury.owlmail.ui.utils
+package github.sachin2dehury.owlmail.utils
 
 import github.sachin2dehury.owlmail.api.ResultState
 import github.sachin2dehury.owlmail.data.ZimbraSoap
 
-interface ResultStateListener {
+interface ResultStateListener<T> {
 
-    fun ResultState<ZimbraSoap>.mapToState() {
+    fun ResultState<T>.mapToState() {
         when (this) {
             ResultState.Empty -> setEmptyState()
             is ResultState.Error -> setErrorState(this)
@@ -20,5 +20,5 @@ interface ResultStateListener {
 
     fun setLoadingState()
 
-    fun setSuccessState(resultState: ResultState.Success<ZimbraSoap>)
+    fun setSuccessState(resultState: ResultState.Success<T>)
 }

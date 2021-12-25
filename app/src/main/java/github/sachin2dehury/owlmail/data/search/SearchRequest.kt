@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SearchRequest(
     @Json(name = "_jsns")
-    val jsns: String = ZimbraSoapJson.Mail.value,
+    val jsns: String? = ZimbraSoapJson.Mail.value,
     val limit: Int? = null,
     val offset: Int? = null,
     val query: String? = null,

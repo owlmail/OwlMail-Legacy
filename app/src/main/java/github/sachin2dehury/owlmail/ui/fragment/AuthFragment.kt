@@ -14,15 +14,15 @@ import github.sachin2dehury.owlmail.data.Content
 import github.sachin2dehury.owlmail.data.ZimbraSoap
 import github.sachin2dehury.owlmail.data.auth.AuthRequest
 import github.sachin2dehury.owlmail.databinding.FragmentAuthBinding
-import github.sachin2dehury.owlmail.ui.utils.ResultStateListener
-import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
+import github.sachin2dehury.owlmail.utils.ResultStateListener
+import github.sachin2dehury.owlmail.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.viewmodel.AuthViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener {
+class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<ZimbraSoap> {
 
     private var _binding: FragmentAuthBinding? = null
     private val binding get() = _binding!!
@@ -66,7 +66,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener {
             account = Content(userName),
             password = Content(password)
         )
-        viewModel.updateLoginState(args.baseURL)
+//        viewModel.updateLoginState(args.sessionInfo.authDetails.baseUrl)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
@@ -95,6 +95,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener {
         resultState.value?.body?.authResponse?.let {
             it.authToken?.firstOrNull()?.content?.let { authToken ->
                 viewModel.setAuthToken(authToken)
+                viewModel.makeSearch()
                 viewModel.saveLoginCredential(authToken, it.lifetime)
             }
         }

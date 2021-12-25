@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.ui.utils
+package github.sachin2dehury.owlmail.utils
 
 import android.util.TypedValue
 import android.view.View

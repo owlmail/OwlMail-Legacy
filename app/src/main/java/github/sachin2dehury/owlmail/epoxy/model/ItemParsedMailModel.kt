@@ -7,9 +7,9 @@ import github.sachin2dehury.owlmail.datamodel.Mail
 import github.sachin2dehury.owlmail.epoxy.EpoxyModelExt
 import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.UiModel
-import github.sachin2dehury.owlmail.other.getFirstCharacter
-import github.sachin2dehury.owlmail.ui.utils.setBackgroundColor
-import github.sachin2dehury.owlmail.ui.utils.show
+import github.sachin2dehury.owlmail.utils.getFirstCharacter
+import github.sachin2dehury.owlmail.utils.setBackgroundColor
+import github.sachin2dehury.owlmail.utils.show
 
 class ItemParsedMailModel(
     private val uiModel: UiModel.Item<Mail>,

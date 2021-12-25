@@ -47,7 +47,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providePagerConfig() = PagingConfig(20, 5, false)
+    fun providePagingConfig() = PagingConfig(10, 3, false)
 
     @Singleton
     @Provides
@@ -57,5 +57,5 @@ object RepositoryModule {
         mailDao: MailDao,
         parsedMailDao: ParsedMailDao,
         pagingConfig: PagingConfig
-    ) = MailRepository(context, mailDao, parsedMailDao, pagingConfig)
+    ) = MailRepository(context, mailApiExt.provideMailApi(), mailDao, parsedMailDao, pagingConfig)
 }

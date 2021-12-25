@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.repository.AuthRepository
+import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.data.SessionInfo
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,36 +15,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository,
-    private val authRepository: AuthRepository,
+    private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
 
-    private val _authToken = MutableStateFlow<String?>(null)
-    val authToken = _authToken.asStateFlow()
-
-    private val _authTokenExpireTime = MutableStateFlow<Long?>(null)
-    val authTokenExpireTime = _authTokenExpireTime.asStateFlow()
-
-    private val _baseUrl = MutableStateFlow<String?>(null)
-    val baseUrl = _baseUrl.asStateFlow()
-
-    private val _password = MutableStateFlow<String?>(null)
-    val password = _password.asStateFlow()
-
-    private val _username = MutableStateFlow<String?>(null)
-    val username = _username.asStateFlow()
-
-    fun updateAuthToken() {
-        authRepository.authToken = _authToken.value
-    }
+    private val _sessionInfo = MutableStateFlow<ResultState<SessionInfo>>(ResultState.Empty)
+    val sessionInfo = _sessionInfo.asStateFlow()
 
     private fun updateInfo() = viewModelScope.launch(Dispatchers.IO) {
+        _sessionInfo.value = ResultState.Loading
         dataStoreRepository.apply {
-            _baseUrl.value = readString(R.string.key_url)
-            _username.value = readString(R.string.key_username)
-            _password.value = readString(R.string.key_password)
-            _authToken.value = readString(R.string.key_auth_token)
-            _authTokenExpireTime.value = readLong(R.string.key_auth_token_expire_time)
+            val sessionInfo = SessionInfo(
+                SessionInfo.UserDetails(
+                    readString(R.string.key_username),
+                    readString(R.string.key_password),
+                ),
+                SessionInfo.AuthDetails(
+                    readString(R.string.key_auth_token),
+                    readLong(R.string.key_auth_token_expire_time),
+                    readString(R.string.key_url),
+                )
+            )
+            _sessionInfo.value = ResultState.Success(sessionInfo)
         }
     }
 

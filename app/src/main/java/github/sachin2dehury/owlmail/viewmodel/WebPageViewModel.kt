@@ -9,5 +9,5 @@ import javax.inject.Inject
 class WebPageViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
-    val token = authRepository.authToken
+    val token = authRepository.token
 }

@@ -1,10 +1,11 @@
-package github.sachin2dehury.owlmail.api
+package github.sachin2dehury.owlmail.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import github.sachin2dehury.owlmail.api.ResultState
 import retrofit2.Response
 
 @SuppressLint("MissingPermission")
