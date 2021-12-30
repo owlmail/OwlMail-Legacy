@@ -12,10 +12,10 @@
         android:src="@drawable/ic_dsc_logo"
         app:border="true"
         app:border_width="4dp"
-        app:progress="33"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress="33" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/roll_text_box"

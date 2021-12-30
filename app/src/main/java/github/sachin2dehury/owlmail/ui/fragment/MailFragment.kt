@@ -1,6 +1,7 @@
 package github.sachin2dehury.owlmail.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -8,26 +9,23 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentMailBoxBinding
-import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
-import github.sachin2dehury.owlmail.epoxy.UiModel
-import github.sachin2dehury.owlmail.epoxy.controller.MailBoxController
 import github.sachin2dehury.owlmail.viewmodel.MailViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MailFragment(private val request: String) : Fragment(R.layout.fragment_mail_box),
-    EpoxyModelOnClickListener {
+class MailFragment : Fragment(R.layout.fragment_mail_box) {
 
     private var _binding: FragmentMailBoxBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MailViewModel by viewModels()
 
-    private val controller = MailBoxController(this)
+//    private val controller = MailBoxController(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +37,7 @@ class MailFragment(private val request: String) : Fragment(R.layout.fragment_mai
 
         _binding = FragmentMailBoxBinding.bind(view)
 
-        setupRecyclerView()
+//        setupRecyclerView()
         setUpOnClickListener()
         subscribeToObserver()
     }
@@ -50,11 +48,13 @@ class MailFragment(private val request: String) : Fragment(R.layout.fragment_mai
         }
     }
 
-    private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
+//    private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
 
     private fun subscribeToObserver() = lifecycleScope.launch {
-        viewModel.getMails(request).collectLatest {
-            controller.submitData(it)
+        viewModel.getSearchRequestPagingSource("in:inbox").collectLatest {
+            it.map { conv ->
+                Log.w("sachin", "$conv")
+            }
         }
     }
 
@@ -81,9 +81,5 @@ class MailFragment(private val request: String) : Fragment(R.layout.fragment_mai
         binding.swipeRefresh.setOnRefreshListener(null)
         binding.epoxyRecyclerView.clear()
         _binding = null
-    }
-
-    override fun <T> onModelClick(uiModel: UiModel<T>) {
-
     }
 }

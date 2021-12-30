@@ -12,10 +12,10 @@
         android:src="@drawable/ic_dsc_logo"
         app:border="true"
         app:border_width="4dp"
-        app:progress="67"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress="67" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"

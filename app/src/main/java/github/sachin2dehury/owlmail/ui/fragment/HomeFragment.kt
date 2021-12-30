@@ -5,31 +5,28 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.SessionDetails
-import github.sachin2dehury.owlmail.databinding.FragmentSplashBinding
+import github.sachin2dehury.owlmail.data.ZimbraSoap
+import github.sachin2dehury.owlmail.databinding.FragmentHomeBinding
 import github.sachin2dehury.owlmail.utils.ResultStateListener
 import github.sachin2dehury.owlmail.viewmodel.SplashViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<SessionDetails> {
+class HomeFragment : Fragment(R.layout.fragment_home), ResultStateListener<ZimbraSoap> {
 
     private val viewModel: SplashViewModel by viewModels()
 
-    private var _binding: FragmentSplashBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSplashBinding.bind(view)
-
+        _binding = FragmentHomeBinding.bind(view)
         subscribeToObservers()
-        viewModel.getUserDetails()
     }
 
     override fun onDestroyView() {
@@ -38,28 +35,23 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.sessionDetails.collectLatest { it.mapToState() }
+        viewModel.sessionDetails.collectLatest { }
     }
 
     override fun setEmptyState() {
-        //With Image
+        TODO("Not yet implemented")
     }
 
-    override fun setErrorState(resultState: ResultState.Error<SessionDetails>) {
-        findNavController().navigate(
-            SplashFragmentDirections.actionSplashFragmentToBaseUrlSetUpFragment(
-                resultState.value ?: SessionDetails()
-            )
-        )
+    override fun setErrorState(resultState: ResultState.Error<ZimbraSoap>) {
+        TODO("Not yet implemented")
     }
 
     override fun setLoadingState() {
-        //Animate
+        TODO("Not yet implemented")
     }
 
-    override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
-        viewModel.saveAuthDetails(resultState.value?.authDetails)
-        //navigate to home
+    override fun setSuccessState(resultState: ResultState.Success<ZimbraSoap>) {
+        TODO("Not yet implemented")
     }
 
 }

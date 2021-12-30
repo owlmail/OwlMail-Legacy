@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.data
+package github.sachin2dehury.owlmail.data.common
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

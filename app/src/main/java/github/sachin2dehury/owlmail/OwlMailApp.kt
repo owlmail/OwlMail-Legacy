@@ -9,6 +9,8 @@ class OwlMailApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Stetho.initializeWithDefaults(applicationContext)
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(applicationContext)
+        }
     }
 }

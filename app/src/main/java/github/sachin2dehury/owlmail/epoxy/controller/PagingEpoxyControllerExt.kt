@@ -9,13 +9,13 @@ import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.UiModel
 import github.sachin2dehury.owlmail.epoxy.model.*
 
-abstract class PagingEpoxyControllerExt<T>(val listener: EpoxyModelOnClickListener?) :
+abstract class PagingEpoxyControllerExt<T>(private val listener: EpoxyModelOnClickListener?) :
     PagingDataEpoxyController<UiModel<T>>(
         modelBuildingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
         diffingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     ) {
 
-    val controllerHashCode by lazy { hashCode() }
+    private val controllerHashCode by lazy(LazyThreadSafetyMode.NONE) { hashCode() }
 
     override fun buildItemModel(currentPosition: Int, item: UiModel<T>?): EpoxyModel<View> =
         item?.let {

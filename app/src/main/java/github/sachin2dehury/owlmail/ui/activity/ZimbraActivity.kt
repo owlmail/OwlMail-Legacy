@@ -3,14 +3,12 @@ package github.sachin2dehury.owlmail.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.ActivityMainBinding
-import github.sachin2dehury.owlmail.ui.adapters.MailFragmentStateAdapter
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class ZimbraActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!

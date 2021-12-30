@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MailViewModel @Inject constructor(
-    private val mailRepository: MailRepository,
+    private val mailRepository: MailRepository
 ) : ViewModel() {
 
     fun getSearchRequestPagingSource(request: String) =

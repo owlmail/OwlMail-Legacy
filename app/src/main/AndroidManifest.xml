@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OwlMail">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.ZimbraActivity"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:launchMode="singleInstance"

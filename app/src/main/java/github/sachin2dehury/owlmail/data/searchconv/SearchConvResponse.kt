@@ -1,10 +1,10 @@
 package github.sachin2dehury.owlmail.data.searchconv
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
-import android.os.Parcelable
 
 @JsonClass(generateAdapter = true)
 @Parcelize

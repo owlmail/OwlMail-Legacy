@@ -1,10 +1,11 @@
 package github.sachin2dehury.owlmail.utils
 
 import github.sachin2dehury.owlmail.data.Body
-import github.sachin2dehury.owlmail.data.Content
+import github.sachin2dehury.owlmail.data.UserDetails
 import github.sachin2dehury.owlmail.data.ZimbraSoap
 import github.sachin2dehury.owlmail.data.auth.AuthRequest
 import github.sachin2dehury.owlmail.data.autocomplete.AutoCompleteRequest
+import github.sachin2dehury.owlmail.data.common.Content
 import github.sachin2dehury.owlmail.data.common.MsgId
 import github.sachin2dehury.owlmail.data.convaction.ConvAction
 import github.sachin2dehury.owlmail.data.getcontact.GetContactsRequest
@@ -13,11 +14,11 @@ import github.sachin2dehury.owlmail.data.search.SearchRequest
 import github.sachin2dehury.owlmail.data.searchconv.SearchConvRequest
 import github.sachin2dehury.owlmail.data.searchgal.SearchGalRequest
 
-fun getZimbraAuthRequest(username: String?, password: String?) = ZimbraSoap(
+fun getZimbraAuthRequest(userDetails: UserDetails?) = ZimbraSoap(
     Body(
         authRequest = AuthRequest(
-            account = Content(username),
-            password = Content(password),
+            account = Content(userDetails?.username),
+            password = Content(userDetails?.password),
         )
     )
 )

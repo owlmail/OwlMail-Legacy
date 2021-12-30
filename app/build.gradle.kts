@@ -129,9 +129,6 @@ dependencies {
     // Preferences DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    //JSoup
-    implementation("org.jsoup:jsoup:1.14.3")
-
     //Google Play Core
     implementation("com.google.android.play:core:1.10.2")
 
@@ -155,7 +152,7 @@ dependencies {
     implementation("com.airbnb.android:epoxy-paging3:4.6.4")
 
     //Stetho
-    implementation("com.facebook.stetho:stetho:1.6.0")
+    debugImplementation("com.facebook.stetho:stetho:1.6.0")
 
     //Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")

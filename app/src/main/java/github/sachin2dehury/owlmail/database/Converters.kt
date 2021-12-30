@@ -12,7 +12,8 @@ class Converters {
 
     @Inject
     lateinit var moshi: Moshi
-//    private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
+    //    private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     private val invListType = listOf<Inv>().javaClass
     private val stringListType = listOf<String>().javaClass
     private val addressListType = listOf<Address>().javaClass

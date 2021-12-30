@@ -11,13 +11,13 @@ class SearchRequestPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Conversation> = try {
         val offset = params.key ?: 0
-        val limit =  params.loadSize
+        val limit = params.loadSize
         val request = getZimbraSearchRequest(query, offset, limit)
         val response = mailApi.makeSearchRequest(request).body()?.body?.searchResponse
         LoadResult.Page(
             data = response?.conversations ?: emptyList(),
-            prevKey = if (offset == 0) null else offset-1,
-            nextKey = if (response?.hasMore == true) offset+1 else null,
+            prevKey = if (offset == 0) null else offset - 1,
+            nextKey = if (response?.hasMore == true) offset + 1 else null,
         )
     } catch (e: Exception) {
         LoadResult.Error(e)

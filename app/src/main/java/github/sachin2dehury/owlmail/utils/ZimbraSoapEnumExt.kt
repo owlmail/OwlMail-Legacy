@@ -1,12 +1,6 @@
-package github.sachin2dehury.owlmail.data.common
+package github.sachin2dehury.owlmail.utils
 
-enum class ZimbraFolder(val index: Int, val value: String) {
-    INBOX(0, "inbox"),
-    SENT(1, "sent"),
-    DRAFT(2, "draft"),
-    JUNK(3, "junk"),
-    TRASH(4, "trash")
-}
+import github.sachin2dehury.owlmail.data.constants.ZimbraFolder
 
 fun ZimbraFolder.fromIndex(index: Int?) = when (index) {
     ZimbraFolder.INBOX.index -> ZimbraFolder.INBOX

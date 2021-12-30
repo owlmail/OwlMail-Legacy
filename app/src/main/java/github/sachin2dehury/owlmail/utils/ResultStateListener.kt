@@ -1,7 +1,6 @@
 package github.sachin2dehury.owlmail.utils
 
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.ZimbraSoap
 
 interface ResultStateListener<T> {
 
@@ -16,7 +15,7 @@ interface ResultStateListener<T> {
 
     fun setEmptyState()
 
-    fun setErrorState(resultState: ResultState.Error)
+    fun setErrorState(resultState: ResultState.Error<T>)
 
     fun setLoadingState()
 

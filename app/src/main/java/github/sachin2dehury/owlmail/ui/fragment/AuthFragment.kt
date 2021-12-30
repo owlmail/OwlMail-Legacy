@@ -5,24 +5,22 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.Content
-import github.sachin2dehury.owlmail.data.ZimbraSoap
-import github.sachin2dehury.owlmail.data.auth.AuthRequest
+import github.sachin2dehury.owlmail.data.SessionDetails
 import github.sachin2dehury.owlmail.databinding.FragmentAuthBinding
 import github.sachin2dehury.owlmail.utils.ResultStateListener
 import github.sachin2dehury.owlmail.utils.hideKeyBoard
+import github.sachin2dehury.owlmail.utils.showKeyBoard
 import github.sachin2dehury.owlmail.viewmodel.AuthViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
-class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<ZimbraSoap> {
+class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<SessionDetails> {
 
     private var _binding: FragmentAuthBinding? = null
     private val binding get() = _binding!!
@@ -40,37 +38,26 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Zimbr
         subscribeToObservers()
     }
 
-    private fun redirectFragment() {
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.authFragment, true)
-            .build()
-//        findNavController().navigate(
-//            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
-//            navOptions
-//        )
-    }
-
     private fun setUpClickListener() {
         binding.privacyPolicyButton.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
+
         }
         binding.loginButton.setOnClickListener {
-            updateCredential()
+            makeAuthRequest()
         }
     }
 
-    private fun updateCredential() {
-        val userName = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
-        val password = binding.passwordEditText.text.toString()
-        viewModel.authRequest = AuthRequest(
-            account = Content(userName),
-            password = Content(password)
-        )
-//        viewModel.updateLoginState(args.sessionInfo.authDetails.baseUrl)
+    private fun makeAuthRequest() {
+        val username = binding.rollEditText.text?.trim().toString()
+        val password = binding.passwordEditText.text?.trim().toString()
+        val userDetails =
+            args.sessionDetails.userDetails?.copy(username = username, password = password)
+        val sessionDetails = args.sessionDetails.copy(userDetails = userDetails)
+        viewModel.makeAuthRequest(sessionDetails)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.loginState.collectLatest { it.mapToState() }
+        viewModel.sessionDetails.collectLatest { it.mapToState() }
     }
 
 
@@ -80,24 +67,26 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Zimbr
     }
 
     override fun setEmptyState() {
+        binding.loginButton.isClickable = true
+        binding.privacyPolicyButton.isClickable = true
+        binding.rollEditText.showKeyBoard()
     }
 
-    override fun setErrorState(resultState: ResultState.Error) {
+    override fun setErrorState(resultState: ResultState.Error<SessionDetails>) {
+//        show error
     }
 
     override fun setLoadingState() {
         binding.loginButton.isClickable = false
-        binding.privacyPolicyButton.isCheckable = false
+        binding.privacyPolicyButton.isClickable = false
         binding.root.hideKeyBoard()
     }
 
-    override fun setSuccessState(resultState: ResultState.Success<ZimbraSoap>) {
-        resultState.value?.body?.authResponse?.let {
-            it.authToken?.firstOrNull()?.content?.let { authToken ->
-                viewModel.setAuthToken(authToken)
-                viewModel.makeSearch()
-                viewModel.saveLoginCredential(authToken, it.lifetime)
-            }
+    override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
+        resultState.value?.let {
+            findNavController().navigate(
+                AuthFragmentDirections.actionAuthFragmentToMailFragment(it)
+            )
         }
     }
 }

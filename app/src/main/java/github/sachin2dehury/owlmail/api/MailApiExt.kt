@@ -13,7 +13,7 @@ class MailApiExt(
     private var mailApi: MailApi? = null
 
     fun provideMailApi(baseURL: String? = null): MailApi = mailApi ?: Retrofit.Builder()
-        .baseUrl(baseURL!!)
+        .baseUrl(baseURL ?: "https://mail.nitrkl.ac.in/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()

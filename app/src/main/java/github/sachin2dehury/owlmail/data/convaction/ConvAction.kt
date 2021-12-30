@@ -4,7 +4,7 @@ package github.sachin2dehury.owlmail.data.convaction
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import github.sachin2dehury.owlmail.data.common.ZimbraSoapJson
+import github.sachin2dehury.owlmail.data.constants.ZimbraSoapJson
 import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class ConvAction(
     val action: Action? = null,
     @Json(name = "_jsns")
-    val jsns: String? = ZimbraSoapJson.Mail.value
+    val jsns: String? = ZimbraSoapJson.MAIL.value
 ) : Parcelable {
 
     @JsonClass(generateAdapter = true)

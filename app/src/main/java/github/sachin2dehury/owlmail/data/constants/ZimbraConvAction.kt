@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.data.common
+package github.sachin2dehury.owlmail.data.constants
 
 enum class ZimbraConvAction(val value: String) {
     READ("read"),
