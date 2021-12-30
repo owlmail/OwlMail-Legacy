@@ -18,4 +18,12 @@ abstract class ZimbraPagingSource<T : Any> : PagingSource<Int, T>() {
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> = try {
+        tryLoadingPage(params.key ?: 0, params.loadSize)
+    } catch (e: Exception) {
+        LoadResult.Error(e)
+    }
+
+    abstract suspend fun tryLoadingPage(offset: Int, limit: Int): LoadResult.Page<Int, T>
 }

@@ -9,17 +9,13 @@ class SearchGalRequestPagingSource(
     private val query: String?
 ) : ZimbraPagingSource<Contact>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Contact> = try {
-        val offset = params.key ?: 0
-        val limit = params.loadSize
+    override suspend fun tryLoadingPage(offset: Int, limit: Int): LoadResult.Page<Int, Contact> {
         val request = getZimbraSearchGalRequest(query, offset, limit)
         val response = mailApi.makeSearchRequest(request).body()?.body?.searchGalResponse
-        LoadResult.Page(
+        return LoadResult.Page(
             data = response?.contact ?: emptyList(),
             prevKey = if (offset == 0) null else offset - 1,
             nextKey = if (response?.hasMore == true) offset + 1 else null,
         )
-    } catch (e: Exception) {
-        LoadResult.Error(e)
     }
 }

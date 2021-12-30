@@ -1,24 +1,18 @@
 package github.sachin2dehury.owlmail.ui.fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.ZimbraSoap
 import github.sachin2dehury.owlmail.databinding.FragmentHomeBinding
-import github.sachin2dehury.owlmail.utils.ResultStateListener
-import github.sachin2dehury.owlmail.viewmodel.SplashViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), ResultStateListener<ZimbraSoap> {
-
-    private val viewModel: SplashViewModel by viewModels()
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -26,32 +20,38 @@ class HomeFragment : Fragment(R.layout.fragment_home), ResultStateListener<Zimbr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
-        subscribeToObservers()
+    }
+
+    private fun setUpTabLayout() {
+//        binding.viewPager.adapter = mailFragmentStateAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = position.toString()
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val searchView = menu.findItem(R.id.searchBar).actionView as SearchView
+        searchView.queryHint = getString(R.string.search)
+        searchView.isSubmitButtonEnabled = true
+        searchView.setOnCloseListener {
+            false
+        }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(query: String) = false
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.sessionDetails.collectLatest { }
-    }
-
-    override fun setEmptyState() {
-        TODO("Not yet implemented")
-    }
-
-    override fun setErrorState(resultState: ResultState.Error<ZimbraSoap>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setLoadingState() {
-        TODO("Not yet implemented")
-    }
-
-    override fun setSuccessState(resultState: ResultState.Success<ZimbraSoap>) {
-        TODO("Not yet implemented")
     }
 
 }

@@ -5,31 +5,35 @@ import androidx.annotation.LayoutRes
 import androidx.viewbinding.ViewBinding
 import com.airbnb.epoxy.EpoxyModel
 
-open class EpoxyModelExt<T : ViewBinding>(
+open class EpoxyModelExt<T>(
+    private val item: T?,
     @LayoutRes private val layoutRes: Int,
-    private val epoxyModelOnClickListener: EpoxyModelOnClickListener?
+    private val epoxyModelOnClickListener: EpoxyModelOnClickListener<T>?
 ) : EpoxyModel<View>() {
 
-    private var _binding: T? = null
+    private var _binding: ViewBinding? = null
 
     override fun bind(view: View) {
-        _binding = bindExt(view)
+        super.bind(view)
+        show(item != null)
+        _binding = bindItem(view, item)
+        _binding?.root?.setOnClickListener {
+            epoxyModelOnClickListener?.onItemClick(item)
+        }
     }
 
     override fun unbind(view: View) {
-        unbindExt(_binding!!)
+        super.unbind(view)
+        unbindItem(_binding, item)
         _binding?.root?.setOnClickListener(null)
         _binding = null
     }
 
     override fun shouldSaveViewState() = true
 
-    open fun bindExt(view: View): T? = null
+    protected fun bindItem(view: View, item: T?): ViewBinding? = null
 
-    open fun unbindExt(binding: T) = Unit
-
-    protected fun <E> setOnModelClickListener(uiModel: UiModel<E>) =
-        _binding?.root?.setOnClickListener { epoxyModelOnClickListener?.onModelClick(uiModel) }
+    protected fun unbindItem(binding: ViewBinding?, item: T?) = Unit
 
     override fun getDefaultLayout() = layoutRes
 }

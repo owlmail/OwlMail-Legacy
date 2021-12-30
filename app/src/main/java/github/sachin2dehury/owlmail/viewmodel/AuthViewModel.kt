@@ -48,7 +48,8 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun saveLoginCredential(sessionDetails: SessionDetails?) =
+    fun saveLoginCredential(sessionDetails: SessionDetails?) {
+        authRepository.setAuthToken(sessionDetails?.authDetails?.authToken)
         CoroutineScope(Dispatchers.IO).launch {
             dataStoreRepository.apply {
                 saveData(R.string.key_username, sessionDetails?.userDetails?.username)
@@ -62,8 +63,5 @@ class AuthViewModel @Inject constructor(
                 saveData(R.string.key_should_sync, true)
             }
         }
-
-    fun setAuthToken(authToken: String) {
-        authRepository.setAuthToken(authToken)
     }
 }

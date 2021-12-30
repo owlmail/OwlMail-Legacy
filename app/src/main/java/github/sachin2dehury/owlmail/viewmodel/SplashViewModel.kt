@@ -31,15 +31,19 @@ class SplashViewModel @Inject constructor(
     fun getUserDetails() = viewModelScope.launch(Dispatchers.IO) {
         dataStoreRepository.apply {
             val userDetails = UserDetails(
-                readString(R.string.key_username),
-                readString(R.string.key_password),
-                readString(R.string.key_url),
+                baseUrl = readString(R.string.key_url),
+                username = readString(R.string.key_username),
+                password = readString(R.string.key_password),
             )
             val authDetails = AuthDetails(
-                readString(R.string.key_auth_token),
-                readLong(R.string.key_auth_token_expire_time),
+                authToken = readString(R.string.key_auth_token),
+                authTokenExpireTime = readLong(R.string.key_auth_token_expire_time),
             )
-            refreshAuthToken(SessionDetails(userDetails, authDetails))
+            if (!userDetails.baseUrl.isNullOrEmpty()) {
+                refreshAuthToken(SessionDetails(userDetails, authDetails))
+            } else {
+                _sessionDetails.value = ResultState.Error()
+            }
         }
     }
 

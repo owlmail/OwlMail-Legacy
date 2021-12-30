@@ -96,8 +96,8 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
     // Coroutine Lifecycle Scopes
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
@@ -159,10 +159,10 @@ dependencies {
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
     //Leak Canary
-//    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
     //Lottie
-//    implementation("com.airbnb.android:lottie:4.1.0")
+//    implementation("com.airbnb.android:lottie:4.2.2")
 
     //DeepLink Dispatch
 //    implementation("com.airbnb:deeplinkdispatch:5.4.3")
@@ -176,9 +176,6 @@ dependencies {
 
     //ViewPager 2
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
-
-    //Circular Loader
-//    implementation("com.mikhaellopez:circularfillableloaders:1.4.0")
 
     //BackPack Theme
     implementation("net.skyscanner.backpack:backpack-android:33.2.0")

@@ -58,8 +58,15 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
     }
 
     override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
-        viewModel.saveAuthDetails(resultState.value?.authDetails)
-        //navigate to home
+        resultState.value?.let {
+            viewModel.saveAuthDetails(it.authDetails)
+            findNavController().navigate(
+                SplashFragmentDirections.actionSplashFragmentToSearchFragment(
+                    it
+                )
+            )
+            //navigate to home
+        }
     }
 
 }

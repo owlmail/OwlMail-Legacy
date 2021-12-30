@@ -84,8 +84,9 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Sessi
 
     override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
         resultState.value?.let {
+            viewModel.saveLoginCredential(it)
             findNavController().navigate(
-                AuthFragmentDirections.actionAuthFragmentToMailFragment(it)
+                AuthFragmentDirections.actionAuthFragmentToSearchFragment(it)
             )
         }
     }
