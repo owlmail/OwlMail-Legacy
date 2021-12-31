@@ -17,12 +17,6 @@ fun getFormattedDate(time: Long, context: Context): String = when {
     else -> SimpleDateFormat(context.getString(R.string.month_format)).format(time)
 }
 
-@SuppressLint("SimpleDateFormat")
-fun getMonthRemote(page: Int, context: Context): String =
-    SimpleDateFormat(context.getString(R.string.zimbra_month_format)).format(
-        getCalender(page).timeInMillis
-    )
-
 fun getCalender(page: Int): Calendar = Calendar.getInstance().apply {
     add(Calendar.MONTH, -page)
     set(Calendar.DAY_OF_MONTH, 1)
@@ -32,6 +26,3 @@ fun getCalender(page: Int): Calendar = Calendar.getInstance().apply {
 @SuppressLint("SimpleDateFormat")
 fun getFormattedHeaderDate(page: Int, context: Context): String =
     SimpleDateFormat(context.getString(R.string.year_format)).format(getCalender(page))
-
-fun getMonthLocal(page: Int, context: Context) =
-    getCalender(page).timeInMillis to getCalender(page - 1).timeInMillis

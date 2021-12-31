@@ -2,12 +2,15 @@ package github.sachin2dehury.owlmail.data.searchconv
 
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import github.sachin2dehury.owlmail.data.common.Email
 import github.sachin2dehury.owlmail.data.common.MultiPartMsg
 import kotlinx.parcelize.Parcelize
 
+@Entity(tableName = "message")
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class Message(
@@ -23,8 +26,8 @@ data class Message(
     val flags: String? = null,
     @Json(name = "fr")
     val body: String? = null,
-    @Json(name = "id")
-    val id: String? = null,
+    @PrimaryKey
+    val id: String = "",
     @Json(name = "l")
     val folder: String? = null,
     @Json(name = "mid")

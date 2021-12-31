@@ -4,13 +4,15 @@ import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import github.sachin2dehury.owlmail.R
+import github.sachin2dehury.owlmail.data.search.Conversation
+import github.sachin2dehury.owlmail.data.searchconv.Message
+import github.sachin2dehury.owlmail.data.searchgal.Contact
 import github.sachin2dehury.owlmail.epoxy.EpoxyModelExt
 import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
-import github.sachin2dehury.owlmail.paging.ZimbraPagingType
 
-class ZimbraPagingEpoxyController(
-    private val listener: EpoxyModelOnClickListener<ZimbraPagingType>,
-) : PagingDataEpoxyController<ZimbraPagingType>(
+class ZimbraPagingEpoxyController<T : Any>(
+    private val listener: EpoxyModelOnClickListener<T>,
+) : PagingDataEpoxyController<T>(
     modelBuildingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     diffingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
 ) {
@@ -20,10 +22,10 @@ class ZimbraPagingEpoxyController(
     var isEmptyState = false
     var isLastItem = false
 
-    override fun buildItemModel(currentPosition: Int, item: ZimbraPagingType?) = when (item) {
-        is ZimbraPagingType.SearchRequest -> dummy()
-        is ZimbraPagingType.SearchConvRequest -> dummy()
-        is ZimbraPagingType.SearchGalRequest -> dummy()
+    override fun buildItemModel(currentPosition: Int, item: T?) = when (item) {
+        is Conversation -> dummy()
+        is Message -> dummy()
+        is Contact -> dummy()
         else -> dummy()
     }
 

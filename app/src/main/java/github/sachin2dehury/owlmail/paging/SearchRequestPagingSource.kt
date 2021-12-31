@@ -1,11 +1,11 @@
 package github.sachin2dehury.owlmail.paging
 
-import github.sachin2dehury.owlmail.api.MailApi
+import github.sachin2dehury.owlmail.api.ZimbraApi
 import github.sachin2dehury.owlmail.data.search.Conversation
 import github.sachin2dehury.owlmail.utils.getZimbraSearchRequest
 
 class SearchRequestPagingSource(
-    private val mailApi: MailApi,
+    private val zimbraApi: ZimbraApi,
     private val query: String?
 ) : ZimbraPagingSource<Conversation>() {
 
@@ -14,7 +14,7 @@ class SearchRequestPagingSource(
         limit: Int
     ): LoadResult.Page<Int, Conversation> {
         val request = getZimbraSearchRequest(query, offset, limit)
-        val response = mailApi.makeSearchRequest(request).body()?.body?.searchResponse
+        val response = zimbraApi.makeSearchRequest(request).body()?.body?.searchResponse
         return LoadResult.Page(
             data = response?.conversations ?: emptyList(),
             prevKey = if (offset == 0) null else offset - 1,

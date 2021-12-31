@@ -20,17 +20,15 @@
     <string name="about_us">About us</string>
     <string name="new_features">New features</string>
     <string name="terms_conditions">Terms &amp; conditions</string>
-    <string name="all_mails">All mails</string>
     <string name="calendar">Calendar</string>
     <string name="contacts">Contacts</string>
     <string name="tasks">Tasks</string>
     <string name="unknown_error">Something went wrong!</string>
-    <string name="null_error">Null value was found!</string>
-    <string name="mail_url">Enter mail URL</string>
+    <string name="mail_url">Enter Host URL</string>
     <string name="next">Next</string>
 
-    <string name="database_name">MAIL_DB</string>
-    <string name="data_store_name">MAIL_CREDENTIAL</string>
+    <string name="database_name">OWL_MAIL_DB</string>
+    <string name="data_store_name">OWL_MAIL_CREDENTIAL</string>
     <string name="key_username">KEY_USERNAME</string>
     <string name="key_password">KEY_PASSWORD</string>
     <string name="key_auth_token">KEY_AUTH_TOKEN</string>

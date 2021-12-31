@@ -3,7 +3,7 @@ package github.sachin2dehury.owlmail.api
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class BasicAuthInterceptor : Interceptor {
+class AuthInterceptor : Interceptor {
 
     var authToken: String? = null
 

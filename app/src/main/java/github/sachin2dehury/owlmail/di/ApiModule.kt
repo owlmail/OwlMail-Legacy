@@ -1,8 +1,10 @@
 package github.sachin2dehury.owlmail.di
 
 import android.content.Context
-import coil.ComponentRegistry
 import coil.ImageLoader
+import coil.annotation.ExperimentalCoilApi
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.Moshi
@@ -12,9 +14,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
+import github.sachin2dehury.owlmail.api.AuthInterceptor
 import github.sachin2dehury.owlmail.api.CoilImageGetter
-import github.sachin2dehury.owlmail.api.MailApiExt
+import github.sachin2dehury.owlmail.api.ZimbraApiExt
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
@@ -24,7 +26,7 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideBasicAuthInterceptor() = BasicAuthInterceptor()
+    fun provideBasicAuthInterceptor() = AuthInterceptor()
 
     @Singleton
     @Provides
@@ -40,12 +42,11 @@ object ApiModule {
     @Provides
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
-        basicAuthInterceptor: BasicAuthInterceptor,
+        authInterceptor: AuthInterceptor,
         chuckerInterceptor: ChuckerInterceptor
     ) = OkHttpClient.Builder()
-        .addInterceptor(basicAuthInterceptor)
+        .addInterceptor(authInterceptor)
         .addInterceptor(chuckerInterceptor)
-//        .cache(CoilUtils.createDefaultCache(context))
         .build()
 
     @Singleton
@@ -57,25 +58,19 @@ object ApiModule {
     fun provideMailApi(
         moshi: Moshi,
         okHttpClient: OkHttpClient
-    ): MailApiExt = MailApiExt(moshi, okHttpClient)
+    ): ZimbraApiExt = ZimbraApiExt(moshi, okHttpClient)
 
+    @ExperimentalCoilApi
     @Singleton
     @Provides
     fun provideImageLoader(
         @ApplicationContext context: Context,
-//        okHttpClient: OkHttpClient
-    ) = ImageLoader.Builder(context).crossfade(true).components(fun ComponentRegistry.Builder.() {
-//        add(ByteArrayFetcher())
-//        add(SvgDecoder(context))
-//        if (SDK_INT >= 28) {
-//            add(ImageDecoderDecoder(context, enforceMinimumFrameDelay = true))
-//        } else {
-//            add(GifDecoder(enforceMinimumFrameDelay = true))
-//        }
-//        add(VideoFrameFileFetcher(context))
-//        add(VideoFrameUriFetcher(context))
-//        add(VideoFrameDecoder(context))
-    }).build()
+        okHttpClient: OkHttpClient
+    ) = ImageLoader.Builder(context)
+        .crossfade(true)
+        .okHttpClient(okHttpClient)
+        .diskCache(DiskCache.Builder(context).build())
+        .memoryCache(MemoryCache.Builder(context).build()).build()
 
     @Singleton
     @Provides

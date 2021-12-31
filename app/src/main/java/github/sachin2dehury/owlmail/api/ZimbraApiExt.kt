@@ -5,18 +5,18 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class MailApiExt(
+class ZimbraApiExt(
     private val moshi: Moshi,
     private val okHttpClient: OkHttpClient,
 ) {
 
-    private var mailApi: MailApi? = null
+    private var zimbraApi: ZimbraApi? = null
 
-    fun provideMailApi(baseURL: String? = null): MailApi = mailApi ?: Retrofit.Builder()
+    fun provideMailApi(baseURL: String? = null): ZimbraApi = zimbraApi ?: Retrofit.Builder()
         .baseUrl(baseURL ?: "https://mail.nitrkl.ac.in/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(okHttpClient)
         .build()
-        .create(MailApi::class.java).also { mailApi = it }
+        .create(ZimbraApi::class.java).also { zimbraApi = it }
 
 }

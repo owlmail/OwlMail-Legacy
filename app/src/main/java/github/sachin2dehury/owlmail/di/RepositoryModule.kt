@@ -11,10 +11,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
-import github.sachin2dehury.owlmail.api.MailApiExt
-import github.sachin2dehury.owlmail.database.MailDao
-import github.sachin2dehury.owlmail.database.ParsedMailDao
+import github.sachin2dehury.owlmail.api.AuthInterceptor
+import github.sachin2dehury.owlmail.api.ZimbraApiExt
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.MailRepository
@@ -40,10 +38,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideAuthRepository(
-        basicAuthInterceptor: BasicAuthInterceptor,
-        mailApiExt: MailApiExt,
-        mailDao: MailDao,
-    ) = AuthRepository(basicAuthInterceptor, mailApiExt, mailDao)
+        authInterceptor: AuthInterceptor,
+        zimbraApiExt: ZimbraApiExt,
+    ) = AuthRepository(authInterceptor, zimbraApiExt)
 
     @Singleton
     @Provides
@@ -52,10 +49,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideMailRepository(
-        @ApplicationContext context: Context,
-        mailApiExt: MailApiExt,
-        mailDao: MailDao,
-        parsedMailDao: ParsedMailDao,
+        zimbraApiExt: ZimbraApiExt,
         pagingConfig: PagingConfig
-    ) = MailRepository(context, mailApiExt.provideMailApi(), mailDao, parsedMailDao, pagingConfig)
+    ) = MailRepository(zimbraApiExt.provideMailApi(), pagingConfig)
 }

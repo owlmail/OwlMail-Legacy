@@ -11,6 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class SearchResponse(
     @Json(name = "c")
     val conversations: List<Conversation>? = null,
+//    can have message and contact list
     @Json(name = "more")
     val hasMore: Boolean? = null,
 ) : Parcelable

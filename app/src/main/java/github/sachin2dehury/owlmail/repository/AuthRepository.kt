@@ -1,30 +1,27 @@
 package github.sachin2dehury.owlmail.repository
 
-import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
-import github.sachin2dehury.owlmail.api.MailApiExt
+import github.sachin2dehury.owlmail.api.AuthInterceptor
+import github.sachin2dehury.owlmail.api.ZimbraApiExt
 import github.sachin2dehury.owlmail.data.UserDetails
-import github.sachin2dehury.owlmail.database.MailDao
 import github.sachin2dehury.owlmail.utils.getZimbraAuthRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AuthRepository(
-    private val basicAuthInterceptor: BasicAuthInterceptor,
-    private val mailApiExt: MailApiExt,
-    private val mailDao: MailDao
+    private val authInterceptor: AuthInterceptor,
+    private val zimbraApiExt: ZimbraApiExt,
 ) {
 
     fun setAuthToken(authToken: String?) {
-        basicAuthInterceptor.authToken = authToken
+        authInterceptor.authToken = authToken
     }
 
     suspend fun makeAuthRequest(userDetails: UserDetails?) =
-        mailApiExt.provideMailApi(userDetails?.baseUrl)
+        zimbraApiExt.provideMailApi(userDetails?.baseUrl)
             .makeAuthRequest(getZimbraAuthRequest(userDetails))
 
     fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
-        basicAuthInterceptor.authToken = null
-        mailDao.deleteAllMails()
+        authInterceptor.authToken = null
     }
 }
