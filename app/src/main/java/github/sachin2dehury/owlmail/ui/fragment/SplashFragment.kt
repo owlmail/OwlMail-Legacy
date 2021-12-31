@@ -61,11 +61,10 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
         resultState.value?.let {
             viewModel.saveAuthDetails(it.authDetails)
             findNavController().navigate(
-                SplashFragmentDirections.actionSplashFragmentToSearchFragment(
+                SplashFragmentDirections.actionSplashFragmentToHomeFragment(
                     it
                 )
             )
-            //navigate to home
         }
     }
 

@@ -86,7 +86,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Sessi
         resultState.value?.let {
             viewModel.saveLoginCredential(it)
             findNavController().navigate(
-                AuthFragmentDirections.actionAuthFragmentToSearchFragment(it)
+                AuthFragmentDirections.actionAuthFragmentToHomeFragment(it)
             )
         }
     }

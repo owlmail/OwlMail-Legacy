@@ -13,8 +13,8 @@
             android:id="@+id/action_splashFragment_to_baseUrlSetUpFragment"
             app:destination="@id/baseUrlSetUpFragment" />
         <action
-            android:id="@+id/action_splashFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -37,14 +37,15 @@
             android:name="sessionDetails"
             app:argType="github.sachin2dehury.owlmail.data.SessionDetails" />
         <action
-            android:id="@+id/action_authFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            android:id="@+id/action_authFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
 
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="github.sachin2dehury.owlmail.ui.fragment.SearchTabFragment"
-        android:label="SearchTabFragment">
+        android:id="@+id/homeFragment"
+        android:name="github.sachin2dehury.owlmail.ui.fragment.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <argument
             android:name="sessionDetails"
             app:argType="github.sachin2dehury.owlmail.data.SessionDetails" />

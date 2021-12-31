@@ -8,7 +8,7 @@ import github.sachin2dehury.owlmail.repository.MailRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class MailViewModel @Inject constructor(
+class SearchTabViewModel @Inject constructor(
     private val mailRepository: MailRepository
 ) : ViewModel() {
 

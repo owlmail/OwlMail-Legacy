@@ -7,32 +7,32 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
+import github.sachin2dehury.owlmail.data.constants.ZimbraFolder
+import github.sachin2dehury.owlmail.data.search.Conversation
 import github.sachin2dehury.owlmail.databinding.FragmentSearchBinding
-import github.sachin2dehury.owlmail.viewmodel.MailViewModel
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
+import github.sachin2dehury.owlmail.epoxy.controller.ZimbraPagingEpoxyController
+import github.sachin2dehury.owlmail.viewmodel.SearchTabViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchTabFragment : Fragment(R.layout.fragment_search) {
+class SearchTabFragment(private val tab: ZimbraFolder) : Fragment(R.layout.fragment_search),
+    EpoxyModelOnClickListener<Conversation> {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MailViewModel by viewModels()
+    private val viewModel: SearchTabViewModel by viewModels()
 
-//    private val controller = ZimbraPagingEpoxyController(null)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
+    private val controller = ZimbraPagingEpoxyController<Conversation>(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentSearchBinding.bind(view)
 
-//        setupRecyclerView()
+        setupRecyclerView()
         setUpOnClickListener()
         subscribeToObserver()
     }
@@ -42,11 +42,11 @@ class SearchTabFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-//    private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
+    private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
 
     private fun subscribeToObserver() = lifecycleScope.launch {
-        viewModel.getSearchRequestPagingSource("in:inbox").collectLatest {
-
+        viewModel.getSearchRequestPagingSource("in:${tab.value}").collectLatest {
+            controller.submitData(it)
         }
     }
 
@@ -55,5 +55,9 @@ class SearchTabFragment : Fragment(R.layout.fragment_search) {
         binding.swipeRefresh.setOnRefreshListener(null)
         binding.epoxyRecyclerView.clear()
         _binding = null
+    }
+
+    override fun onItemClick(item: Conversation?) {
+
     }
 }
