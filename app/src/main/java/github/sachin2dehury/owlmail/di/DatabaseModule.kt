@@ -29,5 +29,4 @@ object DatabaseModule {
 //    @Singleton
 //    @Provides
 //    fun provideMessageDao(database: OwlMailDatabase) = database.getMessageDao()
-
 }

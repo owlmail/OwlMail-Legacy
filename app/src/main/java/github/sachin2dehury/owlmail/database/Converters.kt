@@ -20,5 +20,4 @@ class Converters {
     @TypeConverter
     @FromJson
     fun stringFromJson(value: String) = moshi.adapter(stringType).fromJson(value)
-
 }

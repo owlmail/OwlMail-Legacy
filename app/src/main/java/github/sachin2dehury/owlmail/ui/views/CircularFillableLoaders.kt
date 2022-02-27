@@ -192,7 +192,8 @@ class CircularFillableLoaders @JvmOverloads constructor(
         // Center Image in Shader
         val matrix = Matrix()
         matrix.setScale(
-            canvasSize.toFloat() / image!!.width.toFloat(), canvasSize.toFloat() / image!!.height
+            canvasSize.toFloat() / image!!.width.toFloat(),
+            canvasSize.toFloat() / image!!.height
                 .toFloat()
         )
         shader.setLocalMatrix(matrix)

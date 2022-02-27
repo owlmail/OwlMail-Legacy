@@ -6,8 +6,7 @@ import github.sachin2dehury.owlmail.data.constants.ZimbraFolder
 import github.sachin2dehury.owlmail.ui.fragment.HomeFragment
 import github.sachin2dehury.owlmail.ui.fragment.SearchTabFragment
 
-class ZimbraFragmentStateAdapter(private val homeFragment: HomeFragment) :
-    FragmentStateAdapter(homeFragment) {
+class ZimbraFragmentStateAdapter(homeFragment: HomeFragment) : FragmentStateAdapter(homeFragment) {
 
     private val fragments = mutableListOf<Fragment>()
 

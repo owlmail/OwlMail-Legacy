@@ -1,6 +1,5 @@
 package github.sachin2dehury.owlmail.data.search
 
-
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -10,10 +10,10 @@ class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response = request(chain)
 
     private fun request(chain: Interceptor.Chain) = chain.proceed(
-        when (authToken.isNullOrEmpty()) {
-            true -> chain.request().newBuilder().build()
-            else -> chain.request().newBuilder().header("Cookie", "ZM_AUTH_TOKEN=$authToken")
+        when (!authToken.isNullOrEmpty()) {
+            true -> chain.request().newBuilder().header("Cookie", "ZM_AUTH_TOKEN=$authToken")
                 .build()
+            else -> chain.request().newBuilder().build()
         }
     )
 }

@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
+import github.sachin2dehury.owlmail.data.UserDetails
 import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
 import github.sachin2dehury.owlmail.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.utils.showKeyBoard
@@ -17,7 +18,6 @@ import github.sachin2dehury.owlmail.utils.showKeyBoard
 class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
 
     private var _binding: FragmentBaseUrlBinding? = null
-    private val binding get() = _binding!!
 
     private val args: BaseURLFragmentArgs by navArgs()
 
@@ -28,7 +28,7 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
         setupOnClickListener()
     }
 
-    private fun setupOnClickListener() = binding.run {
+    private fun setupOnClickListener() = _binding?.run {
         nextButton.setOnClickListener {
             updateSessionDetails(urlEditText.text?.toString()?.trim())
         }
@@ -40,22 +40,28 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
         }
     }
 
-    private fun updateSessionDetails(baseUrl: String?) = if (URLUtil.isValidUrl(baseUrl)) {
-        binding.urlTextBox.hideKeyBoard()
-        val userDetails = args.sessionDetails.userDetails?.copy(baseUrl = baseUrl)
-        val sessionDetails = args.sessionDetails.copy(userDetails = userDetails)
-        findNavController().navigate(
-            BaseURLFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(
-                sessionDetails
-            )
-        )
-    } else {
-        binding.urlTextBox.showKeyBoard()
-        binding.urlTextBox.error = "Enter a valid url!"
+    private fun updateSessionDetails(baseUrl: String?) = _binding?.run {
+        when {
+            URLUtil.isValidUrl(baseUrl) -> {
+                urlTextBox.hideKeyBoard()
+                val userDetails = args.sessionDetails.userDetails?.copy(baseUrl = baseUrl)
+                    ?: UserDetails(baseUrl = baseUrl)
+                val sessionDetails = args.sessionDetails.copy(userDetails = userDetails)
+                findNavController().navigate(
+                    BaseURLFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(
+                        sessionDetails
+                    )
+                )
+            }
+            else -> {
+                urlTextBox.showKeyBoard()
+                urlTextBox.error = "Enter a valid url!"
+            }
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

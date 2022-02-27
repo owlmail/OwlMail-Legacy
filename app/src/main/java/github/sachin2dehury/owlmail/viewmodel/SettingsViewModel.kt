@@ -56,7 +56,7 @@ class SettingsViewModel @Inject constructor(
     fun saveAnalyticsState(isEnabled: Boolean) =
         dataStoreRepository.saveData(R.string.key_analytics, isEnabled)
 
-    //TODO improve logic here
+    // TODO improve logic here
     fun getBundle(context: Context) = persistableBundleOf(
         context.getString(R.string.key_should_sync) to syncState.value,
 //        context.getString(R.string.key_password) to authRepository.token,

@@ -18,5 +18,4 @@ class ZimbraApiExt(
         .client(okHttpClient)
         .build()
         .create(ZimbraApi::class.java).also { zimbraApi = it }
-
 }

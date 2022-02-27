@@ -1,12 +1,10 @@
 package github.sachin2dehury.owlmail.service
 
-import android.annotation.SuppressLint
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 @AndroidEntryPoint
 class CloudMessagingService : FirebaseMessagingService() {
 
@@ -21,5 +19,9 @@ class CloudMessagingService : FirebaseMessagingService() {
                 notificationExt.notify("${it.title}", "${it.body}")
             }
         }
+    }
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
     }
 }

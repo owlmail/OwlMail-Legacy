@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchTabFragment(private val tab: ZimbraFolder) : Fragment(R.layout.fragment_search),
+class SearchTabFragment(private val tab: ZimbraFolder) :
+    Fragment(R.layout.fragment_search),
     EpoxyModelOnClickListener<Conversation> {
 
     private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
 
     private val viewModel: SearchTabViewModel by viewModels()
 
@@ -37,12 +37,12 @@ class SearchTabFragment(private val tab: ZimbraFolder) : Fragment(R.layout.fragm
         subscribeToObserver()
     }
 
-    private fun setUpOnClickListener() {
-        binding.swipeRefresh.setOnRefreshListener {
+    private fun setUpOnClickListener() = _binding?.run {
+        swipeRefresh.setOnRefreshListener {
         }
     }
 
-    private fun setupRecyclerView() = binding.epoxyRecyclerView.setController(controller)
+    private fun setupRecyclerView() = _binding?.run { epoxyRecyclerView.setController(controller) }
 
     private fun subscribeToObserver() = lifecycleScope.launch {
         viewModel.getSearchRequestPagingSource("in:${tab.value}").collectLatest {
@@ -52,12 +52,11 @@ class SearchTabFragment(private val tab: ZimbraFolder) : Fragment(R.layout.fragm
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.swipeRefresh.setOnRefreshListener(null)
-        binding.epoxyRecyclerView.clear()
+        _binding?.swipeRefresh?.setOnRefreshListener(null)
+        _binding?.epoxyRecyclerView?.clear()
         _binding = null
     }
 
     override fun onItemClick(item: Conversation?) {
-
     }
 }

@@ -1,6 +1,5 @@
 package github.sachin2dehury.owlmail.data.searchconv
 
-
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -21,6 +20,6 @@ data class SearchConvRequest(
     val recip: String? = ZimbraRecipients.ALL.value,
 ) : Parcelable
 
-//TODO check what is this
-//"fetch": "u!",
-//"recip": "2"
+// TODO check what is this
+// "fetch": "u!",
+// "recip": "2"

@@ -1,9 +1,9 @@
 package github.sachin2dehury.owlmail.epoxy.model
 
-//class ItemMailModel(
+// class ItemMailModel(
 //    private val epoxyUiModel: EpoxyUiModel.Item<Mail>,
 //    listener: EpoxyModelOnClickListener? = null
-//) : EpoxyModelExt<ItemMailViewBinding>(R.layout.item_mail_view, listener) {
+// ) : EpoxyModelExt<ItemMailViewBinding>(R.layout.item_mail_view, listener) {
 //
 //    override fun bindExt(view: View) = ItemMailViewBinding.bind(view).apply {
 //        val mail = epoxyUiModel.value
@@ -21,8 +21,8 @@ package github.sachin2dehury.owlmail.epoxy.model
 //            }
 //            mail.flags?.contains('f') == true -> staredIcon.show()
 //            mail.flags?.contains('a') == true -> attachmentIcon.show()
-////            mail.flags?.contains('r') == true -> TODO
+// //            mail.flags?.contains('r') == true -> TODO
 //        }
 //        setOnModelClickListener(epoxyUiModel)
 //    }
-//}
+// }

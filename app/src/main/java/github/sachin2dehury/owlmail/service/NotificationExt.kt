@@ -43,7 +43,9 @@ class NotificationExt(private val context: Context) {
         }.build()
 
     fun notify(
-        title: String, subject: String, id: Int = 0,
+        title: String,
+        subject: String,
+        id: Int = 0,
         @SuppressLint("UnspecifiedImmutableFlag") pendingIntent: PendingIntent =
             PendingIntent.getActivity(
                 context,

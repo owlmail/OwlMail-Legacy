@@ -1,6 +1,5 @@
 package github.sachin2dehury.owlmail.data.getmessage
 
-
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

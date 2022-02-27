@@ -22,7 +22,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
     private val viewModel: SplashViewModel by viewModels()
 
     private var _binding: FragmentSplashBinding? = null
-    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,17 +31,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
         viewModel.getUserDetails()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun subscribeToObservers() = lifecycleScope.launch {
         viewModel.sessionDetails.collectLatest { it.mapToState() }
     }
 
     override fun setEmptyState() {
-        //With Image
+        // With Image
     }
 
     override fun setErrorState(resultState: ResultState.Error<SessionDetails>) {
@@ -54,7 +48,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
     }
 
     override fun setLoadingState() {
-        //Animate
+        // Animate
     }
 
     override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
@@ -68,4 +62,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash), ResultStateListener<S
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

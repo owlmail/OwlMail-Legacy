@@ -14,7 +14,6 @@ import github.sachin2dehury.owlmail.ui.adapters.ZimbraFragmentStateAdapter
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
 
     private val args: HomeFragmentArgs by navArgs()
 
@@ -27,15 +26,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setUpTabLayout()
     }
 
-    private fun setUpTabLayout() {
+    private fun setUpTabLayout() = _binding?.run {
         zimbraFragmentStateAdapter.initFragments()
-        binding.viewPager.adapter = zimbraFragmentStateAdapter
+        viewPager.adapter = zimbraFragmentStateAdapter
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = zimbraFragmentStateAdapter.tabName[position].value.uppercase()
         }
     }
-
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        inflater.inflate(R.menu.search_menu, menu)
@@ -59,5 +57,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onDestroyView()
         _binding = null
     }
-
 }

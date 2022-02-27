@@ -1,6 +1,5 @@
 package github.sachin2dehury.owlmail.data.searchconv
 
-
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -45,5 +44,3 @@ data class Message(
     @Json(name = "su")
     val subject: String? = null
 ) : Parcelable
-
-

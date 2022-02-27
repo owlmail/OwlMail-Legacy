@@ -50,11 +50,11 @@ fun getZimbraGetMsgRequest(id: String?) = ZimbraSoap(
     )
 )
 
-//fun getZimbraSaveDraftRequest() = ZimbraSoap(
+// fun getZimbraSaveDraftRequest() = ZimbraSoap(
 //    Body(
 //        saveDraftRequest = SaveDraftRequest()
 //    )
-//)
+// )
 
 fun getZimbraSearchRequest(query: String?, offset: Int?, limit: Int?) = ZimbraSoap(
     Body(
@@ -86,8 +86,8 @@ fun getZimbraSearchGalRequest(query: String?, offset: Int?, limit: Int?) = Zimbr
     )
 )
 
-//fun getZimbraSendMsgRequest() = ZimbraSoap(
+// fun getZimbraSendMsgRequest() = ZimbraSoap(
 //    Body(
 //        sendMsgRequest = SendMsgRequest()
 //    )
-//)
+// )

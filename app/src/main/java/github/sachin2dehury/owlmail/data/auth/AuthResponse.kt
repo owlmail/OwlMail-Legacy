@@ -1,6 +1,5 @@
 package github.sachin2dehury.owlmail.data.auth
 
-
 import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import github.sachin2dehury.owlmail.data.common.Content

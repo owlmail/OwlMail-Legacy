@@ -47,5 +47,4 @@ class ZimbraPagingEpoxyController<T : Any>(
         }
         super.addModels(models)
     }
-
 }

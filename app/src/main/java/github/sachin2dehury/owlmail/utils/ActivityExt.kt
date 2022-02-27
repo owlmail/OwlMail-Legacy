@@ -44,11 +44,11 @@ fun AppCompatActivity.inAppReview() {
                 val reviewInfo = task.result
                 val flow = reviewManager.launchReviewFlow(this, reviewInfo)
                 flow.addOnCompleteListener {
-                    //Show Message TODO
+                    // Show Message TODO
                 }
             }
             else -> {
-                //Show Message TODO
+                // Show Message TODO
             }
         }
     }
@@ -59,8 +59,8 @@ fun AppCompatActivity.inAppUpdate() = AppUpdateManagerFactory.create(this).apply
 }
 
 fun AppCompatActivity.doUpdate(appUpdateManager: AppUpdateManager, appUpdateInfo: AppUpdateInfo) {
-    if ((appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE || appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
-        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+    if ((appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE || appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) &&
+        appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
     ) {
         appUpdateManager.startUpdateFlowForResult(
             appUpdateInfo,

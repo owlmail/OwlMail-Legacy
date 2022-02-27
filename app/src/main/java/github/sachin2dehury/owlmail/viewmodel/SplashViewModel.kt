@@ -47,22 +47,27 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    private suspend fun refreshAuthToken(sessionDetails: SessionDetails) = when (val response =
-        authRepository.makeAuthRequest(sessionDetails.userDetails).mapToResultState()) {
+    private suspend fun refreshAuthToken(sessionDetails: SessionDetails) = when (
+        val response =
+            authRepository.makeAuthRequest(sessionDetails.userDetails).mapToResultState()
+    ) {
         is ResultState.Success -> {
             var details = sessionDetails
             response.value?.body?.authResponse?.let {
                 val authTokenExpireTime =
-                    System.currentTimeMillis() - DateUtils.DAY_IN_MILLIS + (it.lifetime
-                        ?: 0)
+                    System.currentTimeMillis() - DateUtils.DAY_IN_MILLIS + (
+                        it.lifetime
+                            ?: 0
+                        )
                 val authToken = it.authToken?.firstOrNull()?.content
                 val authDetails = AuthDetails(authToken, authTokenExpireTime)
                 details = sessionDetails.copy(authDetails = authDetails)
             }
             _sessionDetails.value = ResultState.Success(details)
         }
-        is ResultState.Error -> _sessionDetails.value =
-            ResultState.Error(response.error, sessionDetails)
+        is ResultState.Error ->
+            _sessionDetails.value =
+                ResultState.Error(response.error, sessionDetails)
         else -> _sessionDetails.value = ResultState.Empty
     }
 

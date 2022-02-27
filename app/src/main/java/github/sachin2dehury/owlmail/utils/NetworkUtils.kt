@@ -11,7 +11,7 @@ import retrofit2.Response
 @SuppressLint("MissingPermission")
 fun isInternetConnected(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
-            as ConnectivityManager
+        as ConnectivityManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val activeNetwork = connectivityManager.activeNetwork ?: return false
         val capabilities =

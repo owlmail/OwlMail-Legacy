@@ -69,7 +69,7 @@ object ApiModule {
     ) = ImageLoader.Builder(context)
         .crossfade(true)
         .okHttpClient(okHttpClient)
-        .diskCache(DiskCache.Builder(context).build())
+        .diskCache(DiskCache.Builder().build())
         .memoryCache(MemoryCache.Builder(context).build()).build()
 
     @Singleton

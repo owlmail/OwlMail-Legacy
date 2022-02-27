@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<SessionDetails> {
 
     private var _binding: FragmentAuthBinding? = null
-    private val binding get() = _binding!!
 
     private val viewModel: AuthViewModel by viewModels()
 
@@ -38,18 +37,14 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Sessi
         subscribeToObservers()
     }
 
-    private fun setUpClickListener() {
-        binding.privacyPolicyButton.setOnClickListener {
-
-        }
-        binding.loginButton.setOnClickListener {
-            makeAuthRequest()
-        }
+    private fun setUpClickListener() = _binding?.run {
+        privacyPolicyButton.setOnClickListener { }
+        loginButton.setOnClickListener { makeAuthRequest() }
     }
 
-    private fun makeAuthRequest() {
-        val username = binding.rollEditText.text?.trim().toString()
-        val password = binding.passwordEditText.text?.trim().toString()
+    private fun makeAuthRequest() = _binding?.run {
+        val username = rollEditText.text?.trim().toString()
+        val password = passwordEditText.text?.trim().toString()
         val userDetails =
             args.sessionDetails.userDetails?.copy(username = username, password = password)
         val sessionDetails = args.sessionDetails.copy(userDetails = userDetails)
@@ -60,16 +55,12 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Sessi
         viewModel.sessionDetails.collectLatest { it.mapToState() }
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun setEmptyState() {
-        binding.loginButton.isClickable = true
-        binding.privacyPolicyButton.isClickable = true
-        binding.rollEditText.showKeyBoard()
+        _binding?.run {
+            loginButton.isClickable = true
+            privacyPolicyButton.isClickable = true
+            rollEditText.showKeyBoard()
+        }
     }
 
     override fun setErrorState(resultState: ResultState.Error<SessionDetails>) {
@@ -77,9 +68,11 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Sessi
     }
 
     override fun setLoadingState() {
-        binding.loginButton.isClickable = false
-        binding.privacyPolicyButton.isClickable = false
-        binding.root.hideKeyBoard()
+        _binding?.run {
+            loginButton.isClickable = false
+            privacyPolicyButton.isClickable = false
+            root.hideKeyBoard()
+        }
     }
 
     override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
@@ -89,5 +82,10 @@ class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<Sessi
                 AuthFragmentDirections.actionAuthFragmentToHomeFragment(it)
             )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
