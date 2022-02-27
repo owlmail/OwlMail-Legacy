@@ -41,7 +41,6 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        @ApplicationContext context: Context,
         authInterceptor: AuthInterceptor,
         chuckerInterceptor: ChuckerInterceptor
     ) = OkHttpClient.Builder()

@@ -25,6 +25,16 @@ buildscript {
     }
 }
 
+plugins {
+    id("com.osacky.doctor") version "0.8.0"
+//    id("scabbard.gradle") version "0.5.0"
+}
+
+//scabbard {
+//    enabled = true
+//    outputFormat = "svg"
+//}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
