@@ -4,16 +4,22 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.widget.AppCompatImageView
 import github.sachin2dehury.owlmail.R
+import timber.log.Timber
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
@@ -286,7 +292,7 @@ class CircularFillableLoaders @JvmOverloads constructor(
             bitmap
         } catch (e: OutOfMemoryError) {
             // Simply return null of failed bitmap creations
-            Log.e(javaClass.toString(), "Encountered OutOfMemoryError while generating bitmap!")
+            Timber.e(javaClass.toString(), "Encountered OutOfMemoryError while generating bitmap!")
             null
         }
     }

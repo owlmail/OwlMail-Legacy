@@ -5,6 +5,14 @@
       <map>
         <entry key="app/src/main/res/layout/activity_owl_mail.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_ad_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_header_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_horizontal_loader_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_loader_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_mail_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_parsed_mail.xml" value="0.25407608695652173" />
       </map>
     </option>
   </component>

@@ -4,9 +4,8 @@ import github.sachin2dehury.owlmail.api.AuthInterceptor
 import github.sachin2dehury.owlmail.api.ZimbraApiExt
 import github.sachin2dehury.owlmail.data.UserDetails
 import github.sachin2dehury.owlmail.utils.getZimbraAuthRequest
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthRepository(
     private val authInterceptor: AuthInterceptor,
@@ -17,11 +16,12 @@ class AuthRepository(
         authInterceptor.authToken = authToken
     }
 
-    suspend fun makeAuthRequest(userDetails: UserDetails?) =
+    suspend fun makeAuthRequest(userDetails: UserDetails?) = withContext(Dispatchers.IO) {
         zimbraApiExt.provideMailApi(userDetails?.baseUrl)
             .makeAuthRequest(getZimbraAuthRequest(userDetails))
+    }
 
-    fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
+    suspend fun resetLogin() = withContext(Dispatchers.IO) {
         authInterceptor.authToken = null
     }
 }

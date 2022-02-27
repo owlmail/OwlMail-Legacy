@@ -1,7 +1,5 @@
 package github.sachin2dehury.owlmail.viewmodel
 
-import android.content.Context
-import androidx.core.os.persistableBundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,15 +26,15 @@ class SettingsViewModel @Inject constructor(
     private val _analyticsState = MutableLiveData(false)
     val analyticsState: LiveData<Boolean> = _analyticsState
 
-    private fun updateDarkThemeState() = viewModelScope.launch(Dispatchers.IO) {
+    private fun updateDarkThemeState() = viewModelScope.launch {
         _darkThemeState.postValue(dataStoreRepository.readBoolean(R.string.key_dark_theme) ?: false)
     }
 
-    private fun updateSyncState() = viewModelScope.launch(Dispatchers.IO) {
+    private fun updateSyncState() = viewModelScope.launch {
         _syncState.postValue(dataStoreRepository.readBoolean(R.string.key_should_sync) ?: false)
     }
 
-    private fun updateAnalyticsState() = viewModelScope.launch(Dispatchers.IO) {
+    private fun updateAnalyticsState() = viewModelScope.launch {
         _analyticsState.postValue(dataStoreRepository.readBoolean(R.string.key_analytics) ?: false)
     }
 
@@ -47,19 +44,15 @@ class SettingsViewModel @Inject constructor(
         updateAnalyticsState()
     }
 
-    fun saveDarkThemeState(isEnabled: Boolean) =
+    fun saveDarkThemeState(isEnabled: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveData(R.string.key_dark_theme, isEnabled)
+    }
 
-    fun saveSyncState(isEnabled: Boolean) =
+    fun saveSyncState(isEnabled: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveData(R.string.key_should_sync, isEnabled)
+    }
 
-    fun saveAnalyticsState(isEnabled: Boolean) =
+    fun saveAnalyticsState(isEnabled: Boolean) = viewModelScope.launch {
         dataStoreRepository.saveData(R.string.key_analytics, isEnabled)
-
-    // TODO improve logic here
-    fun getBundle(context: Context) = persistableBundleOf(
-        context.getString(R.string.key_should_sync) to syncState.value,
-//        context.getString(R.string.key_password) to authRepository.token,
-//        context.getString(R.string.key_username) to authRepository.getCredential()
-    )
+    }
 }

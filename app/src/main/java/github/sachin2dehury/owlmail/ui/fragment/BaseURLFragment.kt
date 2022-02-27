@@ -32,9 +32,7 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
         nextButton.setOnClickListener {
             updateSessionDetails(urlEditText.text?.toString()?.trim())
         }
-        privacyPolicyButton.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
-        }
+        privacyPolicyButton.setOnClickListener { }
         urlEditText.doOnTextChanged { _, _, _, _ ->
             urlTextBox.error = null
         }

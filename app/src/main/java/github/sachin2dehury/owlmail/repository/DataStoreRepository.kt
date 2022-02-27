@@ -2,19 +2,22 @@ package github.sachin2dehury.owlmail.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import github.sachin2dehury.owlmail.R
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DataStoreRepository(
     private val context: Context,
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) {
 
-    fun saveData(key: Int, value: Any?) = CoroutineScope(Dispatchers.IO).launch {
+    suspend fun <T> saveData(key: Int, value: T?) = withContext(Dispatchers.IO) {
         dataStore.edit { settings ->
             when (value) {
                 is String -> settings[stringPreferencesKey(context.getString(key))] = value
@@ -24,9 +27,9 @@ class DataStoreRepository(
         }
     }
 
-    fun deleteData(key: Int, value: Any?) = CoroutineScope(Dispatchers.IO).launch {
+    suspend fun <T> deleteData(key: Int, defaultValue: T) = withContext(Dispatchers.IO) {
         dataStore.edit { settings ->
-            when (value) {
+            when (defaultValue) {
                 is String -> settings.remove(stringPreferencesKey(context.getString(key)))
                 is Boolean -> settings.remove(booleanPreferencesKey(context.getString(key)))
                 is Long -> settings.remove(longPreferencesKey(context.getString(key)))
@@ -34,16 +37,19 @@ class DataStoreRepository(
         }
     }
 
-    suspend fun readString(key: Int) =
+    suspend fun readString(key: Int) = withContext(Dispatchers.IO) {
         dataStore.data.firstOrNull()?.get(stringPreferencesKey(context.getString(key)))
+    }
 
-    suspend fun readBoolean(key: Int) =
+    suspend fun readBoolean(key: Int) = withContext(Dispatchers.IO) {
         dataStore.data.firstOrNull()?.get(booleanPreferencesKey(context.getString(key)))
+    }
 
-    suspend fun readLong(key: Int) =
+    suspend fun readLong(key: Int) = withContext(Dispatchers.IO) {
         dataStore.data.firstOrNull()?.get(longPreferencesKey(context.getString(key)))
+    }
 
-    fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
+    suspend fun resetLogin() = withContext(Dispatchers.IO) {
         deleteData(R.string.key_url, "")
         deleteData(R.string.key_username, "")
         deleteData(R.string.key_password, "")

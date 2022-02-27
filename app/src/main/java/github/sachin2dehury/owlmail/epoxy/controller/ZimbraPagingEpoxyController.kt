@@ -22,11 +22,15 @@ class ZimbraPagingEpoxyController<T : Any>(
     var isEmptyState = false
     var isLastItem = false
 
+    override fun isStickyHeader(position: Int): Boolean {
+        return adapter.getModelAtPosition(position).layout == 0
+    }
+
     override fun buildItemModel(currentPosition: Int, item: T?) = when (item) {
         is Conversation -> dummy()
         is Message -> dummy()
         is Contact -> dummy()
-        else -> dummy()
+        else -> dummy().hide()
     }
 
     private fun dummy() = EpoxyModelExt(
@@ -37,13 +41,15 @@ class ZimbraPagingEpoxyController<T : Any>(
 
     override fun addModels(models: List<EpoxyModel<*>>) {
         models.toMutableList().run {
+            val model = when {
+                isEmptyState -> dummy()
+                isErrorState -> dummy()
+                isLastItem -> dummy()
+                isLoadingState -> dummy()
+                else -> dummy().hide()
+            }
+            add(model)
             removeAll { !it.isShown }
-//            when{
-//                isEmptyState ->
-//                isErrorState ->
-//                isLastItem ->
-//                isLoadingState->
-//            }
         }
         super.addModels(models)
     }

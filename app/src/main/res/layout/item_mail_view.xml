@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="96dp">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sender_name_text"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="@dimen/dp_4"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/mail_subject"
@@ -19,9 +19,9 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mail_subject"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/dp_8"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,9 +32,9 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mail_body"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/dp_4"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="@+id/mail_subject"
@@ -44,9 +44,9 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/date_text"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="@+id/sender_name_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sender_name_text"
@@ -54,9 +54,9 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sender_icon_text"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:layout_margin="@dimen/dp_8"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
@@ -70,7 +70,7 @@
         android:id="@+id/attachment_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/dp_8"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +80,7 @@
         android:id="@+id/stared_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/dp_8"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/mail_body"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,8 +88,8 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/date_text"
         app:layout_constraintStart_toStartOf="@id/mail_subject" />

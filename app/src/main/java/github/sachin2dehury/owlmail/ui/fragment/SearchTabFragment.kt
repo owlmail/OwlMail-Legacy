@@ -25,7 +25,7 @@ class SearchTabFragment(private val tab: ZimbraFolder) :
 
     private val viewModel: SearchTabViewModel by viewModels()
 
-    private val controller = ZimbraPagingEpoxyController<Conversation>(this)
+    private val controller get() = ZimbraPagingEpoxyController(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,15 +37,15 @@ class SearchTabFragment(private val tab: ZimbraFolder) :
         subscribeToObserver()
     }
 
+    private fun setupRecyclerView() = _binding?.run { epoxyRecyclerView.setController(controller) }
+
     private fun setUpOnClickListener() = _binding?.run {
         swipeRefresh.setOnRefreshListener {
         }
     }
 
-    private fun setupRecyclerView() = _binding?.run { epoxyRecyclerView.setController(controller) }
-
     private fun subscribeToObserver() = lifecycleScope.launch {
-        viewModel.getSearchRequestPagingSource("in:${tab.value}").collectLatest {
+        viewModel.getSearchRequestPagingSource(tab.value).collectLatest {
             controller.submitData(it)
         }
     }

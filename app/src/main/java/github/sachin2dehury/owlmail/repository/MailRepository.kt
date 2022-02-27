@@ -14,7 +14,7 @@ class MailRepository(
 ) {
 
     private fun <T : Any> getZimbraPagingSourceFlow(pagingSource: ZimbraPagingSource<T>) =
-        Pager(pagingConfig, 0, { pagingSource }).flow
+        Pager(pagingConfig, 0) { pagingSource }.flow
 
     fun getSearchRequestPagingSource(query: String?) =
         getZimbraPagingSourceFlow(SearchRequestPagingSource(zimbraApi, query))

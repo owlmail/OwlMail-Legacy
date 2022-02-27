@@ -13,5 +13,5 @@ class SearchTabViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getSearchRequestPagingSource(request: String) =
-        mailRepository.getSearchRequestPagingSource(request).cachedIn(viewModelScope)
+        mailRepository.getSearchRequestPagingSource("in:${request}").cachedIn(viewModelScope)
 }
