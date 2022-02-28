@@ -12,7 +12,11 @@
         <entry key="app/src/main/res/layout/item_horizontal_loader_view.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/item_loader_view.xml" value="0.25407608695652173" />
         <entry key="app/src/main/res/layout/item_mail_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_message_view.xml" value="0.33958333333333335" />
         <entry key="app/src/main/res/layout/item_parsed_mail.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/menu/nav_header_menu.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/menu/search_menu.xml" value="0.33958333333333335" />
       </map>
     </option>
   </component>

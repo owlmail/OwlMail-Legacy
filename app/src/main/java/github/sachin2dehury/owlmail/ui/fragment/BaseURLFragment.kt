@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.data.UserDetails
+import github.sachin2dehury.owlmail.data.local.UserDetails
 import github.sachin2dehury.owlmail.databinding.FragmentBaseUrlBinding
 import github.sachin2dehury.owlmail.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.utils.showKeyBoard

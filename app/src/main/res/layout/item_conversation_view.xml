@@ -7,39 +7,46 @@
     tools:ignore="WebViewLayout">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sender_name_text"
+        android:id="@+id/message_sender_tv"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_12"
         android:layout_marginEnd="@dimen/dp_12"
         android:ellipsize="end"
-        android:gravity="start"
         android:maxLines="1"
-        android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sender_icon_text"
-        app:layout_constraintTop_toTopOf="@id/sender_icon_text"
+        app:layout_constraintStart_toEndOf="@+id/message_sender_icon_tv"
+        app:layout_constraintTop_toTopOf="@id/message_sender_icon_tv"
         tools:text="Sender Name" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mail_subject"
+        android:id="@+id/message_subject_tv"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_4"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/dp_4"
         android:maxLines="2"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/attachment_icon"
-        app:layout_constraintStart_toStartOf="@id/sender_name_text"
-        app:layout_constraintTop_toBottomOf="@id/sender_name_text"
+        app:layout_constraintEnd_toStartOf="@id/message_attachment_icon"
+        app:layout_constraintStart_toStartOf="@id/message_sender_tv"
+        app:layout_constraintTop_toBottomOf="@id/message_sender_tv"
         tools:text="Email Body" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sender_icon_text"
+        android:id="@+id/message_body_tv"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@+id/message_subject_tv"
+        app:layout_constraintStart_toStartOf="@+id/message_subject_tv"
+        app:layout_constraintTop_toBottomOf="@+id/message_subject_tv"
+        tools:text="Mail Body" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_sender_icon_tv"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="@dimen/dp_0"
         android:layout_height="?attr/listPreferredItemHeight"
@@ -55,39 +62,24 @@
         tools:text="a" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/attachment_icon"
+        android:id="@+id/message_attachment_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
+        app:layout_constraintBottom_toBottomOf="@+id/message_subject_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_attachment_24" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/stared_icon"
+        android:id="@+id/message_flag_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
+        app:layout_constraintBottom_toBottomOf="@+id/message_subject_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_star_24" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewEmailDetails"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:ellipsize="end"
-        android:padding="@dimen/dp_4"
-        android:textSize="14sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/sender_icon_text"
-        app:layout_constraintTop_toBottomOf="@id/sender_icon_text"
-        tools:text="To Cc Bcc" />
 
     <github.sachin2dehury.owlmail.ui.views.HtmlTextView
         android:id="@+id/html_text_view"
@@ -98,7 +90,7 @@
         android:padding="@dimen/dp_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmailDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/message_body_tv" />
 
     <View
         android:id="@+id/divider"
@@ -108,6 +100,6 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/sender_name_text" />
+        app:layout_constraintStart_toStartOf="@id/message_sender_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

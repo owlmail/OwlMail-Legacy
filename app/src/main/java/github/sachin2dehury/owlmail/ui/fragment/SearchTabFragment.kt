@@ -10,22 +10,19 @@ import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.data.constants.ZimbraFolder
 import github.sachin2dehury.owlmail.data.search.Conversation
 import github.sachin2dehury.owlmail.databinding.FragmentSearchBinding
-import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.controller.ZimbraPagingEpoxyController
 import github.sachin2dehury.owlmail.viewmodel.SearchTabViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchTabFragment(private val tab: ZimbraFolder) :
-    Fragment(R.layout.fragment_search),
-    EpoxyModelOnClickListener<Conversation> {
+class SearchTabFragment(private val tab: ZimbraFolder) : Fragment(R.layout.fragment_search) {
 
     private var _binding: FragmentSearchBinding? = null
 
     private val viewModel: SearchTabViewModel by viewModels()
 
-    private val controller get() = ZimbraPagingEpoxyController(this)
+    private val controller get() = ZimbraPagingEpoxyController<Conversation>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,8 +52,5 @@ class SearchTabFragment(private val tab: ZimbraFolder) :
         _binding?.swipeRefresh?.setOnRefreshListener(null)
         _binding?.epoxyRecyclerView?.clear()
         _binding = null
-    }
-
-    override fun onItemClick(item: Conversation?) {
     }
 }

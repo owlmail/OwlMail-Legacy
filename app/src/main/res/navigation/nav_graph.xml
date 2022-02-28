@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_base_url">
         <argument
             android:name="sessionDetails"
-            app:argType="github.sachin2dehury.owlmail.data.SessionDetails" />
+            app:argType="github.sachin2dehury.owlmail.data.local.SessionDetails" />
         <action
             android:id="@+id/action_baseUrlSetUpFragment_to_authFragment"
             app:destination="@id/authFragment" />
@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_auth">
         <argument
             android:name="sessionDetails"
-            app:argType="github.sachin2dehury.owlmail.data.SessionDetails" />
+            app:argType="github.sachin2dehury.owlmail.data.local.SessionDetails" />
         <action
             android:id="@+id/action_authFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -48,7 +48,7 @@
         tools:layout="@layout/fragment_home">
         <argument
             android:name="sessionDetails"
-            app:argType="github.sachin2dehury.owlmail.data.SessionDetails" />
+            app:argType="github.sachin2dehury.owlmail.data.local.SessionDetails" />
     </fragment>
 
 </navigation>

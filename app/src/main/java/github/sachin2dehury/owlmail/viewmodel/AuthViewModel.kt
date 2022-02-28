@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.SessionDetails
+import github.sachin2dehury.owlmail.data.local.SessionDetails
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import github.sachin2dehury.owlmail.utils.getAuthDetails
+import github.sachin2dehury.owlmail.utils.mapToAuthDetails
 import github.sachin2dehury.owlmail.utils.mapToResultState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,7 +30,7 @@ class AuthViewModel @Inject constructor(
                 authRepository.makeAuthRequest(sessionDetails.userDetails).mapToResultState()
         ) {
             is ResultState.Success -> {
-                val details = sessionDetails.copy(authDetails = response.value?.getAuthDetails())
+                val details = sessionDetails.copy(authDetails = response.value?.mapToAuthDetails())
                 _sessionDetails.value = ResultState.Success(details)
             }
             is ResultState.Error ->

@@ -1,4 +1,4 @@
-package github.sachin2dehury.owlmail.data
+package github.sachin2dehury.owlmail.data.local
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

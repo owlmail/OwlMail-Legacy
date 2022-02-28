@@ -2,7 +2,7 @@ package github.sachin2dehury.owlmail.repository
 
 import github.sachin2dehury.owlmail.api.AuthInterceptor
 import github.sachin2dehury.owlmail.api.ZimbraApiExt
-import github.sachin2dehury.owlmail.data.UserDetails
+import github.sachin2dehury.owlmail.data.local.UserDetails
 import github.sachin2dehury.owlmail.utils.getZimbraAuthRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

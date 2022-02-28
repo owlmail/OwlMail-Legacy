@@ -150,6 +150,7 @@ dependencies {
 
     // Epoxy
     implementation("com.airbnb.android:epoxy:4.6.4")
+    kapt("com.airbnb.android:epoxy-processor:4.6.4")
     implementation("com.airbnb.android:epoxy-paging3:4.6.4")
 
     // Stetho

@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.AuthDetails
-import github.sachin2dehury.owlmail.data.SessionDetails
-import github.sachin2dehury.owlmail.data.UserDetails
+import github.sachin2dehury.owlmail.data.local.AuthDetails
+import github.sachin2dehury.owlmail.data.local.SessionDetails
+import github.sachin2dehury.owlmail.data.local.UserDetails
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.utils.mapToResultState

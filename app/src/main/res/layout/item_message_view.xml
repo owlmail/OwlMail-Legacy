@@ -6,54 +6,54 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sender_name_text"
+        android:id="@+id/message_sender_tv"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_4"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@+id/mail_subject"
-        app:layout_constraintEnd_toStartOf="@+id/date_text"
-        app:layout_constraintStart_toStartOf="@+id/mail_subject"
+        app:layout_constraintBottom_toTopOf="@+id/message_subject_tv"
+        app:layout_constraintEnd_toStartOf="@+id/message_date_tv"
+        app:layout_constraintStart_toStartOf="@+id/message_subject_tv"
         tools:text="Sender" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mail_subject"
+        android:id="@+id/message_subject_tv"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_8"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/attachment_icon"
-        app:layout_constraintStart_toEndOf="@+id/sender_icon_text"
+        app:layout_constraintEnd_toStartOf="@+id/message_attachment_icon"
+        app:layout_constraintStart_toEndOf="@+id/message_sender_icon_tv"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Mail Subject" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/mail_body"
+        android:id="@+id/message_body_tv"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_4"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="@+id/mail_subject"
-        app:layout_constraintStart_toStartOf="@+id/mail_subject"
-        app:layout_constraintTop_toBottomOf="@+id/mail_subject"
+        app:layout_constraintEnd_toEndOf="@+id/message_subject_tv"
+        app:layout_constraintStart_toStartOf="@+id/message_subject_tv"
+        app:layout_constraintTop_toBottomOf="@+id/message_subject_tv"
         tools:text="Mail Body" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/date_text"
+        android:id="@+id/message_date_tv"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
-        app:layout_constraintBottom_toBottomOf="@+id/sender_name_text"
+        app:layout_constraintBottom_toBottomOf="@+id/message_sender_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sender_name_text"
+        app:layout_constraintTop_toTopOf="@+id/message_sender_tv"
         tools:text="Date" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/sender_icon_text"
+        android:id="@+id/message_sender_icon_tv"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
         android:layout_margin="@dimen/dp_8"
@@ -67,22 +67,22 @@
         tools:text="a" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/attachment_icon"
+        android:id="@+id/message_attachment_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mail_subject"
+        app:layout_constraintBottom_toBottomOf="@+id/message_subject_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_attachment_24" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/stared_icon"
+        android:id="@+id/message_flag_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dp_8"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/mail_body"
+        app:layout_constraintBottom_toBottomOf="@+id/message_body_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_star_24" />
 
@@ -91,7 +91,7 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/date_text"
-        app:layout_constraintStart_toStartOf="@id/mail_subject" />
+        app:layout_constraintEnd_toEndOf="@id/message_date_tv"
+        app:layout_constraintStart_toStartOf="@id/message_subject_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

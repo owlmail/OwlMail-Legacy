@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.data.SessionDetails
+import github.sachin2dehury.owlmail.data.local.SessionDetails
 import github.sachin2dehury.owlmail.databinding.FragmentSplashBinding
 import github.sachin2dehury.owlmail.utils.ResultStateListener
 import github.sachin2dehury.owlmail.viewmodel.SplashViewModel
