@@ -1,18 +1,18 @@
 package github.sachin2dehury.owlmail.utils
 
-import github.sachin2dehury.owlmail.data.Body
-import github.sachin2dehury.owlmail.data.ZimbraSoap
-import github.sachin2dehury.owlmail.data.auth.AuthRequest
-import github.sachin2dehury.owlmail.data.autocomplete.AutoCompleteRequest
-import github.sachin2dehury.owlmail.data.common.Content
-import github.sachin2dehury.owlmail.data.common.MsgId
-import github.sachin2dehury.owlmail.data.convaction.ConvAction
-import github.sachin2dehury.owlmail.data.getcontact.GetContactsRequest
-import github.sachin2dehury.owlmail.data.getmessage.GetMsgRequest
 import github.sachin2dehury.owlmail.data.local.UserDetails
-import github.sachin2dehury.owlmail.data.search.SearchRequest
-import github.sachin2dehury.owlmail.data.searchconv.SearchConvRequest
-import github.sachin2dehury.owlmail.data.searchgal.SearchGalRequest
+import github.sachin2dehury.owlmail.data.remote.Body
+import github.sachin2dehury.owlmail.data.remote.ZimbraSoap
+import github.sachin2dehury.owlmail.data.remote.auth.AuthRequest
+import github.sachin2dehury.owlmail.data.remote.autocomplete.AutoCompleteRequest
+import github.sachin2dehury.owlmail.data.remote.common.Content
+import github.sachin2dehury.owlmail.data.remote.common.MsgId
+import github.sachin2dehury.owlmail.data.remote.convaction.ConvAction
+import github.sachin2dehury.owlmail.data.remote.getcontact.GetContactsRequest
+import github.sachin2dehury.owlmail.data.remote.getmessage.GetMsgRequest
+import github.sachin2dehury.owlmail.data.remote.search.SearchRequest
+import github.sachin2dehury.owlmail.data.remote.searchconv.SearchConvRequest
+import github.sachin2dehury.owlmail.data.remote.searchgal.SearchGalRequest
 
 fun getZimbraAuthRequest(userDetails: UserDetails?) = ZimbraSoap(
     Body(

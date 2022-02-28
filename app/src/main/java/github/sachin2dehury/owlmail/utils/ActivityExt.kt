@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -69,4 +70,10 @@ fun AppCompatActivity.doUpdate(appUpdateManager: AppUpdateManager, appUpdateInfo
             1000
         )
     }
+}
+
+fun switchToTheme(shouldEnable: Boolean?) = when (shouldEnable) {
+    false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 }

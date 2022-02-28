@@ -1,12 +1,12 @@
 package github.sachin2dehury.owlmail.paging
 
 import github.sachin2dehury.owlmail.api.ZimbraApi
-import github.sachin2dehury.owlmail.data.searchconv.Message
+import github.sachin2dehury.owlmail.data.remote.searchconv.Message
 import github.sachin2dehury.owlmail.utils.getZimbraSearchConvRequest
 
 class SearchConvRequestPagingSource(
     private val zimbraApi: ZimbraApi,
-    private val conversationId: String?
+    private val conversationId: String?,
 ) : ZimbraPagingSource<Message>() {
 
     override suspend fun tryLoadingPage(offset: Int, limit: Int): LoadResult.Page<Int, Message> {

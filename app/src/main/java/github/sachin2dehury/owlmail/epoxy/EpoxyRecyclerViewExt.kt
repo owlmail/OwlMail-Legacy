@@ -7,7 +7,7 @@ import com.airbnb.epoxy.EpoxyRecyclerView
 class EpoxyRecyclerViewExt @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : EpoxyRecyclerView(context, attrs, defStyleAttr) {
 
     override fun shouldShareViewPoolAcrossContext() = false

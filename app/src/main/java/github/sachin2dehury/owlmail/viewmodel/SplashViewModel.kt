@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val dataStoreRepository: DataStoreRepository
+    private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel() {
 
     private val _sessionDetails = MutableStateFlow<ResultState<SessionDetails>>(ResultState.Empty)

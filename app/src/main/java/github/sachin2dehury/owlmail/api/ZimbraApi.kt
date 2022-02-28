@@ -1,6 +1,6 @@
 package github.sachin2dehury.owlmail.api
 
-import github.sachin2dehury.owlmail.data.ZimbraSoap
+import github.sachin2dehury.owlmail.data.remote.ZimbraSoap
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

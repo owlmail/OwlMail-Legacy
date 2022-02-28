@@ -15,7 +15,7 @@ import github.sachin2dehury.owlmail.api.AuthInterceptor
 import github.sachin2dehury.owlmail.api.ZimbraApiExt
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import github.sachin2dehury.owlmail.repository.MailRepository
+import github.sachin2dehury.owlmail.repository.ZimbraRepository
 import javax.inject.Singleton
 
 @Module
@@ -32,7 +32,7 @@ object RepositoryModule {
     @Provides
     fun provideDataStoreRepository(
         @ApplicationContext context: Context,
-        dataStore: DataStore<Preferences>
+        dataStore: DataStore<Preferences>,
     ) = DataStoreRepository(context, dataStore)
 
     @Singleton
@@ -48,8 +48,8 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideMailRepository(
+    fun provideZimbraRepository(
         zimbraApiExt: ZimbraApiExt,
-        pagingConfig: PagingConfig
-    ) = MailRepository(zimbraApiExt.provideMailApi(), pagingConfig)
+        pagingConfig: PagingConfig,
+    ) = ZimbraRepository(zimbraApiExt.provideMailApi(), pagingConfig)
 }

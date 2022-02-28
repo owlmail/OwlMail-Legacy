@@ -52,7 +52,7 @@ class NotificationExt(private val context: Context) {
                 1000,
                 Intent(context, OwlMailActivity::class.java),
                 0
-            )
+            ),
     ) = notificationManager.notify(id, notificationBuilder(title, subject, pendingIntent))
 
     fun cancelNotify(id: Int = 0) = notificationManager.cancel(id)

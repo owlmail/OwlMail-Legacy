@@ -7,7 +7,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.data.searchconv.Message
+import github.sachin2dehury.owlmail.data.remote.searchconv.Message
 import github.sachin2dehury.owlmail.databinding.ItemMessageViewBinding
 import github.sachin2dehury.owlmail.utils.getFirstCharacter
 import github.sachin2dehury.owlmail.utils.getFormattedDate

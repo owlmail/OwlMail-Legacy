@@ -1,13 +1,11 @@
 package github.sachin2dehury.owlmail.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import github.sachin2dehury.owlmail.api.ResultState
 import retrofit2.Response
 
-@SuppressLint("MissingPermission")
 fun isInternetConnected(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
         as ConnectivityManager

@@ -4,9 +4,9 @@ import com.airbnb.epoxy.EpoxyAsyncUtil
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import github.sachin2dehury.owlmail.data.local.Header
-import github.sachin2dehury.owlmail.data.search.Conversation
-import github.sachin2dehury.owlmail.data.searchconv.Message
-import github.sachin2dehury.owlmail.data.searchgal.Contact
+import github.sachin2dehury.owlmail.data.remote.search.Conversation
+import github.sachin2dehury.owlmail.data.remote.searchconv.Message
+import github.sachin2dehury.owlmail.data.remote.searchgal.Contact
 import github.sachin2dehury.owlmail.epoxy.model.CircularLoaderModel_
 import github.sachin2dehury.owlmail.epoxy.model.ContactModel_
 import github.sachin2dehury.owlmail.epoxy.model.ConversationModel_

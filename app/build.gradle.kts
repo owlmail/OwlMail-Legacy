@@ -122,9 +122,8 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.5.0-alpha03")
 
     // Room
-    implementation("androidx.room:room-runtime:2.4.2")
-    kapt("androidx.room:room-compiler:2.4.2")
     implementation("androidx.room:room-ktx:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
     implementation("androidx.room:room-paging:2.4.2")
 
     // Preferences DataStore

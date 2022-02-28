@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import github.sachin2dehury.owlmail.data.searchgal.Contact
+import github.sachin2dehury.owlmail.data.remote.searchgal.Contact
 
 @Dao
 interface ContactDao {
@@ -14,11 +14,11 @@ interface ContactDao {
     suspend fun insertContact(conversations: List<Contact>)
 
     @Query("SELECT * FROM contact")
-    suspend fun getContact(): PagingSource<Int, Contact>
+    fun getContact(): PagingSource<Int, Contact>
 
     @Query("DELETE FROM contact")
     suspend fun deleteContact()
 
 //    @Query("SELECT * FROM contact WHERE attrs LIKE '%' || :query || '%' OR subject LIKE '%' || :query || '%' ORDER BY date DESC")
-//    suspend fun searchContact(query: String): PagingSource<Int, Contact>
+//    fun searchContact(query: String): PagingSource<Int, Contact>
 }

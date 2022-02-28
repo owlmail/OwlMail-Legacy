@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.format.DateUtils
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.data.common.Email
-import github.sachin2dehury.owlmail.data.constants.ZimbraEmail
-import github.sachin2dehury.owlmail.data.searchgal.Attrs
+import github.sachin2dehury.owlmail.data.enums.ZimbraEmail
+import github.sachin2dehury.owlmail.data.remote.common.Email
+import github.sachin2dehury.owlmail.data.remote.searchgal.Attrs
 import java.text.SimpleDateFormat
 
 fun Email.getName() = fullName ?: firstName

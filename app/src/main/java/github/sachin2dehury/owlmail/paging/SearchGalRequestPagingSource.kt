@@ -1,12 +1,12 @@
 package github.sachin2dehury.owlmail.paging
 
 import github.sachin2dehury.owlmail.api.ZimbraApi
-import github.sachin2dehury.owlmail.data.searchgal.Contact
+import github.sachin2dehury.owlmail.data.remote.searchgal.Contact
 import github.sachin2dehury.owlmail.utils.getZimbraSearchGalRequest
 
 class SearchGalRequestPagingSource(
     private val zimbraApi: ZimbraApi,
-    private val query: String?
+    private val query: String?,
 ) : ZimbraPagingSource<Contact>() {
 
     override suspend fun tryLoadingPage(offset: Int, limit: Int): LoadResult.Page<Int, Contact> {

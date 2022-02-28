@@ -7,8 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.data.constants.ZimbraFolder
-import github.sachin2dehury.owlmail.data.search.Conversation
+import github.sachin2dehury.owlmail.data.enums.ZimbraFolder
+import github.sachin2dehury.owlmail.data.remote.search.Conversation
 import github.sachin2dehury.owlmail.databinding.FragmentSearchBinding
 import github.sachin2dehury.owlmail.epoxy.controller.ZimbraPagingEpoxyController
 import github.sachin2dehury.owlmail.viewmodel.SearchTabViewModel

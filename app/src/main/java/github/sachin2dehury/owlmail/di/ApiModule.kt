@@ -42,7 +42,7 @@ object ApiModule {
     @Provides
     fun provideOkHttpClient(
         authInterceptor: AuthInterceptor,
-        chuckerInterceptor: ChuckerInterceptor
+        chuckerInterceptor: ChuckerInterceptor,
     ) = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .addInterceptor(chuckerInterceptor)
@@ -56,7 +56,7 @@ object ApiModule {
     @Provides
     fun provideMailApi(
         moshi: Moshi,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
     ): ZimbraApiExt = ZimbraApiExt(moshi, okHttpClient)
 
     @ExperimentalCoilApi
@@ -64,7 +64,7 @@ object ApiModule {
     @Provides
     fun provideImageLoader(
         @ApplicationContext context: Context,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
     ) = ImageLoader.Builder(context)
         .crossfade(true)
         .okHttpClient(okHttpClient)

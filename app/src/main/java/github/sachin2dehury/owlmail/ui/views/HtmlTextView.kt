@@ -12,7 +12,7 @@ import javax.inject.Inject
 class HtmlTextView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : MaterialTextView(context, attributeSet, defStyleAttr) {
 
     @Inject
