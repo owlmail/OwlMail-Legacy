@@ -3,12 +3,14 @@ package github.sachin2dehury.owlmail.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.databinding.FragmentHomeBinding
 import github.sachin2dehury.owlmail.ui.adapters.ZimbraFragmentStateAdapter
+import github.sachin2dehury.owlmail.viewmodel.HomeViewModel
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -17,7 +19,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val args: HomeFragmentArgs by navArgs()
 
-    private val zimbraFragmentStateAdapter get() = ZimbraFragmentStateAdapter(this)
+    private val viewModel: HomeViewModel by viewModels()
+
+    private val zimbraFragmentStateAdapter
+        get() = ZimbraFragmentStateAdapter(viewModel.tabList, this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,12 +32,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUpTabLayout() = _binding?.run {
-        zimbraFragmentStateAdapter.initFragments()
         viewPager.adapter = zimbraFragmentStateAdapter
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = zimbraFragmentStateAdapter.tabName[position].value.uppercase()
-        }
+            tab.text = zimbraFragmentStateAdapter.tabList[position].value.uppercase()
+        }.attach()
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

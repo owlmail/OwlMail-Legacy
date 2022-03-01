@@ -12,6 +12,8 @@ class SearchTabViewModel @Inject constructor(
     private val zimbraRepository: ZimbraRepository,
 ) : ViewModel() {
 
+    var tabName: String? = null
+
     fun getSearchRequestPagingSource(request: String) =
         zimbraRepository.getSearchRequestPagingSource("in:$request").cachedIn(viewModelScope)
 }
