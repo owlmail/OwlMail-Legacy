@@ -17,7 +17,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val args: HomeFragmentArgs by navArgs()
 
-    private val zimbraFragmentStateAdapter = ZimbraFragmentStateAdapter(this)
+    private val zimbraFragmentStateAdapter get() = ZimbraFragmentStateAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

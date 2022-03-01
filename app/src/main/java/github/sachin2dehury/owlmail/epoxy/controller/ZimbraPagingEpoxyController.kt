@@ -7,6 +7,7 @@ import github.sachin2dehury.owlmail.data.local.Header
 import github.sachin2dehury.owlmail.data.remote.search.Conversation
 import github.sachin2dehury.owlmail.data.remote.searchconv.Message
 import github.sachin2dehury.owlmail.data.remote.searchgal.Contact
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.model.CircularLoaderModel_
 import github.sachin2dehury.owlmail.epoxy.model.ContactModel_
 import github.sachin2dehury.owlmail.epoxy.model.ConversationModel_
@@ -14,30 +15,57 @@ import github.sachin2dehury.owlmail.epoxy.model.HeaderModel_
 import github.sachin2dehury.owlmail.epoxy.model.LinearLoaderModel_
 import github.sachin2dehury.owlmail.epoxy.model.MessageModel_
 
-class ZimbraPagingEpoxyController<T : Any> : PagingDataEpoxyController<T>(
+class ZimbraPagingEpoxyController<T : Any>(
+    private val epoxyModelOnClickListener: EpoxyModelOnClickListener<T>? = null,
+) : PagingDataEpoxyController<T>(
     modelBuildingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     diffingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
 ) {
 
     var isLoadingState = false
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
     var isErrorState = false
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
     var isEmptyState = false
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
     var isLastItem = false
+        set(value) {
+            field = value
+            requestModelBuild()
+        }
 
     override fun isStickyHeader(position: Int): Boolean {
-        return adapter.getModelAtPosition(position).layout == 0
+        return adapter.getModelAtPosition(position) is HeaderModel_
     }
 
     override fun buildItemModel(currentPosition: Int, item: T?): EpoxyModel<*> = when (item) {
         is Conversation -> ConversationModel_()
             .id(item.id)
             .conversation(item)
+            .onClickListener { _, _, _, _ ->
+                epoxyModelOnClickListener?.onModelClick(item)
+            }
         is Message -> MessageModel_()
             .id(item.id)
             .message(item)
+            .onClickListener { _, _, _, _ ->
+                epoxyModelOnClickListener?.onModelClick(item)
+            }
         is Contact -> ContactModel_()
             .id(item.id)
             .contact(item)
+            .onClickListener { _, _, _, _ ->
+                epoxyModelOnClickListener?.onModelClick(item)
+            }
         is Header -> HeaderModel_()
             .id(item.value)
             .header(item)

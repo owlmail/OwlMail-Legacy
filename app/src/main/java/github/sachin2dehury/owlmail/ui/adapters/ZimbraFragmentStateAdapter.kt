@@ -19,12 +19,12 @@ class ZimbraFragmentStateAdapter(homeFragment: HomeFragment) : FragmentStateAdap
     )
 
     fun initFragments() {
-        if (fragments.isEmpty()) {
-            tabName.forEach { fragments.add(SearchTabFragment(it)) }
-        }
+//        if (fragments.isEmpty()) {
+//            tabName.forEach { fragments.add(SearchTabFragment(it)) }
+//        }
     }
 
-    override fun getItemCount() = fragments.size
+    override fun getItemCount() = tabName.size
 
-    override fun createFragment(position: Int) = fragments[position]
+    override fun createFragment(position: Int) = SearchTabFragment(tabName[position])
 }

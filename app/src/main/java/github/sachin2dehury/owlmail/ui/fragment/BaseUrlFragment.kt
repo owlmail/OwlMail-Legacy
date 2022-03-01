@@ -15,11 +15,11 @@ import github.sachin2dehury.owlmail.utils.hideKeyBoard
 import github.sachin2dehury.owlmail.utils.showKeyBoard
 
 @AndroidEntryPoint
-class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
+class BaseUrlFragment : Fragment(R.layout.fragment_base_url) {
 
     private var _binding: FragmentBaseUrlBinding? = null
 
-    private val args: BaseURLFragmentArgs by navArgs()
+    private val args: BaseUrlFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +46,7 @@ class BaseURLFragment : Fragment(R.layout.fragment_base_url) {
                     ?: UserDetails(baseUrl = baseUrl)
                 val sessionDetails = args.sessionDetails.copy(userDetails = userDetails)
                 findNavController().navigate(
-                    BaseURLFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(
+                    BaseUrlFragmentDirections.actionBaseUrlSetUpFragmentToAuthFragment(
                         sessionDetails
                     )
                 )

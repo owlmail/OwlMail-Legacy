@@ -13,6 +13,9 @@ import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.AuthInterceptor
 import github.sachin2dehury.owlmail.api.ZimbraApiExt
+import github.sachin2dehury.owlmail.database.ContactDao
+import github.sachin2dehury.owlmail.database.ConversationDao
+import github.sachin2dehury.owlmail.database.MessageDao
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.ZimbraRepository
@@ -49,7 +52,16 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideZimbraRepository(
-        zimbraApiExt: ZimbraApiExt,
+        contactDao: ContactDao,
+        conversationDao: ConversationDao,
+        messageDao: MessageDao,
         pagingConfig: PagingConfig,
-    ) = ZimbraRepository(zimbraApiExt.provideMailApi(), pagingConfig)
+        zimbraApiExt: ZimbraApiExt,
+    ) = ZimbraRepository(
+        contactDao,
+        conversationDao,
+        messageDao,
+        pagingConfig,
+        zimbraApiExt.provideMailApi(),
+    )
 }

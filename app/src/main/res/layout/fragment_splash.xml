@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<github.sachin2dehury.owlmail.ui.views.CircularFillableLoaders xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="@dimen/dp_100"
-    android:src="@drawable/ic_dsc_logo"
-    app:border="true"
-    app:border_width="4dp"
-    app:progress="100" />
+    android:src="@drawable/ic_owl_mail" />

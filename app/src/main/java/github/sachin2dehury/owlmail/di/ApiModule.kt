@@ -15,7 +15,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.api.AuthInterceptor
-import github.sachin2dehury.owlmail.api.CoilImageGetter
 import github.sachin2dehury.owlmail.api.ZimbraApiExt
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
@@ -70,11 +69,4 @@ object ApiModule {
         .okHttpClient(okHttpClient)
         .diskCache(DiskCache.Builder().build())
         .memoryCache(MemoryCache.Builder(context).build()).build()
-
-    @Singleton
-    @Provides
-    fun provideCoilImageGetter(
-        @ApplicationContext context: Context,
-        imageLoader: ImageLoader,
-    ) = CoilImageGetter(context, imageLoader)
 }

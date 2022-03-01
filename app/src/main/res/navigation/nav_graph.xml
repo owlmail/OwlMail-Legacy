@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/baseUrlSetUpFragment"
-        android:name="github.sachin2dehury.owlmail.ui.fragment.BaseURLFragment"
+        android:name="github.sachin2dehury.owlmail.ui.fragment.BaseUrlFragment"
         tools:layout="@layout/fragment_base_url">
         <argument
             android:name="sessionDetails"

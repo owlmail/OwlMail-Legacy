@@ -1,46 +1,50 @@
 package github.sachin2dehury.owlmail.api
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
-import android.util.Base64
+import android.widget.TextView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import github.sachin2dehury.owlmail.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class CoilImageGetter(private val context: Context, private val imageLoader: ImageLoader) :
-    Html.ImageGetter {
+class CoilImageGetter(private val textView: TextView) : Html.ImageGetter {
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     override fun getDrawable(source: String?): Drawable {
-        val request = ImageRequest.Builder(context)
+        val drawablePlaceholder = DrawablePlaceHolder()
+        val request = ImageRequest.Builder(textView.context)
             .data(source)
             .crossfade(true)
             .placeholder(R.drawable.ic_baseline_cloud_download_24)
             .error(R.drawable.ic_baseline_cloud_download_24)
-            .build()
-
-        return runBlocking(Dispatchers.IO) {
-            return@runBlocking imageLoader.execute(request).drawable!!
-        }
-    }
-
-    private fun isDataLatexImage(html: String, source: String): Boolean {
-        val imageArray = html.split("<img src=")
-        imageArray.forEach { subsequence ->
-            if (subsequence.contains(source)) {
-                return subsequence.contains("data-latex=\"true\"")
+            .target {
+                drawablePlaceholder.updateDrawable(it)
+                textView.text = textView.text
             }
-        }
-        return false
+            .build()
+        imageLoader.enqueue(request)
+        return drawablePlaceholder
     }
 
-    private fun getDecodedBitmap(source: String): Bitmap {
-        val internalSource = source.removePrefix("data:image/png;base64,")
-        val decodedString: ByteArray = Base64.decode(internalSource, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    private inner class DrawablePlaceHolder : BitmapDrawable() {
+
+        private var drawable: Drawable? = null
+
+        override fun draw(canvas: Canvas) {
+            drawable?.draw(canvas)
+        }
+
+        fun updateDrawable(drawable: Drawable) {
+            this.drawable = drawable
+            val width = drawable.intrinsicWidth
+            val height = drawable.intrinsicHeight
+            drawable.setBounds(0, 0, width, height)
+            setBounds(0, 0, width, height)
+        }
     }
 }

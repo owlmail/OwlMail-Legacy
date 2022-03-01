@@ -30,4 +30,6 @@ fun Long.getFormattedDate(context: Context): String = when {
     else -> SimpleDateFormat(context.getString(R.string.month_format)).format(this)
 }
 
+fun Long?.hasTokenExpired() = System.currentTimeMillis() >= (this ?: 0)
+
 fun Attrs.getName() = fullName ?: firstName

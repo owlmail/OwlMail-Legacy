@@ -27,8 +27,8 @@
     <string name="mail_url">Enter Host URL</string>
     <string name="next">Next</string>
 
-    <string name="database_name">OWL_MAIL_DB</string>
-    <string name="data_store_name">OWL_MAIL_CREDENTIAL</string>
+    <string name="database_name">OWL_MAIL_DATABASE</string>
+    <string name="data_store_name">OWL_MAIL_DATA_STORE</string>
     <string name="key_username">KEY_USERNAME</string>
     <string name="key_password">KEY_PASSWORD</string>
     <string name="key_auth_token">KEY_AUTH_TOKEN</string>
@@ -42,11 +42,9 @@
     <string name="month_format">dd MMM</string>
     <string name="day_format">hh:mm a</string>
     <string name="full_date_format">hh:mm a dd MMM yyyy</string>
-    <string name="zimbra_date_format">EEEE, MMMM dd, yyyy HH:mm a</string>
-    <string name="zimbra_month_format">MM/dd/yyyy</string>
 
-    <string name="notification_id">NITR Mail Notification Sync</string>
-    <string name="notification_channel">NITR Mail Notification</string>
+    <string name="notification_id">Owl Mail Notification Sync</string>
+    <string name="notification_channel">Owl Mail Notification</string>
 
     <string name="ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
