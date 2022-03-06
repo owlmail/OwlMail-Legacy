@@ -16,6 +16,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.api.AuthInterceptor
 import github.sachin2dehury.owlmail.api.ZimbraApiExt
+import github.sachin2dehury.owlmail.utils.NetworkStateFlowBuilder
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
@@ -69,4 +70,9 @@ object ApiModule {
         .okHttpClient(okHttpClient)
         .diskCache(DiskCache.Builder().build())
         .memoryCache(MemoryCache.Builder(context).build()).build()
+
+    @Singleton
+    @Provides
+    fun providesNetworkStateFlowBuilder(@ApplicationContext context: Context) =
+        NetworkStateFlowBuilder(context)
 }

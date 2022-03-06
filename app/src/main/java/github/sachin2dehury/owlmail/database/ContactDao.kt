@@ -11,7 +11,7 @@ import github.sachin2dehury.owlmail.data.remote.searchgal.Contact
 interface ContactDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertContact(conversations: List<Contact>)
+    suspend fun insertContact(conversations: List<Contact>?)
 
     @Query("SELECT * FROM contact")
     fun getContact(): PagingSource<Int, Contact>
@@ -19,6 +19,6 @@ interface ContactDao {
     @Query("DELETE FROM contact")
     suspend fun deleteContact()
 
-//    @Query("SELECT * FROM contact WHERE attrs LIKE '%' || :query || '%' OR subject LIKE '%' || :query || '%' ORDER BY date DESC")
-//    fun searchContact(query: String): PagingSource<Int, Contact>
+    @Query("SELECT * FROM contact WHERE attrs LIKE '%' || :query || '%' OR attrs LIKE '%' || :query || '%' ORDER BY time DESC")
+    fun searchContact(query: String): PagingSource<Int, Contact>
 }

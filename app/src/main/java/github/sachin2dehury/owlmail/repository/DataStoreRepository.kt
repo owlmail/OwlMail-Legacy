@@ -49,7 +49,7 @@ class DataStoreRepository(
         dataStore.data.firstOrNull()?.get(longPreferencesKey(context.getString(key)))
     }
 
-    suspend fun resetLogin() = withContext(Dispatchers.IO) {
+    suspend fun resetLogin() {
         deleteData(R.string.key_url, "")
         deleteData(R.string.key_username, "")
         deleteData(R.string.key_password, "")

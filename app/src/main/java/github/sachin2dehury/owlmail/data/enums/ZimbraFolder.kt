@@ -1,10 +1,22 @@
 package github.sachin2dehury.owlmail.data.enums
 
-sealed class ZimbraFolder(val index: Int, val value: String) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+sealed class ZimbraFolder(val index: Int, val value: String) : Parcelable {
+    @Parcelize
     object INBOX : ZimbraFolder(2, "inbox")
+
+    @Parcelize
     object TRASH : ZimbraFolder(3, "trash")
+
+    @Parcelize
     object JUNK : ZimbraFolder(4, "junk")
+
+    @Parcelize
     object SENT : ZimbraFolder(5, "sent")
+
+    @Parcelize
     object DRAFT : ZimbraFolder(6, "draft")
 
     fun fromIndex(index: Int?) = when (index) {
@@ -24,4 +36,6 @@ sealed class ZimbraFolder(val index: Int, val value: String) {
         ZimbraFolder.TRASH.value -> ZimbraFolder.TRASH
         else -> ZimbraFolder.INBOX
     }
+
+    fun mapToQuery() = "in:$value"
 }

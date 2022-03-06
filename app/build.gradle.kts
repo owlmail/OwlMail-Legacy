@@ -148,9 +148,9 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 
     // Epoxy
-    implementation("com.airbnb.android:epoxy:4.6.4")
-    kapt("com.airbnb.android:epoxy-processor:4.6.4")
-    implementation("com.airbnb.android:epoxy-paging3:4.6.4")
+    implementation("com.airbnb.android:epoxy:5.0.0-beta05")
+    kapt("com.airbnb.android:epoxy-processor:5.0.0-beta05")
+    implementation("com.airbnb.android:epoxy-paging3:5.0.0-beta05")
 
     // Stetho
     implementation("com.facebook.stetho:stetho:1.6.0")
@@ -163,17 +163,17 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
 
     // Lottie
-    implementation("com.airbnb.android:lottie:5.0.1")
+    implementation("com.airbnb.android:lottie:5.0.2")
 
     // DeepLink Dispatch
     implementation("com.airbnb:deeplinkdispatch:5.4.3")
     kapt("com.airbnb:deeplinkdispatch-processor:5.4.3")
 
     // Coil
-    implementation("io.coil-kt:coil-base:2.0.0-alpha09")
-    implementation("io.coil-kt:coil-svg:2.0.0-alpha09")
-    implementation("io.coil-kt:coil-gif:2.0.0-alpha09")
-    implementation("io.coil-kt:coil-video:2.0.0-alpha09")
+    implementation("io.coil-kt:coil-base:2.0.0-rc01")
+    implementation("io.coil-kt:coil-svg:2.0.0-rc01")
+    implementation("io.coil-kt:coil-gif:2.0.0-rc01")
+    implementation("io.coil-kt:coil-video:2.0.0-rc01")
 
     // ViewPager 2
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")

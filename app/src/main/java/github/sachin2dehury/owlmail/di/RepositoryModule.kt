@@ -19,6 +19,7 @@ import github.sachin2dehury.owlmail.database.MessageDao
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
 import github.sachin2dehury.owlmail.repository.ZimbraRepository
+import github.sachin2dehury.owlmail.utils.NetworkStateFlowBuilder
 import javax.inject.Singleton
 
 @Module
@@ -47,7 +48,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providePagingConfig() = PagingConfig(10, 3, false)
+    fun providePagingConfig() = PagingConfig(10, 5, false)
 
     @Singleton
     @Provides
@@ -55,12 +56,14 @@ object RepositoryModule {
         contactDao: ContactDao,
         conversationDao: ConversationDao,
         messageDao: MessageDao,
+        networkStateFlowBuilder: NetworkStateFlowBuilder,
         pagingConfig: PagingConfig,
         zimbraApiExt: ZimbraApiExt,
     ) = ZimbraRepository(
         contactDao,
         conversationDao,
         messageDao,
+        networkStateFlowBuilder.networkStateFlow,
         pagingConfig,
         zimbraApiExt.provideMailApi(),
     )

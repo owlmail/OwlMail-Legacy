@@ -2,6 +2,7 @@ package github.sachin2dehury.owlmail.utils
 
 import android.text.format.DateUtils
 import android.webkit.URLUtil
+import github.sachin2dehury.owlmail.data.enums.ZimbraFolder
 import github.sachin2dehury.owlmail.data.local.AuthDetails
 import github.sachin2dehury.owlmail.data.local.AuthType
 import github.sachin2dehury.owlmail.data.local.SessionDetails
@@ -23,4 +24,9 @@ fun SessionDetails.mapToAuthType(): AuthType {
         isBaseUrlValid -> AuthType.INVALID_TOKEN
         else -> AuthType.INVALID_BASEURL
     }
+}
+
+fun Pair<String?, ZimbraFolder>.mapToRemoteQuery() = when (first.isNullOrBlank()) {
+    true -> second.mapToQuery()
+    else -> "$first ${second.mapToQuery()}"
 }

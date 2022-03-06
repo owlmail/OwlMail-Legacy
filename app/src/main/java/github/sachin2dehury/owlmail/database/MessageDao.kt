@@ -11,7 +11,7 @@ import github.sachin2dehury.owlmail.data.remote.searchconv.Message
 interface MessageDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMessage(message: List<Message>)
+    suspend fun insertMessage(message: List<Message>?)
 
     @Query("SELECT * FROM message")
     fun getMessage(): PagingSource<Int, Message>
@@ -19,6 +19,6 @@ interface MessageDao {
     @Query("DELETE FROM message")
     suspend fun deleteMessage()
 
-    @Query("SELECT * FROM message WHERE body LIKE '%' || :query || '%' OR subject LIKE '%' || :query || '%' ORDER BY date DESC")
-    fun searchMessage(query: String): PagingSource<Int, Message>
+    @Query("SELECT * FROM message WHERE (body LIKE '%' || :query || '%' OR subject LIKE '%' || :query || '%') AND folder LIKE :folder ORDER BY date DESC")
+    fun searchMessage(query: String, folder: Int): PagingSource<Int, Message>
 }

@@ -11,10 +11,14 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_baseUrlSetUpFragment"
-            app:destination="@id/baseUrlSetUpFragment" />
+            app:destination="@id/baseUrlSetUpFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -35,10 +39,14 @@
         tools:layout="@layout/fragment_auth">
         <argument
             android:name="sessionDetails"
-            app:argType="github.sachin2dehury.owlmail.data.local.SessionDetails" />
+            app:argType="github.sachin2dehury.owlmail.data.local.SessionDetails"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_authFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
     <fragment

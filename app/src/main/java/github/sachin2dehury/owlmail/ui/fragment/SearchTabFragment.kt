@@ -14,6 +14,7 @@ import github.sachin2dehury.owlmail.databinding.FragmentSearchBinding
 import github.sachin2dehury.owlmail.epoxy.controller.ZimbraPagingEpoxyController
 import github.sachin2dehury.owlmail.viewmodel.SearchTabViewModel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchTabFragment : Fragment(R.layout.fragment_search) {
@@ -22,7 +23,7 @@ class SearchTabFragment : Fragment(R.layout.fragment_search) {
 
     private val viewModel: SearchTabViewModel by viewModels()
 
-    private val controller get() = ZimbraPagingEpoxyController<Conversation>()
+    private val controller by lazy(LazyThreadSafetyMode.NONE) { ZimbraPagingEpoxyController<Conversation>() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,18 +37,19 @@ class SearchTabFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setUpTabData() = arguments?.run {
-        viewModel.tabName = getString(TAB_DATA)
+        viewModel.zimbraFolder = getParcelable(TAB_DATA) ?: ZimbraFolder.INBOX
     }
 
-    private fun setupRecyclerView() = _binding?.run { epoxyRecyclerView.setController(controller) }
+    private fun setupRecyclerView() = _binding?.run {
+        epoxyRecyclerView.setController(controller)
+    }
 
     private fun setUpOnClickListener() = _binding?.run {
-        swipeRefresh.setOnRefreshListener {
-        }
+        swipeRefresh.setOnRefreshListener {}
     }
 
-    private fun subscribeToObserver() = lifecycleScope.launchWhenCreated {
-        viewModel.getSearchRequestPagingSource(viewModel.tabName ?: "").collectLatest {
+    private fun subscribeToObserver() = lifecycleScope.launch {
+        viewModel.getSearchRequestPagingSource(null).collectLatest {
             controller.submitData(it)
         }
     }
@@ -62,7 +64,7 @@ class SearchTabFragment : Fragment(R.layout.fragment_search) {
     companion object {
         private const val TAB_DATA = "tab_data"
         fun newInstance(tab: ZimbraFolder) = SearchTabFragment().apply {
-            arguments = bundleOf(TAB_DATA to tab.value)
+            arguments = bundleOf(TAB_DATA to tab)
         }
     }
 }
