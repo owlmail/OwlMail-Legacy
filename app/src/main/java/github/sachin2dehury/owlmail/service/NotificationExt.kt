@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.ui.activity.MainActivity
+import github.sachin2dehury.owlmail.ui.activity.OwlMailActivity
 
 class NotificationExt(private val context: Context) {
 
@@ -43,9 +43,16 @@ class NotificationExt(private val context: Context) {
         }.build()
 
     fun notify(
-        title: String, subject: String, id: Int = 0,
+        title: String,
+        subject: String,
+        id: Int = 0,
         @SuppressLint("UnspecifiedImmutableFlag") pendingIntent: PendingIntent =
-            PendingIntent.getActivity(context, 1000, Intent(context, MainActivity::class.java), 0)
+            PendingIntent.getActivity(
+                context,
+                1000,
+                Intent(context, OwlMailActivity::class.java),
+                0
+            ),
     ) = notificationManager.notify(id, notificationBuilder(title, subject, pendingIntent))
 
     fun cancelNotify(id: Int = 0) = notificationManager.cancel(id)

@@ -4,18 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <github.sachin2dehury.owlmail.ui.views.CircularFillableLoaders
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/app_icon"
         android:layout_width="@dimen/dp_120"
         android:layout_height="@dimen/dp_120"
         android:layout_marginTop="@dimen/dp_48"
-        android:src="@drawable/ic_dsc_logo"
-        app:cfl_border="true"
-        app:cfl_border_width="4dp"
-        app:cfl_progress="33"
+        android:src="@drawable/ic_owl_mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/Circular" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/roll_text_box"

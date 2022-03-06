@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="WebViewLayout">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_sender_tv"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/message_sender_icon_tv"
+        app:layout_constraintTop_toTopOf="@id/message_sender_icon_tv"
+        tools:text="Sender Name" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_subject_tv"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/dp_4"
+        android:maxLines="2"
+        app:layout_constraintEnd_toStartOf="@id/message_attachment_icon"
+        app:layout_constraintStart_toStartOf="@id/message_sender_tv"
+        app:layout_constraintTop_toBottomOf="@id/message_sender_tv"
+        tools:text="Email Body" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_body_tv"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@+id/message_subject_tv"
+        app:layout_constraintStart_toStartOf="@+id/message_subject_tv"
+        app:layout_constraintTop_toBottomOf="@+id/message_subject_tv"
+        tools:text="Mail Body" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/message_sender_icon_tv"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="?attr/listPreferredItemHeight"
+        android:layout_margin="@dimen/dp_8"
+        android:background="@drawable/ic_baseline_brightness_1_24"
+        android:elegantTextHeight="true"
+        android:gravity="center"
+        android:textSize="24sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textAllCaps="true"
+        tools:text="a" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/message_attachment_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/message_subject_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_attachment_24" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/message_flag_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/message_subject_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
+
+    <github.sachin2dehury.owlmail.ui.views.HtmlTextView
+        android:id="@+id/html_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:animateLayoutChanges="true"
+        android:padding="@dimen/dp_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message_body_tv" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/message_sender_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

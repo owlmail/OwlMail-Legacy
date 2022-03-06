@@ -11,13 +11,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import github.sachin2dehury.owlmail.R
-import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
-import github.sachin2dehury.owlmail.api.MailApiExt
-import github.sachin2dehury.owlmail.database.MailDao
-import github.sachin2dehury.owlmail.database.ParsedMailDao
+import github.sachin2dehury.owlmail.api.AuthInterceptor
+import github.sachin2dehury.owlmail.api.ZimbraApiExt
+import github.sachin2dehury.owlmail.database.ContactDao
+import github.sachin2dehury.owlmail.database.ConversationDao
+import github.sachin2dehury.owlmail.database.MessageDao
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import github.sachin2dehury.owlmail.repository.MailRepository
+import github.sachin2dehury.owlmail.repository.ZimbraRepository
+import github.sachin2dehury.owlmail.utils.NetworkStateFlowBuilder
 import javax.inject.Singleton
 
 @Module
@@ -34,29 +36,35 @@ object RepositoryModule {
     @Provides
     fun provideDataStoreRepository(
         @ApplicationContext context: Context,
-        dataStore: DataStore<Preferences>
+        dataStore: DataStore<Preferences>,
     ) = DataStoreRepository(context, dataStore)
 
     @Singleton
     @Provides
     fun provideAuthRepository(
-        basicAuthInterceptor: BasicAuthInterceptor,
-        mailApiExt: MailApiExt,
-        mailDao: MailDao,
-        parsedMailDao: ParsedMailDao,
-    ) = AuthRepository(basicAuthInterceptor, mailApiExt, mailDao, parsedMailDao)
+        authInterceptor: AuthInterceptor,
+        zimbraApiExt: ZimbraApiExt,
+    ) = AuthRepository(authInterceptor, zimbraApiExt)
 
     @Singleton
     @Provides
-    fun providePagerConfig() = PagingConfig(20, 5, false)
+    fun providePagingConfig() = PagingConfig(10, 5, false)
 
     @Singleton
     @Provides
-    fun provideMailRepository(
-        @ApplicationContext context: Context,
-        mailApiExt: MailApiExt,
-        mailDao: MailDao,
-        parsedMailDao: ParsedMailDao,
-        pagingConfig: PagingConfig
-    ) = MailRepository(context, mailApiExt.provideMailApi(), mailDao, parsedMailDao, pagingConfig)
+    fun provideZimbraRepository(
+        contactDao: ContactDao,
+        conversationDao: ConversationDao,
+        messageDao: MessageDao,
+        networkStateFlowBuilder: NetworkStateFlowBuilder,
+        pagingConfig: PagingConfig,
+        zimbraApiExt: ZimbraApiExt,
+    ) = ZimbraRepository(
+        contactDao,
+        conversationDao,
+        messageDao,
+        networkStateFlowBuilder.networkStateFlow,
+        pagingConfig,
+        zimbraApiExt.provideMailApi(),
+    )
 }

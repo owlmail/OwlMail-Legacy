@@ -5,24 +5,24 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
+import github.sachin2dehury.owlmail.data.local.SessionDetails
 import github.sachin2dehury.owlmail.databinding.FragmentAuthBinding
-import github.sachin2dehury.owlmail.ui.utils.hideKeyBoard
-import github.sachin2dehury.owlmail.ui.utils.showSnackbar
+import github.sachin2dehury.owlmail.utils.ResultStateListener
+import github.sachin2dehury.owlmail.utils.hideKeyBoard
+import github.sachin2dehury.owlmail.utils.showKeyBoard
 import github.sachin2dehury.owlmail.viewmodel.AuthViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import okhttp3.Credentials
-import java.util.*
 
 @AndroidEntryPoint
-class AuthFragment : Fragment(R.layout.fragment_auth) {
+class AuthFragment : Fragment(R.layout.fragment_auth), ResultStateListener<SessionDetails> {
 
     private var _binding: FragmentAuthBinding? = null
-    private val binding get() = _binding!!
 
     private val viewModel: AuthViewModel by viewModels()
 
@@ -33,57 +33,59 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
         _binding = FragmentAuthBinding.bind(view)
 
-//        viewModel.resetLoginState()
         setUpClickListener()
         subscribeToObservers()
     }
 
-    private fun redirectFragment() {
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.authFragment, true)
-            .build()
-//        findNavController().navigate(
-//            NavGraphDirections.actionToMailBoxFragment(getString(R.string.inbox)),
-//            navOptions
-//        )
+    private fun setUpClickListener() = _binding?.run {
+        privacyPolicyButton.setOnClickListener { }
+        loginButton.setOnClickListener { makeAuthRequest() }
     }
 
-    private fun setUpClickListener() {
-        binding.privacyPolicyButton.setOnClickListener {
-//            findNavController().navigate(NavGraphDirections.actionToWebViewFragment(getString(R.string.privacy_policy)))
-        }
-        binding.loginButton.setOnClickListener {
-            updateCredential()
-            binding.root.hideKeyBoard()
-        }
-    }
-
-    private fun updateCredential() {
-        val roll = binding.rollEditText.text.toString().lowercase(Locale.ROOT)
-        val password = binding.passwordEditText.text.toString()
-        val credential = Credentials.basic(roll, password)
-        viewModel.updateLoginState(args.baseURL, credential)
+    private fun makeAuthRequest() = _binding?.run {
+        val username = rollEditText.text?.trim().toString()
+        val password = passwordEditText.text?.trim().toString()
+        val userDetails =
+            args.sessionDetails.userDetails?.copy(username = username, password = password)
+        val sessionDetails = args.sessionDetails.copy(userDetails = userDetails)
+        viewModel.makeAuthRequest(sessionDetails)
     }
 
     private fun subscribeToObservers() = lifecycleScope.launch {
-        viewModel.loginState.observe(viewLifecycleOwner, { result ->
-            when (result) {
-                is ResultState.Success -> {
-                    viewModel.saveLoginCredential()
-                    redirectFragment()
-                }
-                is ResultState.Error -> {
-                    binding.root.showSnackbar(result.value ?: getString(R.string.null_error))
-                }
-                is ResultState.Loading -> {
-                    //todo show loader
-                }
-            }
-        })
+        viewModel.sessionDetails.collectLatest { it.mapToState() }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun setEmptyState() {
+        _binding?.run {
+            loginButton.isClickable = true
+            privacyPolicyButton.isClickable = true
+            rollEditText.showKeyBoard()
+        }
+    }
+
+    override fun setErrorState(resultState: ResultState.Error<SessionDetails>) {
+//        show error
+    }
+
+    override fun setLoadingState() {
+        _binding?.run {
+            loginButton.isClickable = false
+            privacyPolicyButton.isClickable = false
+            root.hideKeyBoard()
+        }
+    }
+
+    override fun setSuccessState(resultState: ResultState.Success<SessionDetails>) {
+        resultState.value?.let {
+            viewModel.saveLoginCredential(it)
+            findNavController().navigate(
+                AuthFragmentDirections.actionAuthFragmentToHomeFragment(it)
+            )
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

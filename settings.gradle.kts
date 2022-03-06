@@ -7,4 +7,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Owl Mail"
 include(":app")
-

@@ -1,40 +1,27 @@
 package github.sachin2dehury.owlmail.repository
 
-import github.sachin2dehury.owlmail.api.BasicAuthInterceptor
-import github.sachin2dehury.owlmail.api.MailApiExt
-import github.sachin2dehury.owlmail.api.mapToResultState
-import github.sachin2dehury.owlmail.database.MailDao
-import github.sachin2dehury.owlmail.database.ParsedMailDao
-import kotlinx.coroutines.CoroutineScope
+import github.sachin2dehury.owlmail.api.AuthInterceptor
+import github.sachin2dehury.owlmail.api.ZimbraApiExt
+import github.sachin2dehury.owlmail.data.local.UserDetails
+import github.sachin2dehury.owlmail.utils.getZimbraAuthRequest
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthRepository(
-    private val basicAuthInterceptor: BasicAuthInterceptor,
-    private val mailApiExt: MailApiExt,
-    private val mailDao: MailDao,
-    private val parsedMailDao: ParsedMailDao,
+    private val authInterceptor: AuthInterceptor,
+    private val zimbraApiExt: ZimbraApiExt,
 ) {
 
-    suspend fun attemptLogin(baseURL: String) =
-        mailApiExt.provideMailApi(baseURL).attemptLogin().mapToResultState()
-
-    fun setCredential(credential: String) {
-        basicAuthInterceptor.credential = credential
+    fun setAuthToken(authToken: String?) {
+        authInterceptor.authToken = authToken
     }
 
-    fun getCredential() = basicAuthInterceptor.credential ?: ""
-
-    fun setToken(token: String) {
-        basicAuthInterceptor.token = token
+    suspend fun makeAuthRequest(userDetails: UserDetails?) = withContext(Dispatchers.IO) {
+        zimbraApiExt.provideMailApi(userDetails?.baseUrl)
+            .makeAuthRequest(getZimbraAuthRequest(userDetails))
     }
 
-    fun getToken() = basicAuthInterceptor.token ?: ""
-
-    fun resetLogin() = CoroutineScope(Dispatchers.IO).launch {
-        mailDao.deleteAllMails()
-        parsedMailDao.deleteAllMails()
-        basicAuthInterceptor.credential = null
-        basicAuthInterceptor.token = null
+    suspend fun resetLogin() = withContext(Dispatchers.IO) {
+        authInterceptor.authToken = null
     }
 }

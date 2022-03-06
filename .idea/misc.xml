@@ -3,51 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/bg_rounded.xml" value="0.16296296296296298" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/bg_rounded_stroke.xml" value="0.4441025641025641" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.4510416666666667" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/ic_baseline_chevron_right_24.xml" value="0.4510416666666667" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/ic_baseline_exit_to_app_24.xml" value="0.4510416666666667" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/ic_dsc_logo.xml" value="0.26666666666666666" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/drawable/splash_screen.xml" value="0.4510416666666667" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/font/fonts.xml" value="0.11944444444444445" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_auth.xml" value="0.24717948717948718" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_base.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_common.xml" value="0.262037037037037" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_mail.xml" value="0.25052083333333336" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/activity_main.xml" value="0.35054347826086957" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/attachments.xml" value="0.2554347826086957" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_auth.xml" value="0.25" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_base_url.xml" value="0.25052083333333336" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_mail_box.xml" value="0.2554347826086957" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_mail_items.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_parsed_mail.xml" value="0.25052083333333336" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_splash.xml" value="0.165" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_url.xml" value="0.375" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/fragment_web_view.xml" value="0.4282051282051282" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_ad_view.xml" value="0.2554347826086957" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_circular_loader_view.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_header_view.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_horizontal_loader_view.xml" value="0.25052083333333336" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_loader_view.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_mail_view.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/item_parsed_mail.xml" value="0.4282051282051282" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/loading_button.xml" value="0.2554347826086957" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/mail_item.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/mail_items.xml" value="0.2767210144927536" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/layout/nav_header.xml" value="0.4348958333333333" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/menu/menu.xml" value="0.12037037037037036" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/menu/nav_header_menu.xml" value="0.25052083333333336" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/menu/search_menu.xml" value="0.1" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.30462962962962964" />
-        <entry key="..\:/AndroidStudioProjects/OwlMail/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.30462962962962964" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1395" />
+        <entry key="app/src/main/res/drawable/ic_owl_mail_logo.xml" value="0.1395" />
+        <entry key="app/src/main/res/layout/activity_owl_mail.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/fragment_base_url.xml" value="0.16666666666666666" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/layout/item_ad_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_conversation_view.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/layout/item_header_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_horizontal_loader_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_loader_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_mail_view.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/layout/item_message_view.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/layout/item_parsed_mail.xml" value="0.25407608695652173" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/menu/nav_header_menu.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/menu/search_menu.xml" value="0.33958333333333335" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1395" />
       </map>
     </option>
   </component>
-  <component name="EntryPointsManager">
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="androidx.room.TypeConverter" />
-    </list>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
 </project>

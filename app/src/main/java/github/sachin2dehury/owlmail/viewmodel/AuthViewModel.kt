@@ -1,16 +1,17 @@
 package github.sachin2dehury.owlmail.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.api.ResultState
-import github.sachin2dehury.owlmail.datamodel.Items
+import github.sachin2dehury.owlmail.data.local.SessionDetails
 import github.sachin2dehury.owlmail.repository.AuthRepository
 import github.sachin2dehury.owlmail.repository.DataStoreRepository
-import kotlinx.coroutines.Dispatchers
+import github.sachin2dehury.owlmail.utils.mapToAuthDetails
+import github.sachin2dehury.owlmail.utils.mapToResultState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,27 +21,36 @@ class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
 
-    private val _loginState =  MutableLiveData<ResultState<Items>>()
-    val loginState: LiveData<ResultState<Items>> = _loginState
+    private val _sessionDetails = MutableStateFlow<ResultState<SessionDetails>>(ResultState.Empty)
+    val sessionDetails = _sessionDetails.asStateFlow()
 
-    fun updateLoginState(baseURL: String, credential: String) =
-        viewModelScope.launch(Dispatchers.IO) {
-            _loginState.postValue(ResultState.Loading)
-            authRepository.setCredential(credential)
-            _loginState.postValue(authRepository.attemptLogin(baseURL))
-        }
-
-    fun saveLoginCredential() = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.apply {
-            saveString(R.string.key_credential, authRepository.getCredential())
-            saveString(R.string.key_token, authRepository.getToken())
-            saveBoolean(R.string.key_should_sync, true)
+    fun makeAuthRequest(sessionDetails: SessionDetails) = viewModelScope.launch {
+        when (
+            val response =
+                authRepository.makeAuthRequest(sessionDetails.userDetails).mapToResultState()
+        ) {
+            is ResultState.Success -> {
+                val details = sessionDetails.copy(authDetails = response.value?.mapToAuthDetails())
+                _sessionDetails.value = ResultState.Success(details)
+            }
+            is ResultState.Error ->
+                _sessionDetails.value = ResultState.Error(response.error, sessionDetails)
+            else -> _sessionDetails.value = ResultState.Empty
         }
     }
 
-    fun resetLoginState() = viewModelScope.launch(Dispatchers.IO) {
-        dataStoreRepository.resetLogin()
-        authRepository.resetLogin()
-        _loginState.value = ResultState.Loading
+    fun saveLoginCredential(sessionDetails: SessionDetails?) = viewModelScope.launch {
+        authRepository.setAuthToken(sessionDetails?.authDetails?.authToken)
+        dataStoreRepository.run {
+            saveData(R.string.key_username, sessionDetails?.userDetails?.username)
+            saveData(R.string.key_password, sessionDetails?.userDetails?.password)
+            saveData(R.string.key_auth_token, sessionDetails?.authDetails?.authToken)
+            saveData(
+                R.string.key_auth_token_expire_time,
+                sessionDetails?.authDetails?.authTokenExpireTime
+            )
+            saveData(R.string.key_url, sessionDetails?.userDetails?.baseUrl)
+            saveData(R.string.key_should_sync, true)
+        }
     }
 }

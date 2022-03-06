@@ -1,44 +1,64 @@
 package github.sachin2dehury.owlmail.database
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
-import github.sachin2dehury.owlmail.datamodel.Address
-import github.sachin2dehury.owlmail.datamodel.Inv
-import javax.inject.Inject
+import github.sachin2dehury.owlmail.data.remote.common.Email
+import github.sachin2dehury.owlmail.data.remote.common.MultiPartMsg
+import github.sachin2dehury.owlmail.data.remote.search.MsgMeta
+import github.sachin2dehury.owlmail.data.remote.searchgal.Attrs
 
-class Converters {
+@ProvidedTypeConverter
+class Converters(private val moshi: Moshi) {
 
-    @Inject
-    lateinit var moshi: Moshi
-//    private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    private val invListType = listOf<Inv>().javaClass
     private val stringListType = listOf<String>().javaClass
-    private val addressListType = listOf<Address>().javaClass
+    private val emailListType = listOf<Email>().javaClass
+    private val msgMetaListType = listOf<MsgMeta>().javaClass
+    private val multiPartMsgListType = listOf<MultiPartMsg>().javaClass
+    private val attrsType = Attrs().javaClass
 
     @TypeConverter
     @ToJson
-    fun invToJson(value: List<Inv>?): String = moshi.adapter(invListType).toJson(value)
+    fun stringListToJson(value: List<String>?): String = moshi.adapter(stringListType).toJson(value)
 
     @TypeConverter
     @FromJson
-    fun invFromJson(value: String) = moshi.adapter(invListType).fromJson(value)
+    fun stringListFromJson(value: String) = moshi.adapter(stringListType).fromJson(value)
 
     @TypeConverter
     @ToJson
-    fun stringToJson(value: List<String>?): String = moshi.adapter(stringListType).toJson(value)
+    fun attrsToJson(value: Attrs?): String = moshi.adapter(attrsType).toJson(value)
 
     @TypeConverter
     @FromJson
-    fun stringFromJson(value: String) = moshi.adapter(stringListType).fromJson(value)
+    fun attrsFromJson(value: String) = moshi.adapter(attrsType).fromJson(value)
 
     @TypeConverter
     @ToJson
-    fun toJson(value: List<Address>?): String = moshi.adapter(addressListType).toJson(value)
+    fun emailListToJson(value: List<Email>?): String = moshi.adapter(emailListType).toJson(value)
 
     @TypeConverter
     @FromJson
-    fun fromJson(value: String) = moshi.adapter(addressListType).fromJson(value)
+    fun emailListFromJson(value: String) = moshi.adapter(emailListType).fromJson(value)
 
+    @TypeConverter
+    @ToJson
+    fun msgMetaListToJson(value: List<MsgMeta>?): String =
+        moshi.adapter(msgMetaListType).toJson(value)
+
+    @TypeConverter
+    @FromJson
+    fun msgMetaListFromJson(value: String) = moshi.adapter(msgMetaListType).fromJson(value)
+
+    @TypeConverter
+    @ToJson
+    fun multiPartMsgListToJson(value: List<MultiPartMsg>?): String =
+        moshi.adapter(multiPartMsgListType).toJson(value)
+
+    @TypeConverter
+    @FromJson
+    fun multiPartMsgListFromJson(value: String) =
+        moshi.adapter(multiPartMsgListType).fromJson(value)
 }
