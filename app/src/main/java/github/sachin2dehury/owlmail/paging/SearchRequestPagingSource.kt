@@ -7,9 +7,7 @@ import github.sachin2dehury.owlmail.database.ConversationDao
 import github.sachin2dehury.owlmail.utils.NetworkState
 import github.sachin2dehury.owlmail.utils.getZimbraSearchRequest
 import github.sachin2dehury.owlmail.utils.mapToRemoteQuery
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class SearchRequestPagingSource(
     private val conversationDao: ConversationDao,
@@ -24,7 +22,7 @@ class SearchRequestPagingSource(
     ): LoadResult<Int, Conversation> {
         val request = getZimbraSearchRequest(query.mapToRemoteQuery(), offset, limit)
         val response = zimbraApi.makeSearchRequest(request).body()?.body?.searchResponse
-        coroutineScope { launch { conversationDao.insertConversation(response?.conversations) } }
+//        coroutineScope { launch { conversationDao.insertConversation(response?.conversations) } }
         return LoadResult.Page(
             data = response?.conversations ?: emptyList(),
             prevKey = if (offset == 0) null else offset - 1,

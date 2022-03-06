@@ -5,9 +5,7 @@ import github.sachin2dehury.owlmail.data.remote.searchgal.Contact
 import github.sachin2dehury.owlmail.database.ContactDao
 import github.sachin2dehury.owlmail.utils.NetworkState
 import github.sachin2dehury.owlmail.utils.getZimbraSearchGalRequest
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class SearchGalRequestPagingSource(
     private val contactDao: ContactDao,
@@ -19,7 +17,7 @@ class SearchGalRequestPagingSource(
     override suspend fun loadPageFromRemote(offset: Int, limit: Int): LoadResult<Int, Contact> {
         val request = getZimbraSearchGalRequest(query, offset, limit)
         val response = zimbraApi.makeSearchRequest(request).body()?.body?.searchGalResponse
-        coroutineScope { launch { contactDao.insertContact(response?.contact) } }
+//        coroutineScope { launch { contactDao.insertContact(response?.contact) } }
         return LoadResult.Page(
             data = response?.contact ?: emptyList(),
             prevKey = if (offset == 0) null else offset - 1,

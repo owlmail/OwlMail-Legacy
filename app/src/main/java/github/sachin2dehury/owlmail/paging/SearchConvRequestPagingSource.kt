@@ -5,9 +5,7 @@ import github.sachin2dehury.owlmail.data.remote.searchconv.Message
 import github.sachin2dehury.owlmail.database.MessageDao
 import github.sachin2dehury.owlmail.utils.NetworkState
 import github.sachin2dehury.owlmail.utils.getZimbraSearchConvRequest
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class SearchConvRequestPagingSource(
     private val conversationId: String?,
@@ -22,7 +20,7 @@ class SearchConvRequestPagingSource(
     ): LoadResult<Int, Message> {
         val request = getZimbraSearchConvRequest(conversationId, offset, limit)
         val response = zimbraApi.makeSearchConvRequest(request).body()?.body?.searchConvResponse
-        coroutineScope { launch { messageDao.insertMessage(response?.message) } }
+//        coroutineScope { launch { messageDao.insertMessage(response?.message) } }
         return LoadResult.Page(
             data = response?.message ?: emptyList(),
             prevKey = if (offset == 0) null else offset - 1,
