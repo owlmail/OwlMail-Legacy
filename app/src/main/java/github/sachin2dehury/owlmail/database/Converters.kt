@@ -13,19 +13,10 @@ import github.sachin2dehury.owlmail.data.remote.searchgal.Attrs
 @ProvidedTypeConverter
 class Converters(private val moshi: Moshi) {
 
-    private val stringListType = listOf<String>().javaClass
     private val emailListType = listOf<Email>().javaClass
     private val msgMetaListType = listOf<MsgMeta>().javaClass
     private val multiPartMsgListType = listOf<MultiPartMsg>().javaClass
     private val attrsType = Attrs().javaClass
-
-    @TypeConverter
-    @ToJson
-    fun stringListToJson(value: List<String>?): String = moshi.adapter(stringListType).toJson(value)
-
-    @TypeConverter
-    @FromJson
-    fun stringListFromJson(value: String) = moshi.adapter(stringListType).fromJson(value)
 
     @TypeConverter
     @ToJson
