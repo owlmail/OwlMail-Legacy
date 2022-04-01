@@ -84,8 +84,8 @@ kapt {
 dependencies {
 
     // Defaults
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.core:core-ktx:1.9.0-alpha02")
+    implementation("androidx.appcompat:appcompat:1.6.0-alpha01")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 
     // Dagger Hilt
@@ -100,16 +100,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
     // Coroutine Lifecycle Scopes
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha05")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05")
 
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.0-alpha03")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.0-alpha03")
 
     // OkHttp
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.5")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.5")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.6")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6")
 
     // RetroFit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -119,7 +119,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
 
     // Activity KTX for viewModels()
-    implementation("androidx.activity:activity-ktx:1.5.0-alpha03")
+    implementation("androidx.activity:activity-ktx:1.6.0-alpha01")
 
     // Room
     implementation("androidx.room:room-ktx:2.4.2")
@@ -134,9 +134,9 @@ dependencies {
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:26.2.0"))
-    implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.8")
-    implementation("com.google.firebase:firebase-analytics-ktx:20.1.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.2")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.9")
+    implementation("com.google.firebase:firebase-analytics-ktx:20.1.2")
 
     // Ads
     implementation("com.google.android.gms:play-services-ads:20.6.0")
@@ -145,7 +145,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.0")
 
     // Paging Library
-    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
 
     // Epoxy
     implementation("com.airbnb.android:epoxy:5.0.0-beta05")
@@ -163,23 +163,23 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
 
     // Lottie
-    implementation("com.airbnb.android:lottie:5.0.2")
+    implementation("com.airbnb.android:lottie:5.0.3")
 
     // DeepLink Dispatch
-    implementation("com.airbnb:deeplinkdispatch:5.4.3")
-    kapt("com.airbnb:deeplinkdispatch-processor:5.4.3")
+    implementation("com.airbnb:deeplinkdispatch:6.1.0")
+    kapt("com.airbnb:deeplinkdispatch-processor:6.1.0")
 
     // Coil
-    implementation("io.coil-kt:coil-base:2.0.0-rc01")
-    implementation("io.coil-kt:coil-svg:2.0.0-rc01")
-    implementation("io.coil-kt:coil-gif:2.0.0-rc01")
-    implementation("io.coil-kt:coil-video:2.0.0-rc01")
+    implementation("io.coil-kt:coil-base:2.0.0-rc02")
+    implementation("io.coil-kt:coil-svg:2.0.0-rc02")
+    implementation("io.coil-kt:coil-gif:2.0.0-rc02")
+    implementation("io.coil-kt:coil-video:2.0.0-rc02")
 
     // ViewPager 2
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
 
     // BackPack Theme
-    implementation("net.skyscanner.backpack:backpack-android:35.0.0")
+    implementation("net.skyscanner.backpack:backpack-android:36.0.0")
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
