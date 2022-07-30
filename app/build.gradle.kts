@@ -20,7 +20,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
     }
 
     splits {
@@ -36,7 +35,6 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            multiDexEnabled = true
             isDebuggable = false
             isJniDebuggable = false
             isRenderscriptDebuggable = false
@@ -47,11 +45,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -96,16 +94,16 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
 
     // Coroutine Lifecycle Scopes
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha05")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-beta01")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-beta01")
 
     // Navigation Component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.0-alpha03")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.0-alpha03")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.0-alpha04")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.0-alpha04")
 
     // OkHttp
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.6")
@@ -134,7 +132,7 @@ dependencies {
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:26.2.0"))
-    implementation("com.google.firebase:firebase-messaging-ktx:23.0.2")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.3")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.9")
     implementation("com.google.firebase:firebase-analytics-ktx:20.1.2")
 
@@ -160,7 +158,7 @@ dependencies {
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 
     // Leak Canary
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
 
     // Lottie
     implementation("com.airbnb.android:lottie:5.0.3")
@@ -170,16 +168,16 @@ dependencies {
     kapt("com.airbnb:deeplinkdispatch-processor:6.1.0")
 
     // Coil
-    implementation("io.coil-kt:coil-base:2.0.0-rc02")
-    implementation("io.coil-kt:coil-svg:2.0.0-rc02")
-    implementation("io.coil-kt:coil-gif:2.0.0-rc02")
-    implementation("io.coil-kt:coil-video:2.0.0-rc02")
+    implementation("io.coil-kt:coil-base:2.0.0-rc03")
+    implementation("io.coil-kt:coil-svg:2.0.0-rc03")
+    implementation("io.coil-kt:coil-gif:2.0.0-rc03")
+    implementation("io.coil-kt:coil-video:2.0.0-rc03")
 
     // ViewPager 2
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
 
     // BackPack Theme
-    implementation("net.skyscanner.backpack:backpack-android:36.0.0")
+    implementation("net.skyscanner.backpack:backpack-android:36.3.0")
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")

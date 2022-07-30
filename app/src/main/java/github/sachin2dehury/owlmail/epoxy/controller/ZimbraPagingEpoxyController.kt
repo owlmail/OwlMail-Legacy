@@ -12,7 +12,6 @@ import github.sachin2dehury.owlmail.epoxy.model.CircularLoaderModel_
 import github.sachin2dehury.owlmail.epoxy.model.ContactModel_
 import github.sachin2dehury.owlmail.epoxy.model.ConversationModel_
 import github.sachin2dehury.owlmail.epoxy.model.HeaderModel_
-import github.sachin2dehury.owlmail.epoxy.model.LinearLoaderModel_
 import github.sachin2dehury.owlmail.epoxy.model.MessageModel_
 
 class ZimbraPagingEpoxyController<T : Any>(
@@ -21,27 +20,6 @@ class ZimbraPagingEpoxyController<T : Any>(
     modelBuildingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
     diffingHandler = EpoxyAsyncUtil.getAsyncBackgroundHandler(),
 ) {
-
-    var isLoadingState = false
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-    var isErrorState = false
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-    var isEmptyState = false
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-    var isLastItem = false
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
 
     override fun isStickyHeader(position: Int): Boolean {
         return adapter.getModelAtPosition(position) is HeaderModel_
@@ -74,15 +52,15 @@ class ZimbraPagingEpoxyController<T : Any>(
 
     override fun addModels(models: List<EpoxyModel<*>>) {
         models.toMutableList().run {
-            val model = when {
-                isEmptyState -> CircularLoaderModel_().id("circular_loader")
-                isErrorState -> CircularLoaderModel_().id("circular_loader")
-                isLastItem -> CircularLoaderModel_().id("circular_loader")
-                isLoadingState -> CircularLoaderModel_().id("circular_loader")
-                else -> LinearLoaderModel_().id("linear_loader")
-            }
-            add(model)
-            removeAll { !it.isShown }
+//            val model = when {
+//                isEmptyState -> CircularLoaderModel_().id("circular_loader")
+//                isErrorState -> CircularLoaderModel_().id("circular_loader")
+//                isLastItem -> CircularLoaderModel_().id("circular_loader")
+//                isLoadingState -> CircularLoaderModel_().id("circular_loader")
+//                else -> LinearLoaderModel_().id("linear_loader")
+//            }
+//            add(model)
+//            removeAll { !it.isShown }
         }
         super.addModels(models)
     }

@@ -1,7 +1,9 @@
 package github.sachin2dehury.owlmail.ui.fragment
 
+import android.app.Fragment
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,19 +13,24 @@ import github.sachin2dehury.owlmail.R
 import github.sachin2dehury.owlmail.data.enums.ZimbraFolder
 import github.sachin2dehury.owlmail.data.remote.search.Conversation
 import github.sachin2dehury.owlmail.databinding.FragmentSearchBinding
+import github.sachin2dehury.owlmail.epoxy.EpoxyModelOnClickListener
 import github.sachin2dehury.owlmail.epoxy.controller.ZimbraPagingEpoxyController
 import github.sachin2dehury.owlmail.viewmodel.SearchTabViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchTabFragment : Fragment(R.layout.fragment_search) {
+class SearchTabFragment :
+    Fragment(R.layout.fragment_search),
+    EpoxyModelOnClickListener<Conversation> {
 
     private var _binding: FragmentSearchBinding? = null
 
     private val viewModel: SearchTabViewModel by viewModels()
 
-    private val controller by lazy(LazyThreadSafetyMode.NONE) { ZimbraPagingEpoxyController<Conversation>() }
+    @Inject
+    lateinit var controller: ZimbraPagingEpoxyController<Conversation>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,5 +73,9 @@ class SearchTabFragment : Fragment(R.layout.fragment_search) {
         fun newInstance(tab: ZimbraFolder) = SearchTabFragment().apply {
             arguments = bundleOf(TAB_DATA to tab)
         }
+    }
+
+    override fun onModelClick(item: Conversation?) {
+        Toast.makeText(requireContext(), "${item?.subject}", Toast.LENGTH_LONG).show()
     }
 }

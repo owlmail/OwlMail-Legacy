@@ -5,14 +5,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.1.2")
+        classpath("com.android.tools.build:gradle:7.1.3")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
 
         // Dagger Hilt
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.41")
 
         // Safe Args
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0-alpha03")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0-alpha04")
 
         // Google Services
         classpath("com.google.gms:google-services:4.3.10")
@@ -30,10 +30,10 @@ plugins {
 //    id("scabbard.gradle") version "0.5.0"
 }
 
-//scabbard {
+// scabbard {
 //    enabled = true
 //    outputFormat = "svg"
-//}
+// }
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
